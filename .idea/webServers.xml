@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7e823b34-5a9e-4464-b31f-ff0f530e34c8" name="Qisimah" url="http://qisimah.com">
+        <fileTransfer host="qisimah.com" port="21" rootFolder="/prod">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
