@@ -15,8 +15,14 @@
         <li class="panel">
             <a role="button" data-toggle="collapse" data-parent=".navigation" href="#collapse1" aria-expanded="false" aria-controls="collapse1" class="bubble collapsed"><i class="ti-upload"></i><span class="sidebar-title">Upload</span></a>
             <ul id="collapse1" class="list-unstyled collapse">
-                <li><a href="/file/create">Upload Content</a></li>
-                <li><a href="/files/create">Upload Album</a></li>
+                @if($user['type'] === 'admin')
+                <li><a href="/file/create/ad">Upload ad</a></li>
+                <li><a href="/file/create/song">Upload song</a></li>
+                @elseif($user['type'] === 'advertiser')
+                <li><a href="/files/create/ad">Upload ad</a></li>
+                @elseif($user['type'] === 'artist')
+                <li><a href="/files/create/song">Upload song</a></li>
+                @endif
             </ul>
         </li>
         <li class="panel"><a href="{{url('/broadcaster')}}"><i class="ti-microphone"></i><span class="sidebar-title">Broadcasters</span></a></li>
@@ -36,8 +42,9 @@
             </a>
             <ul id="admin-menu" class="list-unstyled collapse">
                 <li><a href="{{route('admin.create')}}">Users</a></li>
-                <li><a href="{{route('artist.index')}}">Artists</a></li>
-                <li><a href="report-content-Qisim.html" class="active">Content Reports</a></li>
+                <li><a href="{{url('/artist')}}">Artists</a></li>
+                <li><a href="/genre" class="active">Genres</a></li>
+                <li><a href="{{route('producer.index')}}" class="active">Producers</a></li>
             </ul>
         </li>
         @endunless

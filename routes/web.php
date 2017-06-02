@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\FileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -22,6 +24,10 @@ Route::get('/', 'UserController@index');
 Route::get('/welcome', function () {
 	return view('Qisimah-Landing.index');
 })->name('welcome');
+Route::get('/file/create/{type}', 'FileController@create');
+Route::post('/file/create/{type}', function ($type, Request $request){
+    return FileController::store($type, $request);
+});
 Route::resource('file', 'FileController');
 Route::get('/play/today', 'PlayController@playsToday');
 Route::get('/play/broadcaster', 'PlayController@playsOfBroadcaster');
@@ -46,3 +52,12 @@ Route::post('/listen', 'ListenController@store');
 Route::post('/listen/delete', 'ListenController@destroy');
 Route::post('/detection', 'DetectionController@store');
 Route::resource('contact', 'ContactController');
+Route::resource('producer', 'ProducerController');
+
+// Genres
+Route::get('/genre', 'GenreController@index');
+Route::post('/genre/create', 'GenreController@store');
+
+// Artists
+//Route::get('/artist', 'ArtistController@index');
+//Route::post('/artist/create', 'ArtistController@store');

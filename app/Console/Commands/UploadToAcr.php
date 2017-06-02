@@ -40,6 +40,8 @@ class UploadToAcr extends Command
     {
         //
 		$file = File::where('indexed', 0)->orwhere('indexed', 2)->first();
-		return File::toACR($file);
+		if ($file){
+            return File::toACR($file, ($file->file_type === 'ad')? 'ads' : 'music');
+        }
     }
 }
