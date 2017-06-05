@@ -199,6 +199,30 @@
             </div>
         </div>
 
+        <!-- /.radio_station section -->
+        <div id="download">
+            <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/wave.jpg')}});" data-img-width="2000" data-img-height="1333" data-diff="100">
+                <div class="overlay">
+                    <div class="container">
+                        <div class="col-md-8 col-md-offset-2 col-sm-12 text-center">
+
+                            <!-- /.radio_station title -->
+                            <h2 class="wow fadeInRight">Are you a radio station?</h2>
+                            <p class="download-text wow fadeInLeft">
+                                Deliver your internet radio stream to any device, anywhere, with ease with Qisimah Hosting. Expand your reach beyond the capabilities of your antenna tower and reach millions of potential listeners worldwide.
+                            </p>
+                            <!-- <p class="download-text wow fadeInLeft">We help marketers and advertisers accurately verify in real-time when their adverts are aired on radio and measure the number of impressions their adverts get simultaneously, across multiple broadcasters.</p> -->
+
+                            <!-- /.radio_station button -->
+                            <div class="download-cta wow fadeInLeft">
+                                <a href="{{url('/register')}}" class="btn-secondary">sign up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- /.feature section -->
         <div id="feature">
             <div class="container">
