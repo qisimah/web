@@ -1,0 +1,59 @@
+[
+  {
+  "stream_id": "1234",
+  "stream_url": "http:\/\/www.your_stream_url.com",
+  "status": 1,
+  "data": {
+    "status": {
+      "msg": "Success",
+      "code": 0,
+      "version": "1.0"
+    },
+    "metadata": {
+      "timestamp_utc": "2015-07-27 12:56:46",
+      "custom_files": [
+        {
+          "bucket_id": "51",
+          "title": "sample data for testing",
+          "artist": "James",
+          "acrid": "5343bc191634b042622bf474ed46121a",
+          "audio_id": "3"
+        }
+      ]
+    }
+  }
+},
+  {
+    "stream_url": "http:\/\/classfm.stream.myghanaonline.com:7666\/;stream.mp3",
+    "stream_id": "10979",
+    "status": "1",
+    "data": {
+      "status": {
+        "msg": "Success",
+        "code": 0,
+        "version": "1.0"
+      },
+      "result_type": 1,
+      "metadata": {
+        "timestamp_utc": "2017-09-26 15:05:12",
+        "type": "real-time",
+        "custom_files": [
+          {
+            "play_offset_ms": 12280,
+            "sample_begin_time_offset_ms": 0,
+            "from": "user",
+            "score": 100,
+            "title": "Sing My Name",
+            "sample_end_time_offset_ms": 8340,
+            "duration_ms": "196000",
+            "bucket_id": "5393",
+            "db_begin_time_offset_ms": 3680,
+            "db_end_time_offset_ms": 12020,
+            "acrid": "d646e5dc4c4aca66bc6aa89243839f4a",
+            "audio_id": "c0b3bb0a23fcc27dfda0c1c1e1d30525"
+          }
+        ]
+      }
+    }
+  }
+]
