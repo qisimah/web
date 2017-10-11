@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Artist;
 use App\File;
 use App\Genre;
+use App\Producer;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -45,10 +47,14 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($type)
     {
-		$user = $this->getUser();
-        return view('pages.file', compact('user'));
+        $user = Auth::user();
+		if ($type === 'ad'){
+		    return view('pages.ad-file', compact('user'));
+        } elseif ($type === 'song') {
+            return view('pages.music-file', ['user' => $user, 'genres' => Genre::orderBy('name')->get(), 'artists' => Artist::orderBy('nick_name')->get(), 'producers' => Producer::orderBy('nick_name')->get()]);
+        }
     }
 
     protected function validator(array $data)
@@ -64,55 +70,79 @@ class FileController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function store(Request $request)
+    public static function store($type, Request $request)
     {
-    	$song['user_id'] 	= Auth::id();
-    	$song['artist'] 	= ucwords(strtolower($request->input('artist')));
-    	$song['title'] 		= ucwords(strtolower($request->input('title')));
-    	$song['featured']	= ($request->input('featured'))? ucwords(strtolower($request->input('featured'))) : null;
-		$song['producer'] 	= ucwords(strtolower($request->input('producer')));
-		$song['label'] 		= ucwords(strtolower($request->input('label')));
-		$song['genre'] 		= ($request->input('genre') <> '')? ucwords(strtolower($request->input('genre'))) : null;
-		$song['album'] 		= ucwords(strtolower($request->input('album')));
-		$song['indexed']    = 'Pending';
-		$song['year'] 		= $request->input('year');
+        $audio = [];
+        $audio['q_id']      =   md5(uniqid('', true));
+        $audio['user_id']   =   Auth::id();
+        $audio['title']     =   ucwords(strtolower($request->input('title')));
+        $audio['indexed']   =   0;
+        $audio['audio']     =   $request->input('audio');
+        $audio['img']       =   $request->input('img', '/images/logo/logo-sm-dark.png');
+        $audio['release_date']      =   $request->input('release_date', Carbon::today()->toDateString());
 
-		if ($request->hasFile('audio')){
-//			dd($request->file('audio')->getClientMimeType());
-			$song['audio'] = $this->prepareFile($request->file('audio'), $song, 'audio', '20000000');
-			if (gettype($song['audio']) === 'array'){
-				dd($song['audio']['error']);
-			}
-			if ($request->hasFile('img')){
-				$song['img'] = $this->prepareFile($request->file('img'), $song, 'image', '5000000');
-			} else {
-				$song['img'] = '/images/logo/logo-sm-dark.png';
-			}
-		} else {
-			dd('no file error');
-		}
-
-		if ($created = File::create($song)){
-			$artist  = Artist::firstOrCreate(['name' => $song['artist']]);
-			$created->artists()->attach($artist->id);
-
-			if ($song['featured'] <> null){
-				foreach (explode(',', $song['featured']) as $artist ) {
-					$record = Artist::firstOrCreate(['name' => $artist]);
-					$created->artists()->attach($record->id);
-				}
-			}
-
-			if ($song['genre'] <> null){
-				foreach ( explode(',', $song['genre']) as $item ) {
-					$record = Genre::firstOrCreate(['name' => $item]);
-					$created->genres()->attach($record->id);
-				}
-			}
-			return redirect('/file');
-		}
+        if ($type === 'ad'){
+            $audio['file_type'] =   'ad';
+            $audio['name']  =   ucwords(strtolower($request->input('name')));
+            $file = File::create($audio);
+            $artist = Artist::where('nick_name', $request->input('name'))->first();
+            if ($artist){
+                return $file->artists()->attach($artist->id);
+            } else {
+                $artist = Artist::create(['nick_name' => $request->input('name'), 'q_id' => md5(uniqid('', true))]);
+                return $file->artists()->attach($artist->id);
+            }
+        } else {
+            return File::saveSong($audio, $request->input('genres'), $request->input('artists'), $request->input('producers'));
+        }
+//
+//    	$song['user_id'] 	= Auth::id();
+//    	$song['artist'] 	= ucwords(strtolower($request->input('artist')));
+//    	$song['title'] 		= ucwords(strtolower($request->input('title')));
+//    	$song['featured']	= ($request->input('featured'))? ucwords(strtolower($request->input('featured'))) : null;
+//		$song['producer'] 	= ucwords(strtolower($request->input('producer')));
+//		$song['label'] 		= ucwords(strtolower($request->input('label')));
+//		$song['genre'] 		= ($request->input('genre') <> '')? ucwords(strtolower($request->input('genre'))) : null;
+//		$song['album'] 		= ucwords(strtolower($request->input('album')));
+//		$song['indexed']    = 'Pending';
+//		$song['year'] 		= $request->input('year');
+//
+//		if ($request->hasFile('audio')){
+////			dd($request->file('audio')->getClientMimeType());
+//			$song['audio'] = $this->prepareFile($request->file('audio'), $song, 'audio', '20000000');
+//			if (gettype($song['audio']) === 'array'){
+//				dd($song['audio']['error']);
+//			}
+//			if ($request->hasFile('img')){
+//				$song['img'] = $this->prepareFile($request->file('img'), $song, 'image', '5000000');
+//			} else {
+//				$song['img'] = '/images/logo/logo-sm-dark.png';
+//			}
+//		} else {
+//			dd('no file error');
+//		}
+//
+//		if ($created = File::create($song)){
+//			$artist  = Artist::firstOrCreate(['name' => $song['artist']]);
+//			$created->artists()->attach($artist->id);
+//
+//			if ($song['featured'] <> null){
+//				foreach (explode(',', $song['featured']) as $artist ) {
+//					$record = Artist::firstOrCreate(['name' => $artist]);
+//					$created->artists()->attach($record->id);
+//				}
+//			}
+//
+//			if ($song['genre'] <> null){
+//				foreach ( explode(',', $song['genre']) as $item ) {
+//					$record = Genre::firstOrCreate(['name' => $item]);
+//					$created->genres()->attach($record->id);
+//				}
+//			}
+//			return redirect('/file');
+//		}
     }
 
     /**

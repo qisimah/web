@@ -62,12 +62,12 @@ class DetectionController extends Controller
 					$detection->artists()->attach($this_artist->id);
 				}
 
-				if ($detected['genres'] <> null){
-					foreach ($detected['genres'] as $genre){
-						$this_genre = Genre::firstOrCreate(['name' => $genre['name']]);
-						$detection->genres()->attach($this_genre->id);
-					}
-				}
+//				if ($detected['genres'] <> null){
+//					foreach ($detected['genres'] as $genre){
+//						$this_genre = Genre::firstOrCreate(['name' => $genre['name']]);
+//						$detection->genres()->attach($this_genre->id);
+//					}
+//				}
 			}
 		}
 	}

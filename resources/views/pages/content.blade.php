@@ -56,7 +56,7 @@
                         <td class="text-right">
                             @if(isset($file['artists']))
                                 @foreach($file['artists'] as $artist)
-                                    {{$artist->name}}<br>
+                                    {{$artist->nick_name}}<br>
                                 @endforeach
                             @endif
                         </td>

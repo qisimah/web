@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Artist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class artistController extends Controller
+class ArtistController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class artistController extends Controller
     public function index()
     {
         //
-        return view('pages.artistIndex', ['user'   =>  Auth::user()]);
+        return view('pages.artistIndex', ['user'   =>  Auth::user(), 'artists' => Artist::orderBy('nick_name')->get()]);
     }
 
     /**
@@ -23,9 +24,9 @@ class artistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
@@ -37,6 +38,10 @@ class artistController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'nick_name' => 'bail|required|min:3|max:20|unique:artists'
+        ]);
+        return Artist::store($request);
     }
 
     /**

@@ -37,7 +37,7 @@
                 $('#login').text('sign in');
             });
         });
-
+        $('.file-style').filestyle();
     });
 </script>
 </body>

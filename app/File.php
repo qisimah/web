@@ -4,23 +4,31 @@ namespace App;
 
 use App\Http\Controllers\FileController;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class File extends Model
 {
-	//
+
+    //
 	protected $fillable = [
-		'title', 'year', 'album', 'user_id', 'label', 'audio', 'producer', 'audio', 'img'
+		'title', 'release_date', 'user_id', 'q_id', 'audio', 'audio', 'img', 'file_type', 'indexed'
 	];
 
 	public function artists()
 	{
-		return $this->belongsToMany(Artist::class, 'artist_detection', 'detection_id');
+		return $this->belongsToMany(Artist::class)->withTimestamps();
 	}
 
 	public function genres()
 	{
-		return $this->belongsToMany(Genre::class, 'detection_genre', 'detection_id');
+		return $this->belongsToMany(Genre::class)->withTimestamps();
+	}
+
+    public function producers()
+    {
+        return $this->belongsToMany(Producer::class)->withTimestamps();
 	}
 
 	public function detections()
@@ -28,21 +36,45 @@ class File extends Model
 		return $this->hasMany(Detection::class, 'acr_id', 'acr_id');
 	}
 
-	public static function toACR( $file )
+	public static function toACR( $file, $bucket_name )
 	{
 		$file->indexed = 2;
 		$file->save();
-		$acr = json_decode(File::fingerPrint("public/".$file->audio, $file->id, $file->title, $file->artists[0]->name, $file->year), true);
-//		Storage::append('test.txt', $acr);
+		$path = File::getData($file->audio);
+		$acr = json_decode(File::fingerPrint($path, $file->q_id, $file->title, $bucket_name, '08aff44368610a67', 'face2a65f91dff9945c821945eab873d'), true);
+		unlink($path);
+
 		if (isset($acr['state']) && $acr['state'] === 0){
 			$file->acr_id = $acr['acr_id'];
 			$file->indexed = 1;
 			return $file->save();
 		}
-		return false;
 	}
 
-	public static function fingerPrint($file, $audio_id, $title, $artist, $year){
+    public static function saveSong($song, $genres, $artists, $producers)
+    {
+        $song['file_type']  =   'song';
+        $file = File::create($song);
+
+        foreach ($genres as $genre) {
+            $file->genres()->attach($genre);
+        }
+
+        foreach ($artists as $artist) {
+            $file->artists()->attach($artist);
+        }
+
+        foreach ($producers as $producer) {
+            $file->producers()->attach($producer);
+        }
+        return [
+            'status' => 'success',
+            'code'   => 100,
+            'description'   =>  'Song saved!'
+        ];
+	}
+
+	public static function fingerPrint($file, $audio_id, $title, $bucket_name, $access_key, $access_secret){
 	$request_url = 'https://api.acrcloud.com/v1/audios';
 	$http_method = 'POST';
 	$http_uri = '/v1/audios';
@@ -51,17 +83,14 @@ class File extends Model
 	/*
 
 	This demo shows how to use the RESTful API to upload an audio file ( "data_type":"audio" ) into your bucket.
-
 	You can find account_access_key and account_access_secret in your account page.
-
 	Log into http://console.acrcloud.com -> "Account" (top right corner) -> "RESTful API Keys" -> "Create Key Pair".
-
 	Be Careful, they are different with access_key and access_secret of your project.
 
 	*/
 
-	$account_access_key = '08aff44368610a67';
-	$account_access_secret = 'face2a65f91dff9945c821945eab873d';
+	$account_access_key = $access_key;
+	$account_access_secret = $access_secret;
 	$string_to_sign = $http_method . "\n" .
 		$http_uri ."\n" .
 		$account_access_key . "\n" .
@@ -79,12 +108,8 @@ class File extends Model
 			'audio_file' => $cfile,
 			'title' => $title,
 			'audio_id' => $audio_id,
-			'bucket_name' => 'musically',
+			'bucket_name' => $bucket_name,
 			'data_type'=>'audio',  // if you upload fingerprint file please set 'data_type'=>'fingerprint'
-			'custom_key[0]' => 'artist',
-			'custom_value[0]' => $artist,
-			'custom_key[1]' => 'year',
-			'custom_value[1]' => $year
 		);
 
 	$headers = array(
@@ -108,12 +133,27 @@ class File extends Model
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArr);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-	$response = curl_exec($ch);
-//	curl_close($ch);
+	try{
+        return $response = curl_exec($ch);
+    } catch (Exception $exception){
+	    return $exception->getMessage();
+    }
+}
 
-	if ( $response === false ){
-		return curl_error($ch);
-	}
-	return $response;
+    public static function getData($url)
+    {
+        $file = uniqid('').'.tmp';
+        $fopen = fopen($file, 'wb+');
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_FILE, $fopen);
+        curl_exec($curl);
+
+        fclose($fopen);
+
+        return $file;
+
 }
 }

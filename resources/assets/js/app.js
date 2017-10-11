@@ -7,11 +7,12 @@ require('./dropzone.min');
 //noinspection JSUnresolvedFunction
 require('./jquery.mCustomScrollbar.concat.min');
 //noinspection JSUnresolvedFunction
-require('./jquery.bootstrap-duallistbox.min');
+// require('./jquery.bootstrap-duallistbox.min');
+require('chosen-js');
 //noinspection JSUnresolvedFunction
 // require('./daterangepicker');
 //noinspection JSUnresolvedFunction
-// require('./jquery.multi-select');
+require('./multiselect.min');
 //noinspection JSUnresolvedFunction
 require('./animo.min');
 //noinspection JSUnresolvedFunction
@@ -49,9 +50,15 @@ require('./dataTables.colReorder.min');
 //noinspection JSUnresolvedFunction
 require('./dataTables.responsive.min');
 //noinspection JSUnresolvedFunction
+// require('./initFirebase');
+//noinspection JSUnresolvedFunction
+require('./jquery.steps.min');
+require('./jquery.bootstrap.wizard');
+require('./jquery.validate.min');
+//noinspection JSUnresolvedFunction
 require('./sign');
 //noinspection JSUnresolvedFunction
-// require('./bootstrap-file-input');
+require('bootstrap-filestyle');
 //noinspection JSUnresolvedFunction
 // require('./index-v2');
 //noinspection JSUnresolvedFunction
@@ -77,4 +84,6 @@ require('./bootstrap.colorpickersliders');
 //noinspection JSUnresolvedFunction
 // require('./demo');
 //noinspection JSUnresolvedFunction
+require('./bootstrap-tagsinput.min');
+// noinspection JSUnresolvedFunction
 // require('./extra-demo');
