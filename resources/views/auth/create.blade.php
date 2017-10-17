@@ -1,6 +1,6 @@
 @extends('auth.layout')
 @section('content')
-<!-- <form method="post" role="form" action="{{route('register')}}" class="form-horizontal">
+<form method="post" role="form" action="{{route('register')}}" class="form-horizontal">
     {{csrf_field()}}
     <div class="form-group">
         <label class="text-warning validation"></label>
@@ -54,7 +54,7 @@
         </div>
     </div>
     <button id="sign-up" type="submit" class="btn-lg btn btn-primary btn-rounded btn-block btn-outline">Sign up</button>
-</form> -->
+</form>
 <hr>
 <h1 class="wow fadeInLeft"> Contact us to get your account setup</h1>
 <!-- <p class="text-muted">Sign up with your Facebook or Twitter accounts</p> -->
