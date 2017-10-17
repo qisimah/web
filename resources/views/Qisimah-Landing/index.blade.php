@@ -265,7 +265,7 @@
 
                             <!-- /.download button -->
                             <div class="download-cta wow fadeInLeft"> 
-                                <a href="{{url('/register')}}" class="btn-secondary">Join Waiting List</a>
+                                <a href="{{url('/register')}}" class="btn-secondary">Get Notified When Available</a>
                         </div>
 
                     </div>
