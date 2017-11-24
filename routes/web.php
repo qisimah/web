@@ -19,6 +19,21 @@ use Illuminate\Support\Facades\Session;
 Route::get('/login', function () {
     return 'something';
 });
+Route::get('charts', function(){
+    return view('auth.charts');
+});
+Route::get('top7', function(){
+    return view('auth.top7');
+});
+Route::get('top24', function(){
+    return view('auth.top24');
+});
+Route::get('top30', function(){
+    return view('auth.top30');
+});
+Route::get('halloffame', function(){
+    return view('auth.halloffame');
+});
 Auth::routes();
 Route::get('/', 'UserController@index');
 Route::get('/welcome', function () {

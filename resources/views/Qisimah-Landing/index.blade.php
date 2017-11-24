@@ -83,13 +83,22 @@
                                     <div class="form-group last">
                                         <input type="submit" id="login" class="btn btn-warning btn-block btn-lg" value="login">
                                     </div>
-                                    <p class="privacy text-center"><a href="{{url('/register')}}">Sign Up</a>.</p>
+                                    <p class="privacy text-center"><a href="{{url('/register')}}">Request Access</a>.</p>
                                 </form>
                             </div>
 
                         </div>
+                        
                     </div>
                 </div>
+                <div class="col-xs-10 col-xs-offset-3 text-center img-responsive">
+                        <img alt="client" src="{{asset('images/landing/wsawinner.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
+                        <img alt="client" src="{{asset('images/landing/mest.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
+                        <img alt="client" src="{{asset('images/landing/payswitch.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
+                        <!-- <img alt="client" src="{{asset('images/landing/meltwater logo.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
+                        <img alt="client" src="{{asset('images/landing/aca.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
+                    </div>
+
             </div>
         </div>
 
@@ -112,9 +121,10 @@
                           <li><a href="#top">Home</a></li>
                             <li><a href="{{url('/login')}}">Login</a></li>
                             <li><a href="#intro">About</a></li>
-                            <li><a href="#feature">Features</a></li>
+                            <li><a href="#feature">How it works</a></li>
                             <li><a href="#package">Packages</a></li>
                             <li><a href="#contact">Contact</a></li>
+                            <li><a class="" href="{{url('charts')}}">Charts</a></li>
                         </ul>
                     </div>
                 </div>
@@ -146,24 +156,98 @@
             </div>
         </div>
 
-        <!-- /.download section -->
-        <div id="download">
+        <!-- /.advertiser section -->
+        <!-- <div id="download">
             <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/advertisers.jpg')}});" data-img-width="2000" data-img-height="1333" data-diff="100">
+                <div class="overlay">
+                    <div class="container">
+                        <div class="col-md-8 col-md-offset-2 col-sm-12 text-center"> -->
+
+                            <!-- /.advertiser title -->
+                            <!-- <h2 class="wow fadeInRight">Do you Advertise on radio?</h2>
+                            <p class="download-text wow fadeInLeft">
+                                We make ad monitoring easy for advertisers and marketers by tracking when and where ads are played. Qisimah helps you discover who's listening, determine how to better target your ads and save on ad spends that do not reach the right ear.
+                            </p> -->
+                            <!-- <p class="download-text wow fadeInLeft">We help marketers and advertisers accurately verify in real-time when their adverts are aired on radio and measure the number of impressions their adverts get simultaneously, across multiple broadcasters.</p> -->
+
+                            <!-- /.download button -->
+                            <!-- <div class="download-cta wow fadeInLeft">
+                                <a href="{{url('/register')}}" class="btn-secondary">sign up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- /.Musician section -->
+        <div id="musician">
+            <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/musicianbg.jpg')}});" data-img-width="2000" data-img-height="1333" data-diff="100">
                 <div class="overlay">
                     <div class="container">
                         <div class="col-md-8 col-md-offset-2 col-sm-12 text-center">
 
-                            <!-- /.download title -->
-                            <h2 class="wow fadeInRight">Do you Advertise on radio?</h2>
-                            <p class="download-text wow fadeInLeft">
-                                We make ad monitoring easy for advertisers and marketers by tracking when and where ads are played. Qisimah helps you discover who's listening, determine how to better target your ads and save on ad spends that do not reach the right ear.
-                            </p>
-                            <!-- <p class="download-text wow fadeInLeft">We help marketers and advertisers accurately verify in real-time when their adverts are aired on radio and measure the number of impressions their adverts get simultaneously, across multiple broadcasters.</p> -->
-
+                            <!-- /.advertiser title -->
+                            <h2>Are you a musician?</h2>
+                        <p>
+                            Get real-time notification on songs played. With our intelligent monitoring system, we are able to tell you who is playing your song, how often they play it and their location.
+                        </p>
+                        <!-- <p>
+                            We help various stakeholders in the music industry to accurately understand broadcast promotion strengths and weaknesses of their musical content.
+                        </p> -->
                             <!-- /.download button -->
                             <div class="download-cta wow fadeInLeft">
-                                <a href="{{url('/register')}}" class="btn-secondary">sign up</a>
+                                <a href="{{url('/register')}}" class="btn-secondary">Request Access</a>
                             </div>
+                            <div>
+                            <h5>Live Detections</h5>
+                <table id="product-list" style="width: 100%" class="table dt-responsive nowrap">
+                <thead>
+                
+                <th></th>
+                <th class="text-center">Details</th>
+                <th class="text-center">Broadcaster</th>
+                <th class="text-center">Location</th>
+                <th class="text-center">Time</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <!-- <td class="text-center">
+                        <label class="fs-60">1</label> 
+                    </td> -->
+                    <td class=""><img src="../build/images/products/01.jpg" width="100" alt="" class="img-thumbnail img-responsive"></td>
+                    <td><strong>Title</strong><p>Artist</p></td>
+                    
+                    <td class="text-center">Live 91.9fm</td>
+
+                    <td class="text-center">Accra, Ghana</td>
+
+                    <td class="text-center">12:32:06</td>
+                  </tr>
+                  <tr>
+                    <!-- <td class="text-center">
+                      <label class="fs-60">2</label> 
+                    </td> -->
+                    <td class=""><img src="../build/images/products/02.jpg" width="100" alt="" class="img-thumbnail img-responsive"></td>
+                    <td><strong>Title</strong><p>Artist</p></td>
+                    <td class="text-center">Live 91.9fm</td>                    
+                    <td class="text-center">Johanesburg, South Africa</td>
+                    <td class="text-center">12:31:06</td>
+                  </tr>
+                  <tr>
+                    <!-- <td class="text-center">
+                      <label class="fs-60">3</label> 
+                      </div>
+                    </td> -->
+                    <td class=""><img src="../build/images/products/02.jpg" width="100" alt="" class="img-thumbnail img-responsive"></td>
+                    <td><strong>Title</strong><p>Artist</p></td>
+                    <td class="text-center">Live 91.9fm</td>                    
+                    <td class="text-center">Johanesburg, South Africa</td>
+                    <td class="text-center">12:30:06</td>
+                  </tr>
+                </tbody>
+              </table>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -179,24 +263,23 @@
                         <img src="{{asset('images/landing/mic1.jpg')}}" alt="microphone" class="img-responsive" width="70%">
                     </div>
 
-                    <!-- /.feature content -->
-                    <div class="col-md-7 wow fadeInRight">
-                        <h2>Are you a musician?</h2>
-                        <p>
-                            Get real-time notification on songs played. With our intelligent monitoring system, we are able to tell you who is playing your song, how often they play it and their location.
-                        </p>
-                        <!-- <p>
-                            We help various stakeholders in the music industry to accurately understand broadcast promotion strengths and weaknesses of their musical content.
-                        </p> -->
+                    <!-- /.advertiser title -->
+                            <h2 class="wow fadeInRight">Do you Advertise on radio?</h2>
+                            <p class="download-text wow fadeInLeft">
+                                We make ad monitoring easy for advertisers and marketers by tracking when and where ads are played. Qisimah helps you discover who's listening, determine how to better target your ads and save on ad spends that do not reach the right ear.
+                            </p>
+                            <p class="download-text wow fadeInLeft">We help marketers and advertisers accurately verify in real-time when their adverts are aired on radio and measure the number of impressions their adverts get simultaneously, across multiple broadcasters.</p>
 
-                        <div class="btn-section">
-                            <a href="{{url('/register')}}" class="btn-default">sign up</a>
+                            <!-- /.download button -->
+                            <div class="download-cta wow fadeInLeft"> 
+                                <a href="{{url('/register')}}" class="btn-secondary">Get Notified When Available</a>
                         </div>
 
                     </div>
                 </div>
 
-            </div>
+            </div> 
+            
         </div>
 
         <!-- /.radio_station section -->
@@ -215,7 +298,7 @@
 
                             <!-- /.radio_station button -->
                             <div class="download-cta wow fadeInLeft">
-                                <a href="{{url('/register')}}" class="btn-secondary">sign up</a>
+                                <a href="{{url('/register')}}" class="btn-secondary">Join Our Stream List</a>
                             </div>
                         </div>
                     </div>
@@ -303,7 +386,7 @@
 
                             <!-- /.download button -->
                             <div class="download-cta wow fadeInLeft">
-                                <a href="{{url('/register')}}" class="btn-default">sign up</a>
+                                <a href="{{url('/register')}}" class="btn-default">Sign Up</a>
                             </div>
                         </div>
                     </div>
@@ -335,88 +418,99 @@
                             </div>
 
                             <!-- /.price -->
-                            <!-- <div class="price-group text-center">
+                             <!-- <div class="price-group text-center">
                                 <span class="dollar">$</span>
-                                <span class="price">9</span>
+                                <span class="price">50</span>
                                 <span class="time">/mo</span>
-                            </div> -->
+                            </div>  -->
 
                             <!-- /.package features -->
                             <ul class="price-feature text-center">
-                                <li>Song Upload</li>
-                                <li>Broadcast Monitoring</li>
+                                <li>Unlimited Song Upload</li>
+                                <li>1 Personal Account</li>
+                                <li>Broadcast Monitoring in 1 country</li>
                                 <li>Realtime Notifications</li>
                                 <li>Broadcaster Statistics</li>
                                 <li>Analytics</li>
-                                <li>Head-to-Head song comparison</li>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
                             </ul>
 
                             <!-- /.package button -->
                             <div class="price-footer text-center">
-                                <a class="btn btn-price" >COMING SOON</a>
+                                <a class="btn btn-price" >Contact Us</a>
                             </div>
                         </div>
                     </div>
-
+                   
                     <!-- /.package 2 -->
-                    <div class="col-sm-4">
-                        <div class="price-box wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="price-heading text-center">
-
-                                <!-- /.package icon -->
-                                <i class="pe-7s-global pe-5x"></i>
-
-                                <!-- /.package name -->
-                                <h3>Advertiser</h3>
-                            </div>
-
-                            <!-- /.price -->
-                            <!-- <div class="price-group text-center">
-                                <span class="dollar">$</span>
-                                <span class="price">19</span>
-                                <span class="time">/mo</span>
-                            </div> -->
-
-                            <!-- /.package features -->
-                            <ul class="price-feature text-center">
-                                <li>Ad upload</li>
-                                <li>Broadcast Monitoring</li>
-                                <li>Real-time Notifications</li>
-                                <li>Broadcaster Statistics</li>
-                                <li>Analytics</li>
-                            </ul>
-
-                            <!-- /.package button -->
-                            <div class="price-footer text-center">
-                                <a class="btn btn-price" >COMING SOON</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- /.package 3 -->
                     <div class="col-sm-4">
                         <div class="price-box wow fadeInUp" data-wow-delay="0.4s">
                             <div class="price-heading text-center">
 
                                 <!-- /.package icon -->
-                                <i class="pe-7s-science pe-5x"></i>
+                                <i class="pe-7s-signal pe-5x"></i>
 
                                 <!-- /.package name -->
-                                <h3>Agency</h3>
+                                <h3>Stream Hosting</h3>
                             </div>
 
                             <!-- /.price -->
-                            <!-- <div class="price-group text-center">
+                             <!-- <div class="price-group text-center">
                                 <span class="dollar">$</span>
-                                <span class="price">29</span>
+                                <span class="price">50</span>
                                 <span class="time">/mo</span>
-                            </div> -->
+                            </div>  -->
 
                             <!-- /.package features -->
                             <ul class="price-feature text-center">
-                                <li>Song/Ad Upload</li>
-                                <li>Broadcast Monitoring</li>
-                                <li>Real-time Notifications</li>
+                                <li>Conversion of traditional frequency online</li>
+                                <li>99% Up-Time</li>
+                                <li>Stream Monitoring</li>
+                                <li>Broadcast Statistics</li>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <!--<li>Analytics</li>-->
+                                <!--<li>Head-to-Head song comparison </li>-->
+                            </ul>
+
+                            <!-- /.package button -->
+                            <div class="price-footer text-center">
+                                <a class="btn btn-price" >Contact Us</a>
+                            </div>
+                        </div>
+                    </div> 
+
+                     <!-- /.package 3 -->
+                    <div class="col-sm-4">
+                        <div class="price-box wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="price-heading text-center">
+
+                                <!-- /.package icon -->
+                                <i class="pe-7s-portfolio pe-5x"></i>
+
+                                <!-- /.package name -->
+                                <h3>Enterprise</h3>
+                            </div>
+
+                            <!-- /.price -->
+                             <!-- <div class="price-group text-center">
+                    
+                                <span class="price">&mdash;</span>
+                            
+                            </div>  -->
+
+                            <!-- /.package features -->
+                            <ul class="price-feature text-center">
+                                <li>Unlimited Song Upload</li>
+                                <li>Multiple Artists</li>
+                                <li>Broadcast Monitoring (Multiple Countries)</li>
+                                <li>Realtime Notifications</li>
                                 <li>Broadcaster Statistics</li>
                                 <li>Analytics</li>
                                 <li>Head-to-Head song comparison </li>
@@ -424,10 +518,13 @@
 
                             <!-- /.package button -->
                             <div class="price-footer text-center">
-                                <a class="btn btn-price" >COMING SOON</a>
+                                <a class="btn btn-price" >Contact Us</a>
                             </div>
                         </div>
                     </div>
+
+
+
                 </div>
             </div>
         </div>

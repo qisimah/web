@@ -55,16 +55,17 @@
     </div>
     <button id="sign-up" type="submit" class="btn-lg btn btn-primary btn-rounded btn-block btn-outline">Sign up</button>
 </form>
-{{--<hr>--}}
-{{--<p class="text-muted">Sign up with your Facebook or Twitter accounts</p>--}}
-{{--<div class="clearfix">--}}
-    {{--<div class="pull-left">--}}
-        {{--<button type="button" style="width: 130px" class="btn btn-outline btn-rounded btn-primary"><i class="ti-facebook mr-5"></i> Facebook</button>--}}
-    {{--</div>--}}
-    {{--<div class="pull-right">--}}
-        {{--<button type="button" style="width: 130px" class="btn btn-outline btn-rounded btn-info"><i class="ti-twitter-alt mr-5"></i> Twitter</button>--}}
-    {{--</div>--}}
-{{--</div>--}}
+<hr>
+<h1 class="wow fadeInLeft"> Contact us to get your account setup</h1>
+<!-- <p class="text-muted">Sign up with your Facebook or Twitter accounts</p> -->
+<div class="clearfix">
+    <div class="pull-left">
+        <button type="button" style="width: 130px" class="btn btn-outline btn-rounded btn-primary"><i class="ti-facebook mr-5"></i> Facebook</button>
+    </div>
+    <div class="pull-right">
+        <button type="button" style="width: 130px" class="btn btn-outline btn-rounded btn-info"><i class="ti-twitter-alt mr-5"></i> Twitter</button>
+    </div>
+</div>
 <hr>
 <div class="clearfix">
     <p class="text-muted mb-0 pull-left">Already have an account?    </p><a href="/login" class="inline-block pull-right">Sign In</a>
