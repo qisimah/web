@@ -94,7 +94,7 @@
                 <div class="col-xs-10 col-xs-offset-3 text-center img-responsive">
                         <img alt="client" src="{{asset('images/landing/wsawinner.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
                         <img alt="client" src="{{asset('images/landing/mest.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
-                        <img alt="client" src="{{asset('images/landing/payswitch.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
+                        <img alt="client" src="{{asset('images/landing/nanatellogo.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
                         <!-- <img alt="client" src="{{asset('images/landing/meltwater logo.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
                         <img alt="client" src="{{asset('images/landing/aca.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
                     </div>
