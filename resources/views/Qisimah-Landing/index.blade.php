@@ -83,16 +83,22 @@
                                     <div class="form-group last">
                                         <input type="submit" id="login" class="btn btn-warning btn-block btn-lg" value="login">
                                     </div>
-                                    <p class="privacy text-center"><a href="{{url('/register')}}">Sign Up</a>.</p>
+                                    <p class="privacy text-center"><a href="{{url('/register')}}">Request Access</a>.</p>
                                 </form>
                             </div>
 
                         </div>
-                        <div class="col-sm-12 text-center img-responsive">
-                        <img alt="client" src="{{asset('images/landing/client1.png')}}" class="wow fadeInUp">
-                    </div>
+                        
                     </div>
                 </div>
+                <div class="col-xs-10 col-xs-offset-3 text-center img-responsive">
+                        <img alt="client" src="{{asset('images/landing/wsawinner.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
+                        <img alt="client" src="{{asset('images/landing/mest.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
+                        <img alt="client" src="{{asset('images/landing/payswitch.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
+                        <!-- <img alt="client" src="{{asset('images/landing/meltwater logo.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
+                        <img alt="client" src="{{asset('images/landing/aca.png')}}" class="wow fadeInUp col-xs-2 col-sm-2">
+                    </div>
+
             </div>
         </div>
 
@@ -115,9 +121,10 @@
                           <li><a href="#top">Home</a></li>
                             <li><a href="{{url('/login')}}">Login</a></li>
                             <li><a href="#intro">About</a></li>
-                            <li><a href="#feature">Features</a></li>
+                            <li><a href="#feature">How it works</a></li>
                             <li><a href="#package">Packages</a></li>
                             <li><a href="#contact">Contact</a></li>
+                            <li><a class="" href="{{url('charts')}}">Charts</a></li>
                         </ul>
                     </div>
                 </div>
@@ -174,7 +181,7 @@
         </div> -->
 
         <!-- /.Musician section -->
-        <div id="download">
+        <div id="musician">
             <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/musicianbg.jpg')}});" data-img-width="2000" data-img-height="1333" data-diff="100">
                 <div class="overlay">
                     <div class="container">
@@ -190,7 +197,7 @@
                         </p> -->
                             <!-- /.download button -->
                             <div class="download-cta wow fadeInLeft">
-                                <a href="{{url('/register')}}" class="btn-secondary">sign up</a>
+                                <a href="{{url('/register')}}" class="btn-secondary">Request Access</a>
                             </div>
                             <div>
                             <h5>Live Detections</h5>
