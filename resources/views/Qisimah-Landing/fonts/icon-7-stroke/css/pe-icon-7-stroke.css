@@ -158,6 +158,10 @@
 }
 .pe-7s-signal:before {
 	content: "\e613";
+<<<<<<< HEAD
+=======
+	color: #3eb0f7;
+>>>>>>> fc4b51757fd1b5ddbcdd71d6e0f4dd07ea3520b4
 }
 .pe-7s-shuffle:before {
 	content: "\e614";
@@ -227,6 +231,10 @@
 }
 .pe-7s-portfolio:before {
 	content: "\e622";
+<<<<<<< HEAD
+=======
+	color: #3eb0f7;
+>>>>>>> fc4b51757fd1b5ddbcdd71d6e0f4dd07ea3520b4
 }
 .pe-7s-like2:before {
 	content: "\e6a1";
@@ -296,6 +304,10 @@
 }
 .pe-7s-music:before {
 	content: "\e630";
+<<<<<<< HEAD
+=======
+	color: #3eb0f7;
+>>>>>>> fc4b51757fd1b5ddbcdd71d6e0f4dd07ea3520b4
 }
 .pe-7s-mouse:before {
 	content: "\e631";

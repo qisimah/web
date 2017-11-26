@@ -59,7 +59,7 @@ class LoginController extends Controller
 		$remember	= $request->remember;
 
 		if (Auth::attempt($user, ($remember)? true : false)){
-			return redirect()->intended('home');
+			return redirect($this->redirectTo);
 		}
 	}
 

@@ -12,6 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
+
     'name' => 'Qisimah Audio Insights',
 
     /*
@@ -50,6 +51,7 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
+
 
     'url' => env('APP_URL', 'https://qisimah.com'),
 
@@ -168,6 +170,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
+
         Thujohn\Twitter\TwitterServiceProvider::class,
 
         /*
@@ -175,7 +178,9 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+
         App\Providers\BroadcastServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
@@ -229,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 		'Form' => Collective\Html\FormFacade::class,
 		'Html' => Collective\Html\HtmlFacade::class,
+
         'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
     ],
 

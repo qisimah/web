@@ -67,6 +67,16 @@ class FileController extends Controller
                     $files->push($file);
                 });
             });
+
+//            $artists = Auth::user()->artists()->pluck('artists.id');
+//
+//            foreach ($artists as $artist) {
+//                File::where('artist_id', $artist)->select('q_id', 'title')->orderBy('title')->chunk(500, function ($songs) use ($files) {
+//                    foreach ($songs as $song) {
+//                        $files->push($song);
+//                    }
+//                });
+//            }
         }
 
 		return view('pages.content', ['user' => $this->getUser(), 'files' => $files]);

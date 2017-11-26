@@ -15,12 +15,31 @@ use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 
 // Pusher
 Route::post('/pusher/auth', 'UserController@authPusherSubscription');
 
 Route::post('/user/{id}/update', 'UserController@update');
+
+Route::get('/login', function () {
+    return 'something';
+});
+Route::get('charts', function(){
+    return view('auth.charts');
+});
+Route::get('top7', function(){
+    return view('auth.top7');
+});
+Route::get('top24', function(){
+    return view('auth.top24');
+});
+Route::get('top30', function(){
+    return view('auth.top30');
+});
+Route::get('halloffame', function(){
+    return view('auth.halloffame');
+});
+
 Auth::routes();
 Route::get('/', 'UserController@index');
 Route::get('/welcome', function () {
@@ -46,6 +65,16 @@ Route::get('/play/content', 'PlayController@playsOfContent');
 Route::get('/play/artist/{id?}', 'PlayController@getArtistSongs');
 Route::get('/play/content/{id}/{start}/{end}', 'PlayController@getContentPlays');
 Route::get('/play/{start}/{end}', 'PlayController@getPlays');
+Route::post('/file/create/{type}', function ($type, Request $request){
+    return FileController::store($type, $request);
+});
+Route::resource('file', 'FileController');
+Route::get('/play/today', 'PlayController@playsToday');
+Route::get('/play/broadcaster', 'PlayController@playsOfBroadcaster');
+Route::get('/play/broadcaster/{stream_id}/{date}', 'PlayController@getPlaysOfBroadcaster');
+Route::get('/play/content', 'PlayController@playsOfContent');
+Route::get('/play/content/{detection_id}/{date}', 'PlayController@getPlaysOfContent');
+Route::get('/play/{day}', 'PlayController@getPlays');
 Route::get('/admin/create', 'AdminController@create');
 Route::get('/account/verify/{token}', 'AdminController@verify');
 Route::get('/account/password/create', 'AdminController@createPassword');
@@ -64,9 +93,16 @@ Route::post('/listen', 'ListenController@store');
 Route::post('/listen/delete', 'ListenController@destroy');
 Route::resource('contact', 'ContactController');
 Route::get('/producer/{id}', 'ProducerController@show');
+Route::post('/detection', 'DetectionController@store');
+Route::resource('contact', 'ContactController');
 Route::resource('producer', 'ProducerController');
 
 // Genres
 Route::get('/genre', 'GenreController@index');
 Route::get('/genre/{id}', 'GenreController@show');
 Route::post('/genre/create', 'GenreController@store');
+Route::post('/genre/create', 'GenreController@store');
+
+// Artists
+//Route::get('/artist', 'ArtistController@index');
+//Route::post('/artist/create', 'ArtistController@store');

@@ -247,11 +247,6 @@ class Broadcaster extends Model
 
 	}
 
-    public static function getBroadcastersStreamIdsForCountry($country_id)
-    {
-        return Broadcaster::where('country_id', $country_id)->pluck('stream_id');
-	}
-
 
     //
 }
