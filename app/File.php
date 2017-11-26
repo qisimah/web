@@ -70,6 +70,11 @@ class File extends Model
         return $this->hasMany(Broadcaster::class);
 	}
 
+    public static function allArtists(File $file)
+    {
+        return array_merge([$file->artist()->first()->nick_name], $file->artists()->pluck('nick_name')->toArray());
+	}
+
     public static function deleteFingerPrint($acr_id)
     {
         $curl = curl_init('https://api.acrcloud.com/v1/audios/'.$acr_id);
