@@ -10,6 +10,14 @@ const { mix } = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+mix.webpackConfig({
+    module: {
+        loaders: [{
+            test: /\.styl$/,
+            loader: 'css-loader!stylus-loader?paths=node_modules/bootstrap-stylus/stylus/'
+        }]
+    }
+});
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');

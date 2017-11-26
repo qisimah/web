@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Artist;
+use function Clue\StreamFilter\fun;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ArtistController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -53,6 +59,15 @@ class ArtistController extends Controller
     public function show($id)
     {
         //
+        if ($id === 'all'){
+            $_artists = collect();
+            Artist::orderBy('nick_name')->chunk(500, function ($artists) use ($_artists){
+                foreach ($artists as $artist) {
+                    $_artists->push($artist);
+                }
+            });
+            return $_artists;
+        }
     }
 
     /**

@@ -15,7 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-		'App\Console\Commands\UploadToAcr'
+		'App\Console\Commands\UploadToAcr',
+        'App\Console\Commands\SyncPlayCount',
+        'App\Console\Commands\DeleteCountsFromFirebase',
+        'App\Console\Commands\SyncAllTime'
     ];
 
     /**
@@ -29,6 +32,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
 		$schedule->command('fingerprint:ad')->everyMinute();
+		$schedule->command('play:countDownToday')->everyTenMinutes();
+		$schedule->command('play:deletecounts')->dailyAt('23:59');
     }
 
     /**

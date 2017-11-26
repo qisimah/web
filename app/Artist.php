@@ -18,12 +18,12 @@ class Artist extends Model
 
 	public function files()
 	{
-		return $this->belongsToMany(File::class, 'artist_detection', 'artist_id', 'id');
+		return $this->belongsToMany(File::class)->withTimestamps();
 	}
 
-    public function images()
+    public function users()
     {
-        
+        return $this->belongsToMany(User::class)->withTimestamps();
 	}
 
     public function albums()

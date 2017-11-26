@@ -28,8 +28,19 @@ class GenreController extends Controller
         return redirect('/genre');
     }
 
-    public function show(Genre $genre)
+    public function show($id)
     {
+        if ($id === 'all'){
+            $_genres = collect();
+            Genre::orderBy('name')->chunk(500, function ($genres) use ($_genres){
+                foreach ($genres as $genre) {
+                    $_genres->push($genre);
+                }
+            });
+            return $_genres;
+        }
+
+        return Genre::find($id);
 
     }
 

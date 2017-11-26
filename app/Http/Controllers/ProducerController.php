@@ -40,7 +40,7 @@ class ProducerController extends Controller
         //
         $this->validate($request,
             [
-                'nick_name' =>  'bail|required|min:3|max:30|unique:producers'
+                'nick_name' =>  'bail|required|min:2|max:30|unique:producers'
             ]);
         return Producer::store($request);
     }
@@ -54,6 +54,16 @@ class ProducerController extends Controller
     public function show($id)
     {
         //
+        if ($id === 'all'){
+            $_producers = collect();
+            Producer::orderBy('nick_name')->chunk(500, function ($producers) use ($_producers){
+                foreach ($producers as $producer) {
+                    $_producers->push($producer);
+                }
+            });
+            return $_producers;
+        }
+        return Producer::where('q_id', $id)->first();
     }
 
     /**

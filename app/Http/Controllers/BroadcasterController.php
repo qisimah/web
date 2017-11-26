@@ -52,10 +52,7 @@ class BroadcasterController extends Controller
 	{
 		return Validator::make($data, [
 			'name'		=>	'bail|required|min:3|max:20',
-			'frequency'	=>	'bail|required|min:4|max:5',
-			'country'	=> 	'bail|required|min:4|max:20',
-			'city'		=>	'bail|required|min:2|max:20',
-			'tags'		=> 	'bail|required|min:4'
+			'frequency'	=>	'bail|required|min:4|max:5'
 		]);
 	}
 
@@ -67,32 +64,23 @@ class BroadcasterController extends Controller
      */
     public function store(Request $request)
     {
-		$caster = new Broadcaster();
-		$caster->name = $request->input('name');
-		$caster->frequency = $request->input('frequency');
-		$caster->tagline = $request->input('tagline');
-		$caster->reach = $request->input('reach');
-		$caster->country = $request->input('country');
-		$caster->city = $request->input('city');
-		$caster->address = $request->input('address');
-		$caster->phone = $request->input('phone');
-		$caster->tags = $request->input('tags');
-		$caster->stream_id = $request->input('stream_id');
-		$caster->user_id = Auth::id();
-		$caster->img = '/images/logo/logo-sm-dark.png';
-		if ($request->hasFile('img')){
-			$data['artist'] = $request->input('name');
-			$data['title'] = $request->input('frequency');
-			$data['featured'] = '';
-			$fileController = new FileController();
-			$img = $fileController->prepareFile($request->file('img'), $data, 'image', 5000000);
-			if (typeOf($img) <> 'array'){
-				$caster->img = $img;
-			}
-		}
-		if ($caster->save()){
-			return redirect('/broadcaster');
-		}
+        $broadcaster = [];
+        $tags = $request->input('tags');
+
+		$broadcaster['name']       = $request->input('name');
+		$broadcaster['frequency']  = $request->input('frequency');
+		$broadcaster['tagline']    = ucfirst(strtolower($request->input('tagline')));
+		$broadcaster['country_id'] = $request->input('country');
+		$broadcaster['region_id']  = $request->input('region');
+		$broadcaster['city']       = ucfirst(strtolower($request->input('city')));
+		$broadcaster['address']    = $request->input('address');
+		$broadcaster['phone']      = $request->input('phone');
+		$broadcaster['stream_id']  = $request->input('stream_id');
+		$broadcaster['user_id']    = Auth::id();
+		$broadcaster['img']        = $request->input('logo');
+		$broadcaster['f_storage_id'] = $request->input('f_storage_id');
+
+        return Broadcaster::saveBroadcaster($broadcaster, $tags);
     }
 
     /**

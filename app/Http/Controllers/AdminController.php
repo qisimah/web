@@ -20,7 +20,7 @@ class AdminController extends Controller
 
     public function __construct()
 	{
-//		$this->middleware('auth');
+	    //
 	}
 
 	public function index()
@@ -51,20 +51,17 @@ class AdminController extends Controller
     {
     	$this->middleware('auth');
 
-    	$url = URL::to('/account/verify');
-    	$token = base64_encode($request->input('email').Carbon::now());
 		$admin['email'] 	= strtolower($request->input('email'));
 		$admin['firstname'] = ucwords(strtolower($request->input('firstname')));
 		$admin['lastname'] 	= ucwords(strtolower($request->input('lastname')));
 		$admin['gender'] 	= $request->input('gender');
 		$admin['type'] 		= $request->input('type');
 		$admin['role'] 		= $request->input('role');
-		$admin['verified']	= $token;
+		$admin['verified']	= md5(uniqid(time(), true));
 		$admin['password']	= bcrypt('qisimahaudio');
-		$message = "Hi ".$admin['firstname'].", your Qisimah account have been created, please click the link below to complete the process.\n".$url.'/'.$token;
 
 		if (Admin::create($admin) <> false){
-			mail($admin['email'], 'VERIFY YOUR QISIMAH ACCOUNT', $message, 'Qisimah Audio Insights!');
+		    Admin::sendInvite($admin['email'], $admin['firstname'], Admin::generateVerifyLink($admin['email'], $admin['verified']));
 			return redirect('/admin/create');
 		}
     }

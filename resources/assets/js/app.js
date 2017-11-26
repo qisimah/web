@@ -1,3 +1,6 @@
+
+require('./bootstrap');
+require('datatables.net-bs');
 //noinspection JSUnresolvedFunction
 require('./bootstrap');
 //noinspection JSUnresolvedFunction
@@ -12,6 +15,7 @@ require('chosen-js');
 //noinspection JSUnresolvedFunction
 // require('./daterangepicker');
 //noinspection JSUnresolvedFunction
+
 require('./multiselect.min');
 //noinspection JSUnresolvedFunction
 require('./animo.min');
@@ -29,6 +33,12 @@ require('./jquery.flot.resize');
 require('./jquery.flot.tooltip.min');
 //noinspection JSUnresolvedFunction
 require('./morris.min');
+
+require('./vfs_fonts');
+require('./jquery.validate.min');
+//noinspection JSUnresolvedFunction
+require('bootstrap-filestyle');
+//noinspection JSUnresolvedFunction
 //noinspection JSUnresolvedFunction
 require('./jquery.dataTables.min');
 //noinspection JSUnresolvedFunction
@@ -80,6 +90,8 @@ require('./bootstrap.colorpickersliders');
 //noinspection JSUnresolvedFunction
 // require('./date-range-picker');
 //noinspection JSUnresolvedFunction
+
+require('./apps');
 // require('./apps');
 //noinspection JSUnresolvedFunction
 // require('./demo');
@@ -87,3 +99,15 @@ require('./bootstrap.colorpickersliders');
 require('./bootstrap-tagsinput.min');
 // noinspection JSUnresolvedFunction
 // require('./extra-demo');
+
+require('toastr');
+require('./session');
+require('pusher-js');
+require('./mobx/dashboard');
+require('./mobx/broadcaster');
+require('./mobx/general report');
+require('./mobx/content-report');
+require('./mobx/content');
+require('./mobx/broadcaster-report');
+require('./sign');
+require('./mobx/sidebar');

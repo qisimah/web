@@ -9,8 +9,8 @@ class Broadcaster extends Model
 	protected $name;
 	protected $frequency;
 	protected $tagline;
-	protected $reach;
-	protected $country;
+	protected $country_id;
+	protected $region_id;
 	protected $city;
 	protected $address;
 	protected $phone;
@@ -18,6 +18,8 @@ class Broadcaster extends Model
 	protected $img;
 	protected $user_id;
 	protected $stream_id;
+
+	protected $fillable = ['name', 'frequency', 'tagline', 'country_id', 'region_id', 'city', 'img', 'user_id', 'stream_id', 'phone', 'f_storage_id', 'address'];
 
 	/**
 	 * @return mixed
@@ -195,6 +197,16 @@ class Broadcaster extends Model
 		$this->user_id = $user_id;
 	}
 
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+	}
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+	}
+
 	public function listeners()
 	{
 		return $this->belongsToMany(User::class);
@@ -203,6 +215,36 @@ class Broadcaster extends Model
 	public function detections()
 	{
 		return $this->belongsToMany(Detection::class, null, 'stream_id', 'stream_id');
+	}
+
+    public function plays()
+    {
+        return $this->belongsToMany(Play::class, 'broadcaster_play', 'stream_id', 'stream_id')->withTimestamps();
+
+	}
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+	}
+
+    public static function attachAll()
+    {
+        foreach ($plays as $play) {
+            $play->plays()->attach($play->stream_id);
+        }
+
+	}
+
+    public static function saveBroadcaster($broadcaster, $tags)
+    {
+        if($_broadcaster = Broadcaster::create($broadcaster)) {
+            $_broadcaster->tags()->sync($tags);
+            return ['code' => 900, 'message' => 'Broadcaster saved!'];
+        }
+        return ['code' => 900, 'message' => 'Broadcaster could not be saved at this time'];
+
+
 	}
 
 
