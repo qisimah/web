@@ -20,6 +20,16 @@ class File extends Model
 		'title', 'release_date', 'user_id', 'q_id', 'artist_id', 'audio', 'img', 'file_type', 'indexed', 'f_storage_id'
 	];
 
+    /**
+     * @param File $file
+     * @return array
+     */
+    public static function allArtists(File $file)
+    {
+        $artists = $file->artist()->pluck('nick_name')->toArray();
+        return array_merge($artists, $file->artists()->pluck('nick_name')->toArray());
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'file_user', 'file_id')->withTimestamps();

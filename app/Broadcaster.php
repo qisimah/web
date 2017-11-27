@@ -21,7 +21,12 @@ class Broadcaster extends Model
 
 	protected $fillable = ['name', 'frequency', 'tagline', 'country_id', 'region_id', 'city', 'img', 'user_id', 'stream_id', 'phone', 'f_storage_id', 'address'];
 
-	/**
+    public static function getBroadcastersStreamIdsForCountry($country_id)
+    {
+        return Broadcaster::where('country_id', $country_id)->where('stream_id', '<>', null)->pluck('stream_id');
+    }
+
+    /**
 	 * @return mixed
 	 */
 	public function getName()
@@ -228,7 +233,7 @@ class Broadcaster extends Model
         return $this->belongsToMany(Tag::class)->withTimestamps();
 	}
 
-    public static function attachAll()
+    public static function attachAll($plays)
     {
         foreach ($plays as $play) {
             $play->plays()->attach($play->stream_id);

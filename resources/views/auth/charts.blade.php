@@ -38,19 +38,19 @@
             </div> -->
             <div class="col-sm-3">
 
-              <a href="{{url('top24')}}" ><img src="{{asset('/images/charts/top24.jpg')}}" width="300" alt="" style="margin:0px;" class="img-thumbnail img-responsive"></a>
+              <a href="{{url('chart/top24')}}" ><img src="{{asset('/images/charts/top24.jpg')}}" width="300" alt="" style="margin:0px;" class="img-thumbnail img-responsive"></a>
             </div>
             <div class="col-sm-3">
 
-              <a href="{{url('top7')}}" ><img src="{{asset('/images/charts/top7.jpg')}}" width="300" alt="" style="margin:0px;" class="img-thumbnail img-responsive"></a>
+              <a href="{{url('chart/top7')}}" ><img src="{{asset('/images/charts/top7.jpg')}}" width="300" alt="" style="margin:0px;" class="img-thumbnail img-responsive"></a>
             </div>
             <div class="col-sm-3">
 
-              <a href="{{url('top30')}}" ><img src="{{asset('/images/charts/top30.jpg')}}" width="300" alt="" style="margin:0px;" class="img-thumbnail img-responsive"></a>
+              <a href="{{url('chart/top30')}}" ><img src="{{asset('/images/charts/top30.jpg')}}" width="300" alt="" style="margin:0px;" class="img-thumbnail img-responsive"></a>
             </div>
             <div class="col-sm-3">
 
-              <a href="{{url('halloffame')}}" ><img src="{{asset('/images/charts/halloffame.jpg')}}" width="300" alt="" style="margin:0px;" class="img-thumbnail img-responsive"></a>
+              <a href="{{url('chart/halloffame')}}" ><img src="{{asset('/images/charts/halloffame.jpg')}}" width="300" alt="" style="margin:0px;" class="img-thumbnail img-responsive"></a>
             </div>
 
                           
