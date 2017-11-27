@@ -24,16 +24,13 @@ Route::post('/user/{id}/update', 'UserController@update');
 Route::get('/login', function () {
     return 'something';
 });
-Route::get('charts', function(){
+Route::get('chart', function(){
     return view('auth.charts');
 });
-Route::get('top7', function(){
-    return view('auth.top7');
-});
-Route::get('top24', function(){
-    return view('auth.top24');
-});
-Route::get('top30', function(){
+Route::get('chart/top7', 'ChartController@top7');
+Route::get('chart/top24', 'ChartController@top24');
+
+Route::get('chart/top30', function(){
     return view('auth.top30');
 });
 Route::get('halloffame', function(){

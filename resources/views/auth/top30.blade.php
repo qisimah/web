@@ -21,7 +21,7 @@
                   <br>
                   <br>
                   <br>
-                  <h3 class="widget-title"><a href="{{url('charts')}}"><button type="submit" class="btn btn-raised btn-primary">Back to Charts</button></a></h3>                  
+                  <h3 class="widget-title"><a href="{{url('chart')}}"><button type="submit" class="btn btn-raised btn-primary">Back to Charts</button></a></h3>
                     <!--<button type="button" class="btn btn-raised btn-block btn-default">Edit</button>-->
                   </div>
                 </div>
