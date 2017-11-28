@@ -27,6 +27,26 @@ class Chart extends Model
         return $_plays;
     }
 
+    public static function top7($country_id, Carbon $carbon = null)
+    {
+        if (is_null($carbon)){
+            $carbon = Carbon::now();
+        }
+        $_plays = [];
+        $position = 1;
+        $stream_ids = Broadcaster::getBroadcastersStreamIdsForCountry($country_id);
+        $plays =  Play::select(DB::raw('file_id, count(*) as plays'))->whereIn('stream_id', $stream_ids)->whereBetween('created_at', [$carbon->startOfWeek(), $carbon->endOfWeek()])->with('file')->groupBy('file_id')->orderBy('plays', 'desc')->limit(24)->get();
+        foreach ($plays as $play) {
+            $entry = new ChartEntry($play->file_id, $play->file->title, Chart::artistsNamesToString(File::allArtists($play->file)), Chart::arraysToString($play->file->producers()->pluck('nick_name')->toArray()), Chart::arraysToString($play->file->genres()->pluck('name')->toArray()), $play->file->release_date, $play->file->img, $play->file->audio, $play->plays, $position, 0, 1, $country_id, $carbon->endOfWeek()->toDateString());
+            $entry->setDuration($entry->duration());
+            $entry->setPeakPosition($entry->peakPosition());
+            $entry->setPreviousPosition($entry->previousPosition());
+            array_push($_plays, $entry->getEntry());
+            $position++;
+        }
+        return $_plays;
+    }
+
     public static function entry($file_id, $title, $artists, $producers, $genres, $release_date, $album_art, $audio, $played, $position, $peak_position, $prev_position, $duration, $country_id, $chart_date)
     {
         return [
