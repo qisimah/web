@@ -3,13 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Top24;
 
 class ChartEntry extends Model
 {
     private $entry;
     private $previous;
+    private $model;
 
-    public function __construct($file_id, $title, $artists, $producers, $genres, $release_date, $album_art, $audio, $plays, $position, $prev_position, $duration, $country_id, $chart_date)
+    public function __construct($model, $file_id, $title, $artists, $producers, $genres, $release_date, $album_art, $audio, $plays, $position, $prev_position, $duration, $country_id, $chart_date)
     {
         $this->entry = [
             'file_id' => $file_id,
@@ -28,8 +30,8 @@ class ChartEntry extends Model
             'chart_date' => $chart_date,
             'plays' => $plays
         ];
-
-        $this->previous = Top24::where('file_id', $this->entry['file_id'])->get();
+        $this->model = $model;
+        $this->previous = $this->model::where('file_id', $this->entry['file_id'])->get();
     }
 
     public function getEntry()
@@ -64,7 +66,7 @@ class ChartEntry extends Model
 
     public function peakPosition()
     {
-        $entry = Top24::where('file_id', $this->entry['file_id'])->orderBy('position', 'asc')->first();
+        $entry = $this->model::where('file_id', $this->entry['file_id'])->orderBy('position', 'asc')->first();
         return (isset($entry->id))? $entry->position : $this->entry['position'];
     }
 
