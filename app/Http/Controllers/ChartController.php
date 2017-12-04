@@ -24,7 +24,7 @@ class ChartController extends Controller
         $chart_date     = Carbon::today()->format('l jS \\of F Y');
         $chart_description = $this->description;
         $chart_unit     = 'Days';
-        return view('auth.top24', compact('entries', 'chart_title', 'chart_date', 'title', 'chart_description'));
+        return view('auth.top24', compact('entries', 'chart_title', 'chart_date', 'title', 'chart_description', 'chart_unit'));
     }
 
     public function top7()
@@ -40,6 +40,12 @@ class ChartController extends Controller
 
     public function top30()
     {
-
+        $entries        = Chart::top30(1);
+        $title          = 'Top 30 Music Chart - '.$this->title;
+        $chart_title    = 'Top 30 Music Chart';
+        $chart_date     = Carbon::today()->startOfMonth()->format('l jS \\of F Y').' - '.Carbon::today()->endOfMonth()->format('l jS \\of F Y');
+        $chart_description = $this->description;
+        $chart_unit     = 'Months';
+        return view('auth.top24', compact('entries', 'chart_title', 'chart_date', 'title', 'chart_description', 'chart_unit'));
     }
 }

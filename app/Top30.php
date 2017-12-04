@@ -12,24 +12,26 @@ class Top30 extends Model
         'file_id', 'title', 'artists', 'producers', 'release_date', 'genres', 'album_art', 'audio', 'position', 'prev_position', 'duration', 'country_id', 'chart_date', 'plays'
     ];
 
-    public static function getChartDays()
+    public static function getChartMonths()
     {
         $month  =   Carbon::create(2017, 7, 1);
         $months =   Carbon::today()->diffInMonths($month);
-        for ($i = 0; $i <= $months; $i++){
-            $chart_months[] = Carbon::create(2017, 7, 1)->addMonths($i)->toDateString();
+        for ($i = 0; $i < $months; $i++){
+            $chart_months[] = Carbon::create(2017, 7, 1)->addMonths($i);
         }
         return $chart_months;
     }
 
     public static function createTillDate()
     {
-//        $chart_days =   self::getChartDays();
-//        Top30::truncate();
-//        foreach ($chart_days as $chart_day) {
-//            $top24 = new \App\Jobs\Top24(1, $chart_day);
-//            $top24->handle();
-//            echo 'Top24 for '.$chart_day.' created!'."\n";
-//        }
+        Top30::truncate();
+        $chart_months = self::getChartMonths();
+        foreach ($chart_months as $chart_month) {
+            $entries = Chart::getChartEntries(1, $chart_month->startOfMonth()->toDateTimeString(), $chart_month->endOfMonth()->toDateTimeString(), 30, 'App\Top30');
+            foreach ($entries as $entry) {
+                Top30::create($entry);
+            }
+            echo 'Top 30 Created for '.$chart_month->toDateString().'!'."\n";
+        }
     }
 }
