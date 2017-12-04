@@ -92,7 +92,6 @@ Route::post('/listen', 'ListenController@store');
 Route::post('/listen/delete', 'ListenController@destroy');
 Route::resource('contact', 'ContactController');
 Route::get('/producer/{id}', 'ProducerController@show');
-Route::post('/detection', 'DetectionController@store');
 Route::resource('contact', 'ContactController');
 Route::resource('producer', 'ProducerController');
 

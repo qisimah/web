@@ -81,7 +81,7 @@ class PlayController extends Controller
         if (isset($request->status)){
             if ($request->status == 1 && strtolower($play['status']['msg']) == 'success' && $play['status']['code'] == 0){
                 if (isset($play['metadata']['custom_files'])){
-                    $saved = Play::savePlay([
+                    Play::savePlay([
                         'stream_id'     => $request->stream_id,
                         'file_id'       => $play['metadata']['custom_files'][0]['audio_id'],
                         'created_at'    => $play['metadata']['timestamp_utc'],

@@ -18,9 +18,9 @@ class Chart extends Model
         $plays =  Play::select(DB::raw('file_id, count(*) as plays'))->whereIn('stream_id', $stream_ids)->whereDate('created_at', Carbon::today()->toDateString())->with('file')->groupBy('file_id')->orderBy('plays', 'desc')->limit(24)->get();
         foreach ($plays as $play) {
             $entry = new ChartEntry('App\Top24', $play->file_id, $play->file->title, Chart::artistsNamesToString(File::allArtists($play->file)), Chart::arraysToString($play->file->producers()->pluck('nick_name')->toArray()), Chart::arraysToString($play->file->genres()->pluck('name')->toArray()), $play->file->release_date, $play->file->img, $play->file->audio, $play->plays, $position, 0, 1, $country_id, Carbon::today()->toDateString());
-            $entry->setDuration($entry->duration());
-            $entry->setPeakPosition($entry->peakPosition());
-            $entry->setPreviousPosition($entry->previousPosition());
+            $entry->setDuration();
+            $entry->setPeakPosition();
+            $entry->setPreviousPosition();
             array_push($_plays, $entry->getEntry());
             $position++;
         }
@@ -38,13 +38,21 @@ class Chart extends Model
         $plays =  Play::select(DB::raw('file_id, count(*) as plays'))->whereIn('stream_id', $stream_ids)->whereBetween('created_at', [$carbon->startOfWeek()->toDateTimeString(), $carbon->endOfWeek()->toDateTimeString()])->with('file')->groupBy('file_id')->orderBy('plays', 'desc')->limit(7)->get();
         foreach ($plays as $play) {
             $entry = new ChartEntry('App\Top7', $play->file_id, $play->file->title, Chart::artistsNamesToString(File::allArtists($play->file)), Chart::arraysToString($play->file->producers()->pluck('nick_name')->toArray()), Chart::arraysToString($play->file->genres()->pluck('name')->toArray()), $play->file->release_date, $play->file->img, $play->file->audio, $play->plays, $position, 0, 1, $country_id, $carbon->endOfWeek()->toDateString());
-            $entry->setDuration($entry->duration());
-            $entry->setPeakPosition($entry->peakPosition());
-            $entry->setPreviousPosition($entry->previousPosition());
+            $entry->setDuration();
+            $entry->setPeakPosition();
+            $entry->setPreviousPosition();
             array_push($_plays, $entry->getEntry());
             $position++;
         }
         return $_plays;
+    }
+
+    public static function top30($country_id, Carbon $month)
+    {
+        if (is_null($month)){
+            $month =   Carbon::today();
+        }
+        return self::getChartEntries($country_id, $month->startOfMonth()->toDateTimeString(), $month->endOfMonth()->toDateTimeString(), 30, 'App\Top30');
     }
 
     public static function entry($file_id, $title, $artists, $producers, $genres, $release_date, $album_art, $audio, $played, $position, $peak_position, $prev_position, $duration, $country_id, $chart_date)
@@ -89,28 +97,45 @@ class Chart extends Model
         return implode(', ', $array);
     }
 
-    public static function previousPosition($file_id)
+    public function getPreviousPosition($file_id)
     {
         return Top24::where('file_id', $file_id)->first()->position;
     }
 
-    public function previous()
+    public function getPrevious()
     {
         return $this->previous = Top24::where('file_id', $this->entry['file_id'])->get();
     }
 
-    public function position()
+    public function getPosition()
     {
         return $this->previous[0]->position;
     }
 
-    public function duration()
+    public function getDuration()
     {
         return count($this->previous);
     }
 
-    public function peakPosition()
+    public function getPeakPosition()
     {
         return Top24::where('file_id', $this->entry['file_id'])->orderBy('position', 'desc')->first()->position();
+    }
+
+    public static function getChartEntries($country_id, $start, $finish, $limit, $model)
+    {
+        $_plays = [];
+        $position = 1;
+        $stream_ids = Broadcaster::getBroadcastersStreamIdsForCountry($country_id);
+        $plays =  Play::select(DB::raw('file_id, count(*) as plays'))->whereIn('stream_id', $stream_ids)->whereBetween('created_at', [$start, $finish])->with('file')->groupBy('file_id')->orderBy('plays', 'desc')->limit($limit)->get();
+        foreach ($plays as $play) {
+            $entry = new ChartEntry($model, $play->file_id, $play->file->title, Chart::artistsNamesToString(File::allArtists($play->file)), Chart::arraysToString($play->file->producers()->pluck('nick_name')->toArray()), Chart::arraysToString($play->file->genres()->pluck('name')->toArray()), $play->file->release_date, $play->file->img, $play->file->audio, $play->plays, $position, 0, 1, $country_id, $carbon->endOfWeek()->toDateString());
+            $entry->setDuration();
+            $entry->setPeakPosition();
+            $entry->setPreviousPosition();
+            array_push($_plays, $entry->getEntry());
+            $position++;
+        }
+        return $_plays;
     }
 }
