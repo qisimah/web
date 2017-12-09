@@ -30,10 +30,8 @@ Route::get('chart', function(){
 
 Route::get('chart/top7', 'ChartController@top7');
 Route::get('chart/top24', 'ChartController@top24');
+Route::get('chart/top30', 'ChartController@top30');
 
-Route::get('chart/top30', function(){
-    return view('auth.top30');
-});
 Route::get('halloffame', function(){
     return view('auth.halloffame');
 });
@@ -92,7 +90,6 @@ Route::post('/listen', 'ListenController@store');
 Route::post('/listen/delete', 'ListenController@destroy');
 Route::resource('contact', 'ContactController');
 Route::get('/producer/{id}', 'ProducerController@show');
-Route::post('/detection', 'DetectionController@store');
 Route::resource('contact', 'ContactController');
 Route::resource('producer', 'ProducerController');
 

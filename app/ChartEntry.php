@@ -30,8 +30,8 @@ class ChartEntry extends Model
             'chart_date' => $chart_date,
             'plays' => $plays
         ];
-        $this->model = $model;
-        $this->previous = $this->model::where('file_id', $this->entry['file_id'])->get();
+        $this->model    = $model;
+        $this->previous = $this->model::where('file_id', $this->entry['file_id'])->orderBy('chart_date', 'desc')->get();
     }
 
     public function getEntry()
@@ -39,35 +39,21 @@ class ChartEntry extends Model
         return $this->entry;
     }
 
-    public function setPeakPosition($value)
-    {
-        $this->entry['peak_position']   =   $value;
-    }
-
-    public function setDuration($value)
-    {
-        $this->entry['duration']    =   $value;
-    }
-
-    public function setPreviousPosition($value)
-    {
-        $this->entry['prev_position']   =   $value;
-    }
-
-    public function previousPosition()
-    {
-        return $this->previous[0]->position ?? 0;
-    }
-
-    public function duration()
-    {
-        return count($this->previous) + 1;
-    }
-
-    public function peakPosition()
+    public function setPeakPosition()
     {
         $entry = $this->model::where('file_id', $this->entry['file_id'])->orderBy('position', 'asc')->first();
-        return (isset($entry->id))? $entry->position : $this->entry['position'];
+
+        $this->entry['peak_position']   =   (isset($entry->id))? (integer) $entry->position : $this->entry['position'];
+    }
+
+    public function setDuration()
+    {
+        $this->entry['duration']    =   (integer) count($this->previous);
+    }
+
+    public function setPreviousPosition()
+    {
+        $this->entry['prev_position']   = (isset($this->previous[0]->id))? (integer) $this->previous[0]->position : 0;
     }
 
 }
