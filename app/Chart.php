@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 class Chart extends Model
 {
     //
-    private $previous;
 
     public static function top24($country_id)
     {
@@ -125,10 +124,10 @@ class Chart extends Model
 
     public static function getChartEntries($country_id, $start, $finish, $limit, $model)
     {
-        $_plays     = [];
-        $position   = 1;
+        $_plays = [];
+        $position = 1;
         $stream_ids = Broadcaster::getBroadcastersStreamIdsForCountry($country_id);
-        $plays      = Play::select(DB::raw('file_id, count(*) as plays'))->whereIn('stream_id', $stream_ids)->whereBetween('created_at', [$start, $finish])->with('file')->groupBy('file_id')->orderBy('plays', 'desc')->limit($limit)->get();
+        $plays =  Play::select(DB::raw('file_id, count(*) as plays'))->whereIn('stream_id', $stream_ids)->whereBetween('created_at', [$start, $finish])->with('file')->groupBy('file_id')->orderBy('plays', 'desc')->limit($limit)->get();
         foreach ($plays as $play) {
             $entry = new ChartEntry($model, $play->file_id, $play->file->title, Chart::artistsNamesToString(File::allArtists($play->file)), Chart::arraysToString($play->file->producers()->pluck('nick_name')->toArray()), Chart::arraysToString($play->file->genres()->pluck('name')->toArray()), $play->file->release_date, $play->file->img, $play->file->audio, $play->plays, $position, 0, 1, $country_id, $start);
             $entry->setDuration();

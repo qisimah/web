@@ -81,16 +81,16 @@ class PlayController extends Controller
         if (isset($request->status)){
             if ($request->status == 1 && strtolower($play['status']['msg']) == 'success' && $play['status']['code'] == 0){
                 if (isset($play['metadata']['custom_files'])){
-                    Play::savePlay([
+                    $saved = Play::create([
                         'stream_id'     => $request->stream_id,
                         'file_id'       => $play['metadata']['custom_files'][0]['audio_id'],
                         'created_at'    => $play['metadata']['timestamp_utc'],
                         'datatimestamp' => intval(strtotime(date('Y-m-d H:s:i')))
                     ]);
 
-                    $file           = File::where('q_id', $play['metadata']['custom_files'][0]['audio_id'])->first();
+                    $file           = File::where('q_id', $saved->file_id)->first();
                     $users          = $file->users()->pluck('users.id');
-                    $the_player     = Broadcaster::where('stream_id', $request->stream_id)->with('country')->first();
+                    $the_player     = $saved->broadcaster()->with('country')->first();
                     $the_singer     = $file->artist()->first();
                     $subscribers    = [];
 

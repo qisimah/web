@@ -15,7 +15,7 @@ class CreateBroadcastersTable extends Migration {
 		Schema::create('broadcasters', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('stream_id')->nullable()->unique('1');
+			$table->integer('stream_id')->nullable();
 			$table->string('name', 191);
 			$table->string('twitter_handle', 50)->nullable()->unique('broadcasters_twitter_handle_uindex');
 			$table->string('frequency', 191);
