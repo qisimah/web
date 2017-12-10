@@ -30,6 +30,7 @@ Route::get('chart', function(){
 
 Route::get('chart/top7', 'ChartController@top7');
 Route::get('chart/top24', 'ChartController@top24');
+Route::get('report/month', 'ReportController@month');
 
 Route::get('chart/top30', function(){
     return view('auth.top30');
