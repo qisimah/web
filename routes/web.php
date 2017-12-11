@@ -31,10 +31,11 @@ Route::get('chart', function(){
 Route::get('chart/top7', 'ChartController@top7');
 Route::get('chart/top24', 'ChartController@top24');
 Route::get('chart/top30', 'ChartController@top30');
-
 Route::get('halloffame', function(){
     return view('auth.halloffame');
 });
+
+Route::get('report/month', 'ReportController@month');
 
 Auth::routes();
 Route::get('/', 'UserController@index');
