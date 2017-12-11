@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="row text-center">
-                        <h3 class="widget-title"><a href="{{url('welcome')}}">
+                        <h3 class="widget-title"><a href="{{url('')}}">
                                 <button type="submit" class="btn btn-primary">Back to Website</button>
                             </a></h3>
                     </div>

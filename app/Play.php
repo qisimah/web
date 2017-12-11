@@ -14,10 +14,10 @@ class Play extends Model
     //
     public function file()
     {
-        return $this->belongsTo(File::class, null, 'q_id');
+        return $this->belongsTo(File::class, 'file_id', 'q_id');
     }
 
-    public function broadcasters()
+    public function broadcaster()
     {
         return $this->belongsTo(Broadcaster::class, 'stream_id', 'stream_id');
     }
@@ -248,8 +248,7 @@ class Play extends Model
 
     public static function savePlay($play)
     {
-        $played = Play::create($play);
-        return $played;
+        return Play::create($play);
     }
 
     public static function getBroadcasterPlays($synced = false)

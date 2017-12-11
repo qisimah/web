@@ -30,17 +30,15 @@ class Top7 implements ShouldQueue
         $this->country_id = $country_id;
     }
 
-    /**
-     * Execute the job.
-     *
-     *
+    /** Execute Job
+     * @return void
      */
     public function handle()
     {
         $entries = Chart::top7($this->country_id, $this->carbon);
+        \App\Top7::where('chart_date', $this->carbon->endOfWeek()->toDateString())->delete();
         foreach ($entries as $entry) {
             \App\Top7::create($entry);
         }
-        return Chart::top7($this->country_id, $this->carbon);
     }
 }

@@ -172,6 +172,8 @@ return [
 		Collective\Html\HtmlServiceProvider::class,
 
         Thujohn\Twitter\TwitterServiceProvider::class,
+        Way\Generators\GeneratorsServiceProvider::class,
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
 
         /*
          * Application Service Providers...

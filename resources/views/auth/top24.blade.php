@@ -82,7 +82,7 @@
 
                                             <div class="col-xs-4 text-center" style="padding-top: 20px">
                                                 <div>
-                                                    <p style="font-size: 1em">Chart Days</p>
+                                                    <p style="font-size: 1em">Chart {{$chart_unit}}</p>
                                                     <strong style="font-size: 2em">{{$entry['duration']}}</strong></div>
                                             </div>
                                             <div class="col-xs-4 text-center" style="padding-top: 20px">
