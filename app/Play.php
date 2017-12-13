@@ -100,9 +100,9 @@ class Play extends Model
     public static function songsPlayedToday()
     {
         if (Auth::user()->type <> 'admin'){
-            $songs = Play::whereIn('file_id', User::getUserFiles())->whereDate('created_at', Carbon::today()->toDateString())->with('broadcasters')->orderBy('created_at', 'desc')->limit(20)->get()->toArray();
+            $songs = Play::whereIn('file_id', User::getUserFiles())->whereDate('created_at', Carbon::today()->toDateString())->with('broadcaster')->orderBy('created_at', 'desc')->limit(20)->get()->toArray();
         } else {
-            $songs = Play::whereDate('created_at', Carbon::today()->toDateString())->with('broadcasters')->orderBy('created_at', 'desc')->limit(20)->get()->toArray();
+            $songs = Play::whereDate('created_at', Carbon::today()->toDateString())->with('broadcaster')->orderBy('created_at', 'desc')->limit(20)->get()->toArray();
         }
         $_plays = [];
         foreach ($songs as $item) {
@@ -113,7 +113,7 @@ class Play extends Model
                 $file = File::where('q_id', $item['file_id'])->with('artist')->first()->toArray();
                 $play['title']          = $file['title'];
                 $play['artist']         = array_merge([$file['artist']['nick_name']], File::find($file['id'])->artists()->pluck('nick_name')->toArray());
-                $play['broadcaster']    = $item['broadcasters']['name'].' - '.$item['broadcasters']['frequency'].' MHz, '.Broadcaster::find($item['broadcasters']['id'])->country()->first()->name;
+                $play['broadcaster']    = $item['broadcaster']['name'].' - '.$item['broadcaster']['frequency'].' MHz, '.Broadcaster::find($item['broadcaster']['id'])->country()->first()->name;
                 $play['created_at']     = $item['created_at'];
                 array_push($_plays, $play);
             }
@@ -142,7 +142,7 @@ class Play extends Model
         $all = [];
         if ($unsynced){
             Play::select(DB::raw('id, stream_id, file_id, count(file_id) as plays, datatimestamp, created_at'))
-                ->with('broadcasters')->whereDate('created_at', Carbon::today()->toDateString())
+                ->with('broadcaster')->whereDate('created_at', Carbon::today()->toDateString())
                 ->where('sync_today_count', 0)->groupBy('file_id')->orderBy('plays', 'desc')
                 ->chunk(20, function ($plays){
                     Play::handleCountDownToday($plays);
@@ -150,7 +150,7 @@ class Play extends Model
 
         } else {
             Play::select(DB::raw('id, stream_id, file_id, count(file_id) as plays, datatimestamp, created_at'))
-                ->with('broadcasters')->whereDate('created_at', Carbon::today()->toDateString())
+                ->with('broadcaster')->whereDate('created_at', Carbon::today()->toDateString())
                 ->groupBy('file_id')->orderBy('plays', 'desc')
                 ->chunk(20, function ($plays){
                     Play::handleCountDownToday($plays);
@@ -170,7 +170,7 @@ class Play extends Model
             $artists        = $_this['artists'];
             $producers      = $_this['producers'];
             $album          = $_this['album'];
-            $broadcaster    = $play['broadcasters'];
+            $broadcaster    = $play['broadcaster'];
 
             foreach ($artists as $artist) {
                 array_push($_this_artists, $artist['nick_name']);
@@ -339,7 +339,7 @@ class Play extends Model
     public static function getTodayPlays()
     {
         $plays = [];
-        foreach (Play::with('file', 'broadcasters')->whereDate('created_at', Carbon::parse(Carbon::today()->toDateString()))->orderBy('created_at', 'asc')->cursor() as $play) {
+        foreach (Play::with('file', 'broadcaster')->whereDate('created_at', Carbon::parse(Carbon::today()->toDateString()))->orderBy('created_at', 'asc')->cursor() as $play) {
             $rows = File::where('q_id', $play->file->q_id)->first()->artists;
             $artists = [];
             foreach ($rows as $row) {
@@ -348,7 +348,7 @@ class Play extends Model
 
             array_push($plays, [
                 'title' => $play->file->title,
-                'broadcaster' => $play->broadcasters->name,
+                'broadcaster' => $play->broadcaster->name,
                 'artists' => $artists,
                 'played_at' => Carbon::parse($play->created_at)->diffForHumans()
             ]);
@@ -370,7 +370,7 @@ class Play extends Model
             });
 
             if ($isRange){
-                Play::whereIn('file_id', $_files)->with('file', 'broadcasters')
+                Play::whereIn('file_id', $_files)->with('file', 'broadcaster')
                     ->where('datatimestamp', '>=', Carbon::parse($start)->timestamp)
                     ->where('datatimestamp', '<=', Carbon::parse($end)->addDay()->timestamp)
                     ->orderBy('created_at', 'desc')->chunk(500, function ($plays) use ($_plays) {
@@ -380,7 +380,7 @@ class Play extends Model
                 return $_plays;
             }
 
-            Play::whereIn('file_id', $_files)->with('file', 'broadcasters')->whereDate('created_at', $start)->orderBy('created_at', 'desc')->chunk(500, function ($plays) use ($_plays) {
+            Play::whereIn('file_id', $_files)->with('file', 'broadcaster')->whereDate('created_at', $start)->orderBy('created_at', 'desc')->chunk(500, function ($plays) use ($_plays) {
                 Play::handleGetPlays($plays, $_plays);
             });
 
@@ -388,7 +388,7 @@ class Play extends Model
         }
 
         if ($isRange){
-            Play::with('file', 'broadcasters')
+            Play::with('file', 'broadcaster')
                 ->where('datatimestamp', '>=', Carbon::parse($start)->timestamp)
                 ->where('datatimestamp', '<=', Carbon::parse($end)->addDay()->timestamp)
                 ->orderBy('created_at', 'desc')
@@ -399,7 +399,7 @@ class Play extends Model
             return $_plays;
         }
 
-        Play::with('file', 'broadcasters')->whereDate('created_at', $start)->orderBy('created_at', 'desc')->chunk(500, function ($plays) use ($_plays) {
+        Play::with('file', 'broadcaster')->whereDate('created_at', $start)->orderBy('created_at', 'desc')->chunk(500, function ($plays) use ($_plays) {
             Play::handleGetPlays($plays, $_plays);
         });
 
@@ -420,7 +420,7 @@ class Play extends Model
             $_plays->push([
                 'title'         =>  $play->file->title,
                 'artists'       =>  $_artists,
-                'broadcaster'   =>  $play->broadcasters->name,
+                'broadcaster'   =>  $play->broadcaster->name,
                 'played_at'     =>  $play->created_at->toDateTimeString()
             ]);
         }
@@ -434,11 +434,11 @@ class Play extends Model
 
 //        return Play::select(DB::raw('count(*) as plays, stream_id'))->with('broadcasters')->where('file_id', $file_id)->groupBy('stream_id')->orderBy('plays', 'desc')->get();
 
-        Play::select(DB::raw('count(*) as plays, stream_id'))->with('broadcasters')->where('file_id', $file_id)->groupBy('stream_id')->orderBy('plays', 'desc')->chunk(500, function ($plays) use ($_regions, $_total){
+        Play::select(DB::raw('count(*) as plays, stream_id'))->with('broadcaster')->where('file_id', $file_id)->groupBy('stream_id')->orderBy('plays', 'desc')->chunk(500, function ($plays) use ($_regions, $_total){
             foreach ($plays as $play) {
                 $_total += (int)$play->plays;
                 foreach ($_regions as $region) {
-                    if ($region->id == $play->broadcasters->region_id){
+                    if ($region->id == $play->broadcaster->region_id){
                         $region->plays += (int)$play->plays;
                     }
                 }
