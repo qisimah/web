@@ -11,10 +11,6 @@ class Report extends Model
     public static function getReportMonthly()
     {
         $months = self::getMonths();
-//        foreach ($months as $month) {
-//            $plays[] = [substr($month[0], 0, 7), Play::whereBetween('created_at', [$month[0], $month[1]])->count()];
-//        }
-//        return $plays;
 
         if (Auth::user()['type'] === 'admin' && (in_array(Auth::user()['role'], ['master', 'seer']))){
             foreach ($months as $month) {
@@ -97,7 +93,7 @@ class Report extends Model
         $broadcasters = Play::selectRaw('stream_id, count(*) as plays')->with('broadcaster')->groupBy('stream_id')->orderBy('plays', 'desc')->limit(5)->get();
         foreach ($broadcasters as $broadcaster) {
             $labels[] = $broadcaster->broadcaster->name;
-            $plays[] =  $broadcaster->plays;
+            $plays[]  = $broadcaster->plays;
         }
         return [$labels, $plays];
     }
