@@ -84,6 +84,7 @@ class User extends Authenticatable
 
     public static function getUserFiles()
     {
+        return File::where('user_id', Auth::id())->pluck('q_id');
         return User::find(Auth::id())->files()->pluck('q_id');
 	}
 }

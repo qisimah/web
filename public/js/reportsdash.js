@@ -7,6 +7,7 @@ $(document).ready(function () {
             color: $("#inputBackgroundEvent").val()
         }, !0)
     }
+
     // toastr.options = {
     //     closeButton: !0,
     //     progressBar: !0,
@@ -134,7 +135,7 @@ $(document).ready(function () {
             name: "São Tomé and Príncipe",
             earnings: "150"
         }];
-    
+
     var n = [
             [0, 57],
             [1, 58],
@@ -289,8 +290,7 @@ $(document).ready(function () {
             [10, "Nov"],
             [11, "Dec"]
         ],
-        h = [{
-        }, {
+        h = [{}, {
             data: d,
             color: "#0667D6",
             lines: {
@@ -361,119 +361,57 @@ $(document).ready(function () {
             }
         };
 
-    Morris.Donut({
-        element: "region-share",
-        data: [{
-            label: "Accra",
-            value: 40
-        }, {
-            label: "Ashanti Region",
-            value: 32
-        }, {
-            label: "Northern Region",
-            value: 3
-        }, {
-            label: "Brong Ahafo",
-            value: 10
-        }, {
-            label: "Central Region",
-            value: 15
-        }],
-        resize: !0,
-        colors: ["#1F364F", "#0667D6", "#9a9a9a", "#8E23E0", "#E6E6E6"],
-        formatter: function (e) {
-            return e + "%"
-        }
-    });
+    $.ajax({
+        url: 'monthly',
+        success: function (data) {
+            var e = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            Morris.Line({
+                element: "linechart",
+                data: data[0],
+                xkey: "date",
+                ykeys: ["plys"],
+                labels: ["Total Plays"],
+                hideHover: "auto",
+                lineColors: ["#1F364F"],
+                behaveLikeLine: !0,
+                lineWidth: 2,
+                pointSize: 4,
+                gridLineColor: "#f1f1f1",
+                gridTextColor: "#9a9a9a",
+                gridTextSize: 11,
+                gridTextFamily: "'Poppins', sans-serif",
+                resize: !0,
+                xLabels: "month",
+                xLabelFormat: function (a) {
+                    return e[a.getMonth()]
+                },
+                dateFormat: function (a) {
+                    return e[new Date(a).getMonth()]
+                }
+            });
 
-    var e = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    Morris.Line({
-        element: "linechart",
-        data: [{
-            date: "2015-01",
-            plys: 145
-        }, {
-            date: "2015-02",
-            plys: 135
-        }, {
-            date: "2015-03",
-            plys: 135
-        }, {
-            date: "2015-04",
-            plys: 234
-        }, {
-            date: "2015-05",
-            plys: 431
-        }, {
-            date: "2015-06",
-            plys: 223
-        }, {
-            date: "2015-07",
-            plys: 523
-        }, {
-            date: "2015-08",
-            plys: 124
-        }, {
-            date: "2015-09",
-            plys: 332
-        }, {
-            date: "2015-10",
-            plys: 234
-        }, {
-            date: "2015-11",
-            plys: 321
-        }, {
-            date: "2015-12",
-            plys: 321
-        }],
-        xkey: "date",
-        ykeys: ["plys"],
-        labels: ["Total Plays"],
-        hideHover: "auto",
-        lineColors: ["#1F364F"],
-        behaveLikeLine: !0,
-        lineWidth: 2,
-        pointSize: 4,
-        gridLineColor: "#f1f1f1",
-        gridTextColor: "#9a9a9a",
-        gridTextSize: 11,
-        gridTextFamily: "'Poppins', sans-serif",
-        resize: !0,
-        xLabels: "month",
-        xLabelFormat: function (a) {
-            return e[a.getMonth()]
-        },
-        dateFormat: function (a) {
-            return e[new Date(a).getMonth()]
-        }
-    });
+            Morris.Donut({
+                element: "region-share",
+                data: data[1],
+                resize: !0,
+                colors: ["#1F364F", "#0667D6", "#9a9a9a", "#8E23E0", "#E6E6E6"],
+                formatter: function (e) {
+                    return e + "%"
+                }
+            });
 
-    new Chartist.Bar("#bar-horizontal", {
-        labels: ["Zylofone fm", "Y 107.9 fm", "Live 91.9 fm", "Joy 99.7 fm", "citi 97.3 fm"],
-        series: [
-            [3, 7, 5, 10, 3],
-            [9, 5, 4, 6, 4]
-        ]
-        }, {
-            seriesBarDistance: 10,
-            reverseData: !0,
-            horizontalBars: !0,
-            axisY: {
-                offset: 70
-            }
-        });
+            var c = 1;
+            var r = '';
+            $.each(data[2], function (i, v) {
+                r += '<tr><td>' + c + '</td><td>' + i + '</td><td>' + v + '</td></tr>';
+                c++;
+            });
+            $('#top-5-broadcaster').html(r);
 
-
-        new Chartist.Bar("#bar-extreme-responsive", {
-            labels: ["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"],
-            series: [
-                [5, 4, 3, 7],
-                [3, 2, 9, 5],
-                [1, 5, 8, 4],
-                [2, 3, 4, 6],
-                [4, 1, 2, 1]
-            ]
-        }, {
+            new Chartist.Bar("#bar-extreme-responsive", {
+                labels: data[3][0],
+                series: data[3][1]
+            }, {
                 stackBars: !0,
                 axisX: {
                     labelInterpolationFnc: function (e) {
@@ -507,37 +445,34 @@ $(document).ready(function () {
                 }]
             ]);
 
-
-    $("#world-map").vectorMap({
-        map: "world_mill",
-        backgroundColor: "rgba(0,0,0,0)",
-        zoomOnScroll: !1,
-        regionStyle: {
-            initial: {
-                fill: "#1F364F"
-            }
-        },
-        markers: a,
-        markerStyle: {
-            initial: {
-                fill: "#E5343D",
-                stroke: "#E5343D",
-                "fill-opacity": 1,
-                "stroke-width": 10,
-                "stroke-opacity": .2,
-                r: 5
-            },
-            hover: {
-                stroke: "#1F364F",
-                "stroke-width": 2,
-                cursor: "pointer"
-            }
-        },
-        onRegionTipShow: function (e, a, n) {
-            t.hasOwnProperty(n) && a.html(a.html() + " ($" + t[n] + ")")
-        },
-        onMarkerTipShow: function (e, t, n) {
-            t.html(t.html() + " ($" + a[n].earnings + ")")
+            new Chartist.Bar("#bar-horizontal", {
+                labels: data[4][0],
+                series: [
+                    data[4][1]
+                ]
+            }, {
+                seriesBarDistance: 10,
+                reverseData: !0,
+                horizontalBars: !0,
+                axisY: {
+                    offset: 70
+                }
+            });
         }
     });
+
+
+    // new Chartist.Bar("#bar-horizontal", {
+    //     labels: ["Zylofone fm", "Y 107.9 fm", "Live 91.9 fm", "Joy 99.7 fm", "citi 97.3 fm"],
+    //     series: [
+    //         [3, 7, 5, 10, 3]
+    //     ]
+    // }, {
+    //     seriesBarDistance: 10,
+    //     reverseData: !0,
+    //     horizontalBars: !0,
+    //     axisY: {
+    //         offset: 70
+    //     }
+    // });
 });

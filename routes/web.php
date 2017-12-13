@@ -35,7 +35,8 @@ Route::get('halloffame', function(){
     return view('auth.halloffame');
 });
 
-Route::get('report/month', 'ReportController@month');
+Route::get('report/summary', 'ReportController@month');
+Route::get('report/monthly', 'ReportController@getMonthlyReport');
 
 Auth::routes();
 Route::get('/', 'UserController@index');
