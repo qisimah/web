@@ -6,14 +6,16 @@
     <div class="page-content container-fluid">
 
         <div class="row">
-            <h3 class="widget-title">Monthly Plays</h3>
-            <div class="col-lg-8" id="linechart" style="height: 494px">
-                {{--<div style="display: flex; justify-content: center">--}}
-                {{--<i class="fa fa-spinner"></i> generating graph, please relax!--}}
-                {{--</div>--}}
+            <div class="col-xs-12 col-lg-8">
+                <h3 class="widget-title">Monthly Plays</h3>
+                <div id="linechart" style="height: 494px">
+                    {{--<div style="display: flex; justify-content: center">--}}
+                    {{--<i class="fa fa-spinner"></i> generating graph, please relax!--}}
+                    {{--</div>--}}
+                </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-xs-12 col-lg-4">
                 <h3 class="widget-title text-center">Regional plays</h3>
                 <div id="region-share" style="height: 224px"></div>
                 <div class="table-responsive">
