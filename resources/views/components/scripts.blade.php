@@ -2,7 +2,10 @@
 
 <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
 
-        <!-- Jvector Map-->
+<!-- loader-->
+<script type="text/javascript" src="{{asset('plugins/loader/loader.js')}}"></script>
+
+<!-- Jvector Map-->
 <script type="text/javascript" src="{{asset('plugins/jvectormap/jquery-jvectormap-2.0.3.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/jvectormap/maps/jquery-jvectormap-world-mill.js')}}"></script>
   <!-- Morris Chart-->
