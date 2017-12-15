@@ -38,18 +38,27 @@
             </div>
         </div>
 
+                <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="widget-title text-center">Country Detections</h3>
+                <div id="regions_div" style="height: 495px;"></div>
+            </div>
+
+
+        </div>
+
         <div class="row">
             <br>
             <br>
             <div class="col-lg-6">
                 <h3 class="widget-title text-center">Top 5 most played / Quarter</h3>
-                <div id="bar-extreme-responsive" style="height: 295px" class="mb-30"></div>
+                <div id="columnchart_material" style="height: 295px;" class="mb-30"></div>
             </div>
 
             <div class="col-lg-6">
                 <h3 class="widget-title text-center">Top 5 Radio Stations</h3>
-
-                <div id="bar-horizontal" style="height: 295px" class="mb-30"></div>
+                <div id="chart_div" style="height: 295px;" class="mb-30"></div>
             </div>
         </div>
 
@@ -269,15 +278,5 @@
                 {{--</div>--}}
             {{--</div>--}}
         {{--</div>--}}
-
-        <div class="row">
-
-            {{--<div class="col-lg-12">--}}
-                {{--<h3 class="widget-title text-center">Country Detections</h3>--}}
-                {{--<div id="world-map" style="height: 495px" class="mb-30"></div>--}}
-            {{--</div>--}}
-
-
-        </div>
     </div>
 @endsection
