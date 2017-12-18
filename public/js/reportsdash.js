@@ -1,4 +1,13 @@
 $(document).ready(function () {
+    //Country Detection Map
+
+    google.charts.load('current', {
+        'packages': ['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyBrYo1uJGbRU2uR6sHiko8x0zrUJazKzGM'
+    });
+
     function e() {
         $("#addNewEvent").modal("hide"), $("#fullcalendar").fullCalendar("renderEvent", {
             title: $("#inputTitleEvent").val(),
@@ -405,129 +414,100 @@ $(document).ready(function () {
             $.each(data[2], function (i, v) {
                 r += '<tr><td>' + c + '</td><td>' + i + '</td><td>' + v + '</td></tr>';
                 c++;
-            }); new Chartist.Bar("#bar-horizontal", {
-                labels: data[4][0],
-                series: [
-                    data[4][1]
-                ]
-            }, {
-                seriesBarDistance: 10,
-                reverseData: !0,
-                horizontalBars: !0,
-                axisY: {
-                    offset: 70
-                }
             });
+
+            $('#top-5-broadcaster').html(r);
+            google.charts.setOnLoadCallback(drawChart(data[3]));
+            google.charts.setOnLoadCallback(drawBasic(data[4]));
+            google.charts.setOnLoadCallback(drawRegionsMap(data[5]));
         }
     });
 
+    function drawRegionsMap(graph_data) {
+        // Data Structure
+        // [
+        //     ['Country', 'Plays'],
+        //     ['Egypt', 200],
+        //     ['Kenya', 500],
+        //     ['Nigeria', 300],
+        //     ['South Africa', 400],
+        //     ['Ghana', 700]
+        // ]
+        var data = google.visualization.arrayToDataTable(graph_data);
 
-    // new Chartist.Bar("#bar-horizontal", {
-    //     labels: ["Zylofone fm", "Y 107.9 fm", "Live 91.9 fm", "Joy 99.7 fm", "citi 97.3 fm"],
-    //     series: [
-    //         [3, 7, 5, 10, 3]
-    //     ]
-    // }, {
-    //     seriesBarDistance: 10,
-    //     reverseData: !0,
-    //     horizontalBars: !0,
-    //     axisY: {
-    //         offset: 70
-    //     }
-    // });
-});
+        var options = {
+            colors: ['#ecf5ff', '#055bbd']
+        };
 
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
-//Country Detection Map
-
-google.charts.load('current', {
-    'packages': ['geochart'],
-    // Note: you will need to get a mapsApiKey for your project.
-    // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-    'mapsApiKey': 'AIzaSyBrYo1uJGbRU2uR6sHiko8x0zrUJazKzGM'
-});
-google.charts.setOnLoadCallback(drawRegionsMap);
-
-function drawRegionsMap() {
-    var data = google.visualization.arrayToDataTable([
-        ['Country', 'Plays'],
-        ['Egypt', 200],
-        ['Kenya', 500],
-        ['Nigeria', 300],
-        ['South Africa', 400],
-        ['Ghana', 700]
-    ]);
-
-    var options = {
-        colors: ['#ecf5ff', '#055bbd']
-    };
-
-    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-    chart.draw(data, options);
-}
+        chart.draw(data, options);
+    }
 
 
 
 //Top 5 songs Bar chart
 
-google.charts.load('current', {
-    'packages': ['bar']
-});
-google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {
+        'packages': ['bar']
+    });
 
-function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ['Songs', 'Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
-        ['Fall', 1000, 400, 200, 600],
-        ['Sponsor', 1170, 460, 250, 400],
-        ['Bronya', 660, 1120, 300, 300],
-        ['Odo', 1030, 540, 350, 500],
-        ['Mad Over You', 1030, 540, 350, 700],
-    ]);
+    function drawChart(graph_data) {
+        // Data Structure
+        // [
+        //     ['Songs', 'Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+        //     ['Fall', 1000, 400, 200, 600],
+        //     ['Sponsor', 1170, 460, 250, 400],
+        //     ['Bronya', 660, 1120, 300, 300],
+        //     ['Odo', 1030, 540, 350, 500],
+        //     ['Mad Over You', 1030, 540, 350, 700]
+        // ]
+        var data = google.visualization.arrayToDataTable(graph_data);
+        var options = {
+            colors: ['#0667D6', '#1f364f', '#17A88B', '#8E23E0']
+        };
 
-    var options = {
-        colors: ['#0667D6', '#1f364f', '#17A88B', '#8E23E0'],
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
-
-    };
-
-    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-    chart.draw(data, google.charts.Bar.convertOptions(options));
-}
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
 
 
 //Top 5 Radio Stations bar charts
-google.charts.load('current', {
-    packages: ['corechart', 'bar']
+    google.charts.load('current', {
+        packages: ['corechart', 'bar']
+    });
+
+
+
+    function drawBasic(graph_data) {
+
+        // Data structure
+        // var graph_data = [
+        //     ['Radio Station', 'Plays'],
+        //     ['Zylofone fm, Ghana', 8175000],
+        //     ['Y 107.9 fm, Ghana', 3792000],
+        //     ['Live 91.9 fm, Ghana', 2695000],
+        //     ['Joy 99.7 fm, Ghana', 2099000],
+        //     ['citi 97.3 fm, Kenya', 1526000]
+        // ];
+
+        var data = google.visualization.arrayToDataTable(graph_data);
+
+        var options = {
+            colors: ['#0667D6'],
+            hAxis: {
+                title: 'Plays',
+                minValue: 0
+            },
+            vAxis: {
+                title: 'Radio Stations'
+            }
+
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+    }
 });
-google.charts.setOnLoadCallback(drawBasic);
-
-function drawBasic() {
-
-    var data = google.visualization.arrayToDataTable([
-        ['Radio Station', 'Plays', ],
-        ['Zylofone fm, Ghana', 8175000],
-        ['Y 107.9 fm, Ghana', 3792000],
-        ['Live 91.9 fm, Ghana', 2695000],
-        ['Joy 99.7 fm, Ghana', 2099000],
-        ['citi 97.3 fm, Kenya', 1526000]
-    ]);
-
-    var options = {
-        colors: ['#0667D6'],
-        hAxis: {
-            title: 'Plays',
-            minValue: 0
-        },
-        vAxis: {
-            title: 'Radio Stations'
-        }
-
-    };
-
-    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-
-    chart.draw(data, options);
-}

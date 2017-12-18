@@ -26,7 +26,8 @@ class ReportController extends Controller
             Report::getTopBroadcastersInRegions(1),
             Report::rankBroadcasters(Broadcaster::getBroadcastersInRegions(1)),
             Report::top5PlaysForQuarter(),
-            Report::top5Broadcasters()
+            Report::top5Broadcasters(),
+            Report::getCountryPlays()
         ];
     }
 }

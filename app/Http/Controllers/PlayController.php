@@ -88,7 +88,7 @@ class PlayController extends Controller
                         'datatimestamp' => intval(strtotime(date('Y-m-d H:s:i')))
                     ]);
 
-                    $file           = File::where('q_id', $saved->file_id)->first();
+                    $file           = File::where('q_id', $play['metadata']['custom_files'][0]['audio_id'])->first();
                     $users          = $file->users()->pluck('users.id');
                     $the_player     = $saved->broadcaster()->with('country')->first();
                     $the_singer     = $file->artist()->first();

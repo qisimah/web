@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Report extends Model
 {
@@ -70,32 +71,51 @@ class Report extends Model
         }
 
         $quarters = self::getQuarter();
-        $plays = [];
-        $labels = [];
-        foreach ($file_ids as $file_id) {
-            $labels[] = File::where('q_id', $file_id)->first()->title;
-        }
+        $plays = [
+            ['Songs', 'Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']
+        ];
 
-        foreach ($quarters as $quarter) {
-            foreach ($file_ids as $file_id) {
-                $_plays[] = Play::where('file_id', $file_id)->whereBetween('created_at', $quarter)->count();
+        foreach ($file_ids as $file_id) {
+            $song[] = File::where('q_id', $file_id)->first()->title;
+            foreach ($quarters as $quarter) {
+                $song[] = Play::where('file_id', $file_id)->whereBetween('created_at', $quarter)->count();
             }
-            array_push($plays, $_plays);
-            $_plays = [];
+            array_push($plays, $song);
+            $song = [];
         }
-        return [$labels, $plays];
+        return $plays;
     }
 
     public static function top5Broadcasters()
     {
-        $labels = [];
-        $plays  = [];
+        $plays  = [
+            ['Radio Station', 'Plays']
+        ];
         $broadcasters = Play::selectRaw('stream_id, count(*) as plays')->with('broadcaster')->groupBy('stream_id')->orderBy('plays', 'desc')->limit(5)->get();
         foreach ($broadcasters as $broadcaster) {
-            $labels[] = $broadcaster->broadcaster->name;
-            $plays[]  = $broadcaster->plays;
+            $plays[]  = [$broadcaster->broadcaster->name.' '.$broadcaster->broadcaster->frequency.', '.$broadcaster->broadcaster->country()->first()->name, $broadcaster->plays];
         }
-        return [$labels, $plays];
+        return $plays;
+    }
+
+    public static function getCountryPlays(Carbon $carbon = null)
+    {
+        if (is_null($carbon)){
+            $carbon = Carbon::today();
+        }
+
+        $country_plays[] = ['Country', 'Plays'];
+        if (Auth::user()->type === 'admin' && ( Auth::user()->role === 'master' || Auth::user()->role === 'seer' ) ) {
+            $countries = DB::table('broadcaster_country_plays')->selectRaw('count(*) as Plays, country_name as Country')->groupBy('Country')->get();
+        } else {
+            $countries = DB::table('broadcaster_country_plays')->selectRaw('count(*) as Plays, country_name as Country')->whereIn('play_file_id', User::getUserFiles())->groupBy('Country')->get();
+        }
+
+        foreach ($countries as $country) {
+            $country_plays[] = [$country->Country, $country->Plays];
+        }
+
+        return $country_plays;
     }
 
     public static function getQuarter()

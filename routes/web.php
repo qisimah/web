@@ -71,7 +71,6 @@ Route::resource('file', 'FileController');
 Route::get('/play/today', 'PlayController@playsToday');
 Route::get('/play/broadcaster', 'PlayController@playsOfBroadcaster');
 Route::get('/play/broadcaster/{stream_id}/{date}', 'PlayController@getPlaysOfBroadcaster');
-Route::get('/play/content', 'PlayController@playsOfContent');
 Route::get('/play/content/{detection_id}/{date}', 'PlayController@getPlaysOfContent');
 Route::get('/play/{day}', 'PlayController@getPlays');
 Route::get('/admin/create', 'AdminController@create');
