@@ -24,13 +24,10 @@ class BroadcasterController extends Controller
      */
     public function index()
     {
-    	$stations = Auth::user()->listening()->get()->toArray();
-    	$listening = [];
-    	foreach ($stations as $station){
-    		array_push($listening, $station['pivot']['broadcaster_id']);
-		}
-//		return [$listening, 'broadcasters' => Broadcaster::whereNotIn('id', $listening)->get()->toArray()];
-        return view('pages.broadcaster', ['user' => Auth::user()->toArray(), 'listening' => $stations, 'listen' => Broadcaster::whereNotIn('id', $listening)->get()->toArray()]);
+    	$listening      = Auth::user()->listening()->with('country')->get();
+    	$broadcasters   = Broadcaster::whereNotIn('id', $listening)->with('country')->orderBy('name', 'asc')->paginate(20);
+    	$user           = Auth::user();
+        return view('pages.broadcaster', compact('user', 'broadcasters', 'listening'));
     }
 
     /**
