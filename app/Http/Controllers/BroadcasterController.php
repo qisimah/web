@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Broadcaster;
+use App\Country;
 use App\File;
+use App\Region;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -37,7 +39,7 @@ class BroadcasterController extends Controller
      */
     public function create()
     {
-        return view('pages.createbroadcaster', ['user' => Auth::user()->toArray()]);
+        return view('pages.createbroadcaster', ['countries' => Country::all(), 'regions' => [], 'user' => Auth::user()->toArray()]);
     }
 
 	public function select()
@@ -99,8 +101,7 @@ class BroadcasterController extends Controller
      */
     public function edit(Broadcaster $broadcaster)
     {
-        //
-		return view('pages.updatebroadcaster', ['broadcaster' => $broadcaster, 'user' => Auth::user()]);
+		return view('pages.updatebroadcaster', ['broadcaster' => $broadcaster, 'countries' => Country::all(), 'regions' => [], 'user' => Auth::user()]);
     }
 
     /**

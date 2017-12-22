@@ -29,14 +29,24 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('country', 'Country:') !!}
-            {!! Form::text('country', null, ['class' => 'form-control']) !!}
+            <label for="broadcaster-country">Country: </label>
+            <select name="country" id="broadcaster-country" class="form-control">
+                <option value="" disabled selected>Select Country</option>
+                @foreach($countries as $country)
+                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('city', 'City:') !!}
-            {!! Form::text('city', null, ['class' => 'form-control']) !!}
+            <label for="broadcaster-country">Region: </label>
+            <select name="region" id="broadcaster-region" class="form-control">
+                <option value="" disabled selected>Select Region</option>
+                @foreach($regions as $region)
+                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>
@@ -49,8 +59,8 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('phone', 'Phone:') !!}
-            {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+            {!! Form::label('city', 'City:') !!}
+            {!! Form::text('city', null, ['class' => 'form-control']) !!}
         </div>
     </div>
 </div>
