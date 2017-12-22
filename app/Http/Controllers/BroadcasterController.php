@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Broadcaster;
+use App\Country;
 use App\File;
+use App\Region;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -24,13 +26,10 @@ class BroadcasterController extends Controller
      */
     public function index()
     {
-    	$stations = Auth::user()->listening()->get()->toArray();
-    	$listening = [];
-    	foreach ($stations as $station){
-    		array_push($listening, $station['pivot']['broadcaster_id']);
-		}
-//		return [$listening, 'broadcasters' => Broadcaster::whereNotIn('id', $listening)->get()->toArray()];
-        return view('pages.broadcaster', ['user' => Auth::user()->toArray(), 'listening' => $stations, 'listen' => Broadcaster::whereNotIn('id', $listening)->get()->toArray()]);
+    	$listening      = Auth::user()->listening()->with('country')->get();
+    	$broadcasters   = Broadcaster::whereNotIn('id', $listening)->with('country')->orderBy('name', 'asc')->paginate(20);
+    	$user           = Auth::user();
+        return view('pages.broadcaster', compact('user', 'broadcasters', 'listening'));
     }
 
     /**
@@ -40,7 +39,7 @@ class BroadcasterController extends Controller
      */
     public function create()
     {
-        return view('pages.createbroadcaster', ['user' => Auth::user()->toArray()]);
+        return view('pages.createbroadcaster', ['countries' => Country::all(), 'regions' => [], 'user' => Auth::user()->toArray()]);
     }
 
 	public function select()
@@ -102,8 +101,7 @@ class BroadcasterController extends Controller
      */
     public function edit(Broadcaster $broadcaster)
     {
-        //
-		return view('pages.updatebroadcaster', ['broadcaster' => $broadcaster, 'user' => Auth::user()]);
+		return view('pages.updatebroadcaster', ['broadcaster' => $broadcaster, 'countries' => Country::all(), 'regions' => [], 'user' => Auth::user()]);
     }
 
     /**
