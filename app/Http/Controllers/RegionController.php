@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Play;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RegionController extends Controller
@@ -12,9 +13,9 @@ class RegionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($country_id, $file_id)
+    public function index($country_id, $file_id, $start, $end)
     {
-        return Play::getRegionalPlays($country_id, $file_id);
+        return Play::getRegionalPlays($country_id, $file_id, Carbon::parse($start), Carbon::parse($end));
     }
 
     /**

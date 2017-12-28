@@ -304,7 +304,6 @@ class PlayController extends Controller
                 'artists'   =>  Artist::select('id', 'nick_name')->orderBy('nick_name')->get()
             ];
         } else if ($user->type === 'record-label'){
-
 		    $data = [
 		        'user'      =>  $user,
                 'artists'   =>  $user->artists()->select('artists.id', 'nick_name')->orderBy('nick_name')->get()
@@ -360,8 +359,8 @@ class PlayController extends Controller
 	{
 	    $isRange = Carbon::parse($start)->diffInDays(Carbon::parse($end));
 	    if ($isRange){
-	        return File::where('q_id', $file_id)->first()->plays()->where('datatimestamp', '>=', Carbon::parse($start)->timestamp)->where('datatimestamp', '<=', Carbon::parse($end)->addDay()->timestamp)->with('broadcasters')->get();
+	        return File::where('q_id', $file_id)->first()->plays()->where('datatimestamp', '>=', Carbon::parse($start)->timestamp)->where('datatimestamp', '<=', Carbon::parse($end)->addDay()->timestamp)->with('broadcaster')->get();
         }
-		return File::where('q_id', $file_id)->first()->plays()->whereDate('created_at', $start)->with('broadcasters')->get();
+		return File::where('q_id', $file_id)->first()->plays()->whereDate('created_at', $start)->with('broadcaster')->get();
 	}
 }
