@@ -37,6 +37,9 @@ Route::get('halloffame', function(){
 
 Route::get('report/summary', 'ReportController@month');
 Route::get('report/monthly', 'ReportController@getMonthlyReport');
+Route::get('report/plays/{file_id}/{start}/{end}', 'ReportController@content');
+Route::get('report/heat-map/{file_id}/{start}/{end}', 'ReportController@heatMap');
+Route::post('report/content', 'ReportController@fetchContentPlays');
 
 Auth::routes();
 Route::get('/', 'UserController@index');
@@ -50,7 +53,7 @@ Route::post('/file/create/{type}', function ($type, Request $request){
     return FileController::store($type, $request);
 });
 
-Route::get('play/region/coordinates/{country_id}/{file_id}', 'RegionController@index');
+Route::get('plays/regions/{country_id}/{file_id}/{start}/{end}', 'RegionController@index');
 Route::resource('file', 'FileController');
 Route::get('/country/region/{country_id}', 'CountryController@countryRegions');
 Route::resource('country', 'CountryController');

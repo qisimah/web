@@ -135,4 +135,19 @@ class Report extends Model
             ]
         ];
     }
+
+    public static function getHeatMapData($country_id = null, $file_id, $start = null, $end = null)
+    {
+        $start_date = Carbon::parse($start);
+        $end_date = Carbon::parse($end);
+        $plays = [];
+
+        return $plays = Play::select(DB::raw('count(*) as plays, stream_id'))->with(['broadcaster.region' => function($query) use ($country_id) {
+            $query->where('country_id', $country_id)->get(['lat', 'lng']);
+        }])->where('file_id', $file_id)->whereBetween('created_at', [Carbon::parse('2017-12-01')->toDateString(), Carbon::today()])->get();
+
+//        if ($start_date->eq($end_date)){
+//            $plays = Play::select(DB::raw('count(*) as plays, stream_id')->with('broadcaster.region'))->where('file_id', $file_id)->whereBetween('created_at', [Carbon::parse('2017-1201')->toDateString(), Carbon::today()])->get();
+//        }
+    }
 }
