@@ -15,16 +15,20 @@ $(document).ready(function () {
     $('#add-broadcaster').on('click', function (e) {
         e.preventDefault();
         axiosrequest.get('/country').then(function (response) {
+            const selCountry = $('#selCountry');
+            selCountry.empty();
             $.each(response.data, function (i, v) {
-                $('#selCountry').append('<option value="'+v.id+'">'+v.name+'</option>');
-                $('#selCountry').trigger('chosen:updated');
+                selCountry.append('<option value="'+v.id+'">'+v.name+'</option>');
+                selCountry.trigger('chosen:updated');
             })
         });
 
         axiosrequest.get('/tag').then(function (response) {
+            const selTags = $('#selTags');
+            selTags.empty();
             $.each(response.data, function (i, v) {
-                $('#selTags').append('<option value="'+v.id+'">'+v.name+'</option>');
-                $('#selTags').trigger('chosen:updated');
+                selTags.append('<option value="'+v.id+'">'+v.name+'</option>');
+                selTags.trigger('chosen:updated');
             })
         });
 
@@ -35,7 +39,6 @@ $(document).ready(function () {
             const uploadImg     = document.getElementById('txtLogo');
             if ( uploadImg.files.length ){
                 const btnSaveBroadcaster = $('#btnSaveBroadcaster');
-                const txtLogo   = $('#txtLogo');
                 const dvUploadLogo   = $('#dvUploadLogo');
                 const f_storage_id  = Math.floor(Date.now()/1000);
                 const imageStore    = firebase.storage().ref('/images/'+f_storage_id).put(uploadImg.files[0]);
@@ -69,7 +72,7 @@ $(document).ready(function () {
         });
 
         $('#frmSaveBroadcaster').validate({
-            submitHandler: function(form){
+            submitHandler: function(){
                 const $this_text        = $('#btnSaveBroadcaster');
                 const dvUploadLogo      = $('#dvUploadLogo');
                 const broadcaster       = {};
@@ -114,9 +117,11 @@ $(document).ready(function () {
 
     $('#selCountry').on('change', function () {
        axiosrequest.get('/country/region/'+$(this).val()).then(function (response) {
+           const selRegion = $('#selRegion');
+           selRegion.empty();
            $.each(response.data, function (i, v) {
-               $('#selRegion').append('<option value="'+v.id+'">'+v.name+'</option>');
-               $('#selRegion').trigger('chosen:updated');
+               selRegion.append('<option value="'+v.id+'">'+v.name+'</option>');
+               selRegion.trigger('chosen:updated');
            });
        });
     });

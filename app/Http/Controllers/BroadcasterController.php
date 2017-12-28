@@ -6,6 +6,7 @@ use App\Broadcaster;
 use App\Country;
 use App\File;
 use App\Region;
+use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -101,7 +102,7 @@ class BroadcasterController extends Controller
      */
     public function edit(Broadcaster $broadcaster)
     {
-		return view('pages.updatebroadcaster', ['broadcaster' => $broadcaster, 'countries' => Country::all(), 'regions' => [], 'user' => Auth::user()]);
+		return view('pages.updatebroadcaster', ['broadcaster' => $broadcaster, 'countries' => Country::all(), 'regions' => Region::where('country_id', $broadcaster->country_id)->get(), 'user' => Auth::user(), 'tags' => Tag::all()]);
     }
 
     /**
@@ -113,16 +114,16 @@ class BroadcasterController extends Controller
      */
     public function update(Request $request, Broadcaster $broadcaster)
     {
-		$broadcaster->name 		= $request->input('name');
-		$broadcaster->frequency = $request->input('frequency');
-		$broadcaster->tagline 	= $request->input('tagline');
-		$broadcaster->reach 	= $request->input('reach');
-		$broadcaster->country 	= $request->input('country');
-		$broadcaster->city 		= $request->input('city');
-		$broadcaster->address 	= $request->input('address');
-		$broadcaster->phone 	= $request->input('phone');
-		$broadcaster->stream_id = $request->input('stream_id');
-		$broadcaster->tags		= $request->input('tags');
+		$broadcaster->name 		= $request->input('name', $broadcaster->name);
+		$broadcaster->frequency = $request->input('frequency', $broadcaster->frequency);
+		$broadcaster->tagline 	= $request->input('tagline', $broadcaster->tagline);
+		$broadcaster->reach 	= $request->input('reach', $broadcaster->reach);
+		$broadcaster->city 		= $request->input('city', $broadcaster->city);
+		$broadcaster->address 	= $request->input('address', $broadcaster->address);
+		$broadcaster->phone 	= $request->input('phone', $broadcaster->phone);
+		$broadcaster->stream_id = $request->input('stream_id', $broadcaster->stream_id);
+		$broadcaster->region_id = $request->input('region', $broadcaster->region_id);
+		$broadcaster->country_id = $request->input('country', $broadcaster->country_id);
 
 		if ($request->hasFile('img')){
 			$file = new FileController();
@@ -132,9 +133,12 @@ class BroadcasterController extends Controller
 			$broadcaster->img 	= $file->prepareFile($request->file('img'), $data, 'image', 5000000);
 		}
 
-		if ($broadcaster->saveOrFail()){
-			return redirect('/broadcaster');
-		}
+		if ($broadcaster->save()){
+		    $broadcaster->tags()->sync($request->tags);
+			return redirect('/broadcaster')->with(['success' => $broadcaster->name.' has been updated!']);
+		} else {
+            return redirect('/broadcaster')->with(['failed' => $broadcaster->name.' could not be updated at this time. Please try again later!']);
+        }
     }
 
     /**
