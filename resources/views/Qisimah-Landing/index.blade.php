@@ -6,7 +6,8 @@
     <title>Qisimah - Audio Insights</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="robots" content="index,nofollow">
-    <meta name="description" content="Qisimah Audio Insights provide users with real-time analytics on how their contents are performing on radio.">
+    <meta name="description"
+          content="Qisimah Audio Insights provide users with real-time analytics on how their contents are performing on radio.">
     <meta name="keywords" content="audio recognition, audio fingerprinting, audio analytics, media monitoring">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Files -->
@@ -25,7 +26,8 @@
     <link href="{{asset('css/css-index.css')}}" rel="stylesheet" media="screen">
 
     <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic"/>
 
 </head>
 
@@ -36,7 +38,9 @@
 <div id="top"></div>
 
 <!-- /.parallax full screen background image -->
-<div class="fullscreen landing parallax" style="background-image:url({{asset('images/landing/musicbg.jpg')}});height: 100vh" data-img-width="2000" data-img-height="1333" data-diff="100">
+<div class="fullscreen landing parallax"
+     style="background-image:url({{asset('images/landing/musicbg.jpg')}});height: 100vh" data-img-width="2000"
+     data-img-height="1333" data-diff="100">
 
     <div class="overlay">
         <div class="container">
@@ -44,18 +48,20 @@
                 <div class="col-md-8">
 
                     <!-- /.logo -->
-                    <div class="logo wow fadeInDown"> <a href=""><img src="{{asset('images/landing/Qisimah-logo-white-small-cropped.png')}}" alt="logo"></a></div>
+                    <div class="logo wow fadeInDown"><a href=""><img
+                                    src="{{asset('images/landing/Qisimah-logo-white-small-cropped.png')}}"
+                                    alt="logo"></a></div>
 
                     <!-- /.main title -->
                     <h1 class="wow fadeInLeft">
-                        Radio is <strong>BIG</strong> Data...   with <strong>BIG</strong> Possibilities...
+                        Radio is <strong>BIG</strong> Data... with <strong>BIG</strong> Possibilities...
                     </h1>
 
                     <!-- /.header paragraph -->
                     <div class="landing-text wow fadeInUp">
                         <p>
                             <strong style="font-size: 23px; letter-spacing: 1px;">
-                                Monitor your radio Ads & music  in real-time with Qisimah.
+                                Monitor your radio Ads & music in real-time with Qisimah.
                             </strong>
                         </p>
                     </div>
@@ -73,10 +79,12 @@
                         <form class="form-header" action="{{url('/login')}}" role="form" method="POST" id="#">
                             {{csrf_field()}}
                             <div class="form-group">
-                                <input class="form-control input-lg" name="email" id="userEmail" type="email" placeholder="Email" required>
+                                <input class="form-control input-lg" name="email" id="userEmail" type="email"
+                                       placeholder="Email" required>
                             </div>
                             <div class="form-group">
-                                <input class="form-control input-lg" name="password" id="userPassword" type="password" placeholder="Password" required>
+                                <input class="form-control input-lg" name="password" id="userPassword" type="password"
+                                       placeholder="Password" required>
                             </div>
                             <div class="form-group last">
                                 <input type="submit" id="login" class="btn btn-warning btn-block btn-lg" value="login">
@@ -90,11 +98,13 @@
             </div>
         </div>
         <div class="col-xs-10 col-xs-offset-3 text-center img-responsive">
-            <a target="_blank" href="https://www.worldsummitawards.org/winner/qisimah-audio-insights/"><img alt="client" src="{{asset('images/landing/wsawinner.png')}}" class="wow fadeInUp col-xs-4 col-sm-2 col-xs-offset-2"></a>
-            <!-- <img alt="client" src="{{asset('images/landing/mest.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
-            <!-- <img alt="client" src="{{asset('images/landing/nanatellogo.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
+            <a target="_blank" href="https://www.worldsummitawards.org/winner/qisimah-audio-insights/"><img alt="client"
+                                                                                                            src="{{asset('images/landing/wsawinner.png')}}"
+                                                                                                            class="wow fadeInUp col-xs-4 col-sm-2 col-xs-offset-2"></a>
+        <!-- <img alt="client" src="{{asset('images/landing/mest.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
+        <!-- <img alt="client" src="{{asset('images/landing/nanatellogo.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
         <!-- <img alt="client" src="{{asset('images/landing/meltwater logo.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
-            <!-- <img alt="client" src="{{asset('images/landing/aca.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
+        <!-- <img alt="client" src="{{asset('images/landing/aca.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
         </div>
 
     </div>
@@ -111,7 +121,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand site-name" href="#top" style="margin-top: -10px"><img src="{{asset('images/landing/loading.GIF')}}" alt="logo"></a>
+                <a class="navbar-brand site-name" href="#top" style="margin-top: -10px"><img
+                            src="{{asset('images/landing/loading.GIF')}}" alt="logo"></a>
             </div>
 
             <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
@@ -140,10 +151,11 @@
             </div> -->
 
             <!-- /.intro content -->
-            <div class="col-md-8 col-md-offset-2 wow slideInRight" >
+            <div class="col-md-8 col-md-offset-2 wow slideInRight">
                 <center>
                     <h2>
-                        <strong>Qisimah</strong> is a radio content verification platform that allows brands to monitor their campaigns in real-time.
+                        <strong>Qisimah</strong> is a radio content verification platform that allows brands to monitor
+                        their campaigns in real-time.
                     </h2>
                     <div class="btn-section">
                         <a href="#feature" class="btn-default">Learn More</a>
@@ -154,33 +166,33 @@
     </div>
 </div>
 <!-- Counter -->
-			<div class="pattern-grey">
-	<div id="stats1" class="container">
-			<div class="row">
-				<div class="col-md-4 col-sm-2">
-					<div class="stats1-info">
-					<i class="pe-7s-signal pe-5x"></i>
-						<p><span class="count count1">105,023</span></p>
-						<h2>Detections</h2>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="stats1-info">
-					<i class="pe-7s-disk pe-5x"></i>
-						<p><span class="count count1">1500</span></p>
-						<h2>Fingerprinted Files</h2>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-2">
-					<div class="stats1-info">
-					<i class="pe-7s-users pe-5x"></i>
-						<p><span class="count count1">574</span></p>
-						<h2>Artists</h2>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="pattern-grey">
+    <div id="stats1" class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-2">
+                <div class="stats1-info">
+                    <i class="pe-7s-signal pe-5x"></i>
+                    <p><span class="count count1">105,023</span></p>
+                    <h2>Detections</h2>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="stats1-info">
+                    <i class="pe-7s-disk pe-5x"></i>
+                    <p><span class="count count1">1500</span></p>
+                    <h2>Fingerprinted Files</h2>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-2">
+                <div class="stats1-info">
+                    <i class="pe-7s-users pe-5x"></i>
+                    <p><span class="count count1">574</span></p>
+                    <h2>Artists</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- /.advertiser section -->
 <!-- <div id="download">
@@ -208,7 +220,8 @@
 
 <!-- /.Musician section -->
 <div id="musician">
-    <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/musicianbg.jpg')}});" data-img-width="2000" data-img-height="1333" data-diff="100">
+    <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/musicianbg.jpg')}});"
+         data-img-width="2000" data-img-height="1333" data-diff="100">
         <div class="overlay">
             <div class="container">
                 <div class="col-md-8 col-md-offset-2 col-sm-12 text-center">
@@ -216,7 +229,8 @@
                     <!-- /.advertiser title -->
                     <h2>Are you a musician?</h2>
                     <p>
-                        Get real-time notification on songs played. With our intelligent monitoring system, we are able to tell you who is playing your song, how often they play it and their location.
+                        Get real-time notification on songs played. With our intelligent monitoring system, we are able
+                        to tell you who is playing your song, how often they play it and their location.
                     </p>
                     <!-- <p>
                         We help various stakeholders in the music industry to accurately understand broadcast promotion strengths and weaknesses of their musical content.
@@ -241,8 +255,10 @@
                                 <!-- <td class="text-center">
                                     <label class="fs-60">1</label>
                                 </td> -->
-                                <td class=""><img src="../build/images/products/01.jpg" width="100" alt="" class="img-thumbnail img-responsive"></td>
-                                <td><strong>Title</strong><p>Artist</p></td>
+                                <td class=""><img src="../build/images/products/01.jpg" width="100" alt=""
+                                                  class="img-thumbnail img-responsive"></td>
+                                <td><strong>Title</strong>
+                                    <p>Artist</p></td>
 
                                 <td class="text-center">Live 91.9fm</td>
 
@@ -254,8 +270,10 @@
                                 <!-- <td class="text-center">
                                   <label class="fs-60">2</label>
                                 </td> -->
-                                <td class=""><img src="../build/images/products/02.jpg" width="100" alt="" class="img-thumbnail img-responsive"></td>
-                                <td><strong>Title</strong><p>Artist</p></td>
+                                <td class=""><img src="../build/images/products/02.jpg" width="100" alt=""
+                                                  class="img-thumbnail img-responsive"></td>
+                                <td><strong>Title</strong>
+                                    <p>Artist</p></td>
                                 <td class="text-center">Live 91.9fm</td>
                                 <td class="text-center">Johanesburg, South Africa</td>
                                 <td class="text-center">12:31:06</td>
@@ -265,8 +283,10 @@
                                   <label class="fs-60">3</label>
                                   </div>
                                 </td> -->
-                                <td class=""><img src="../build/images/products/02.jpg" width="100" alt="" class="img-thumbnail img-responsive"></td>
-                                <td><strong>Title</strong><p>Artist</p></td>
+                                <td class=""><img src="../build/images/products/02.jpg" width="100" alt=""
+                                                  class="img-thumbnail img-responsive"></td>
+                                <td><strong>Title</strong>
+                                    <p>Artist</p></td>
                                 <td class="text-center">Live 91.9fm</td>
                                 <td class="text-center">Johanesburg, South Africa</td>
                                 <td class="text-center">12:30:06</td>
@@ -292,9 +312,13 @@
             <!-- /.advertiser title -->
             <h2 class="wow fadeInRight">Do you Advertise on radio?</h2>
             <p class="download-text wow fadeInLeft">
-                We make ad monitoring easy for advertisers and marketers by tracking when and where ads are played. Qisimah helps you discover who's listening, determine how to better target your ads and save on ad spends that do not reach the right ear.
+                We make ad monitoring easy for advertisers and marketers by tracking when and where ads are played.
+                Qisimah helps you discover who's listening, determine how to better target your ads and save on ad
+                spends that do not reach the right ear.
             </p>
-            <p class="download-text wow fadeInLeft">We help marketers and advertisers accurately verify in real-time when their adverts are aired on radio and measure the number of impressions their adverts get simultaneously, across multiple broadcasters.</p>
+            <p class="download-text wow fadeInLeft">We help marketers and advertisers accurately verify in real-time
+                when their adverts are aired on radio and measure the number of impressions their adverts get
+                simultaneously, across multiple broadcasters.</p>
 
             <!-- /.download button -->
             <div class="download-cta wow fadeInLeft">
@@ -306,11 +330,10 @@
 
 </div>
 
-</div>
-
 <!-- /.radio_station section -->
 <div id="download">
-    <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/wave.jpg')}});" data-img-width="2000" data-img-height="1333" data-diff="100">
+    <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/wave.jpg')}});"
+         data-img-width="2000" data-img-height="1333" data-diff="100">
         <div class="overlay">
             <div class="container">
                 <div class="col-md-8 col-md-offset-2 col-sm-12 text-center">
@@ -318,7 +341,9 @@
                     <!-- /.radio_station title -->
                     <h2 class="wow fadeInRight">Are you a radio station?</h2>
                     <p class="download-text wow fadeInLeft">
-                        Deliver your internet radio stream to any device, anywhere, with ease with Qisimah Hosting. Expand your reach beyond the capabilities of your antenna tower and reach millions of potential listeners worldwide.
+                        Deliver your internet radio stream to any device, anywhere, with ease with Qisimah Hosting.
+                        Expand your reach beyond the capabilities of your antenna tower and reach millions of potential
+                        listeners worldwide.
                     </p>
                     <!-- <p class="download-text wow fadeInLeft">We help marketers and advertisers accurately verify in real-time when their adverts are aired on radio and measure the number of impressions their adverts get simultaneously, across multiple broadcasters.</p> -->
 
@@ -367,7 +392,8 @@
 
                 <!-- /.feature 2 -->
                 <div class="col-sm-3 feat-list">
-                    <div><img class="pe-5x pe-va wow fadeInUp" data-wow-delay="0.2s" src="{{asset('images/landing/2.png')}}"/></div>
+                    <div><img class="pe-5x pe-va wow fadeInUp" data-wow-delay="0.2s"
+                              src="{{asset('images/landing/2.png')}}"/></div>
                     <!--<i class="pe-7s-micro pe-5x pe-va wow fadeInUp" data-wow-delay="0.2s"></i>-->
                     <div class="inner">
                         <h4>Broadcast Monitoring</h4>
@@ -377,7 +403,8 @@
 
                 <!-- /.feature 3 -->
                 <div class="col-sm-3 feat-list">
-                    <div><img class="pe-5x pe-va wow fadeInUp" data-wow-delay="0.4s" src="{{asset('images/landing/3.png')}}"/></div>
+                    <div><img class="pe-5x pe-va wow fadeInUp" data-wow-delay="0.4s"
+                              src="{{asset('images/landing/3.png')}}"/></div>
                     <!--<i class="pe-7s-bell pe-5x pe-va wow fadeInUp" data-wow-delay="0.4s"></i>-->
                     <div class="inner">
                         <h4>Real-time Notifications</h4>
@@ -387,7 +414,8 @@
 
                 <!-- /.feature 4 -->
                 <div class="col-sm-3 feat-list">
-                    <div><img class="pe-5x pe-va wow fadeInUp" data-wow-delay="0.6s" src="{{asset('images/landing/4.png')}}"/></div>
+                    <div><img class="pe-5x pe-va wow fadeInUp" data-wow-delay="0.6s"
+                              src="{{asset('images/landing/4.png')}}"/></div>
                     <!--<i class="pe-7s-graph2 pe-5x pe-va wow fadeInUp" data-wow-delay="0.6s"></i>-->
                     <div class="inner">
                         <h4>Broadcast Reports</h4>
@@ -401,14 +429,16 @@
 
 <!-- /.download section -->
 <div id="download">
-    <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/musicbg.jpg')}});" data-img-width="2000" data-img-height="1333" data-diff="100">
+    <div class="action fullscreen parallax" style="background-image:url({{asset('images/landing/musicbg.jpg')}});"
+         data-img-width="2000" data-img-height="1333" data-diff="100">
         <div class="overlay">
             <div class="container">
                 <div class="col-md-8 col-md-offset-2 col-sm-12 text-center">
 
                     <!-- /.download title -->
                     <h2 class="wow fadeInRight">Would like to know more?</h2>
-                    <p class="download-text wow fadeInLeft">Good marketing makes the company look smart. Great marketing makes the customer feel smart.</p>
+                    <p class="download-text wow fadeInLeft">Good marketing makes the company look smart. Great marketing
+                        makes the customer feel smart.</p>
 
                     <!-- /.download button -->
                     <div class="download-cta wow fadeInLeft">
@@ -466,7 +496,7 @@
 
                     <!-- /.package button -->
                     <div class="price-footer text-center">
-                        <a href="#contact" class="btn btn-price" >Contact Us</a>
+                        <a href="#contact" class="btn btn-price">Contact Us</a>
                     </div>
                 </div>
             </div>
@@ -476,41 +506,41 @@
                 <div class="price-box wow fadeInUp" data-wow-delay="0.4s">
                     <div class="price-heading text-center"> -->
 
-                        <!-- /.package icon -->
-                        <!-- <i class="pe-7s-signal pe-5x"></i> -->
+            <!-- /.package icon -->
+            <!-- <i class="pe-7s-signal pe-5x"></i> -->
 
-                        <!-- /.package name -->
-                        <!-- <h3>Stream Hosting</h3>
-                    </div> -->
+            <!-- /.package name -->
+            <!-- <h3>Stream Hosting</h3>
+        </div> -->
 
-                    <!-- /.price -->
-                    <!-- <div class="price-group text-center">
-                       <span class="dollar">$</span>
-                       <span class="price">50</span>
-                       <span class="time">/mo</span>
-                   </div>  -->
+            <!-- /.price -->
+            <!-- <div class="price-group text-center">
+               <span class="dollar">$</span>
+               <span class="price">50</span>
+               <span class="time">/mo</span>
+           </div>  -->
 
-                    <!-- /.package features -->
-                    <!-- <ul class="price-feature text-center">
-                        <li>Conversion of traditional frequency online</li>
-                        <li>99% Up-Time</li>
-                        <li>Stream Monitoring</li>
-                        <li>Broadcast Statistics</li>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br> -->
-                        <!--<li>Analytics</li>-->
-                        <!--<li>Head-to-Head song comparison </li>-->
-                    <!-- </ul> -->
+            <!-- /.package features -->
+            <!-- <ul class="price-feature text-center">
+                <li>Conversion of traditional frequency online</li>
+                <li>99% Up-Time</li>
+                <li>Stream Monitoring</li>
+                <li>Broadcast Statistics</li>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br> -->
+            <!--<li>Analytics</li>-->
+            <!--<li>Head-to-Head song comparison </li>-->
+            <!-- </ul> -->
 
-                    <!-- /.package button -->
-                    <!-- <div class="price-footer text-center">
-                        <a href="#contact" class="btn btn-price" >Contact Us</a>
-                    </div>
-                </div>
-            </div> -->
+            <!-- /.package button -->
+            <!-- <div class="price-footer text-center">
+                <a href="#contact" class="btn btn-price" >Contact Us</a>
+            </div>
+        </div>
+    </div> -->
 
             <!-- /.package 3 -->
             <div class="col-sm-4 col-sm-offset-1">
@@ -539,23 +569,23 @@
                         <li>Realtime Notifications</li>
                         <li>Broadcaster Statistics</li>
                         <li>Analytics</li>
-                        <li>Head-to-Head song comparison </li>
+                        <li>Head-to-Head song comparison</li>
                     </ul>
 
                     <!-- /.package button -->
                     <div class="price-footer text-center">
-                        <a href="#contact" class="btn btn-price" >Contact Us</a>
+                        <a href="#contact" class="btn btn-price">Contact Us</a>
                     </div>
                 </div>
             </div>
-
 
 
         </div>
     </div>
 </div>
 <div id="contact">
-    <div class="contact fullscreen parallax" style="background-image:url({{asset('images/landing/musicbg.jpg')}});" data-img-width="2000" data-img-height="1334" data-diff="100">
+    <div class="contact fullscreen parallax" style="background-image:url({{asset('images/landing/musicbg.jpg')}});"
+         data-img-width="2000" data-img-height="1334" data-diff="100">
         <div class="overlay">
             <div class="container">
                 <div class="row contact-row">
@@ -563,7 +593,8 @@
                     <div class="col-sm-5 contact-left wow fadeInUp">
                         <h2><span class="highlight">Get</span> in touch</h2>
                         <ul class="ul-address">
-                            <li><i class="pe-7s-map-marker"></i>No. 1, Liman Street,<br> Ambassadorial Enclave <br>East Legon,
+                            <li><i class="pe-7s-map-marker"></i>No. 1, Liman Street,<br> Ambassadorial Enclave <br>East
+                                Legon,
                                 Accra</br> Ghana.
                             </li>
                             <li><i class="pe-7s-phone"></i>+233 50 723 0806</br>
@@ -577,25 +608,33 @@
                     <!-- /.contact form -->
                     <h2 class="wow fadeInRight"></h2>
                     <div class="col-sm-7 contact-right">
-                        <form method="POST" id="contact-form" class="form-horizontal" action="{{route('contact.store')}}" onSubmit="alert( 'Thank you for your feedback!' );">
+                        <form method="POST" id="contact-form" class="form-horizontal"
+                              action="{{route('contact.store')}}" onSubmit="alert( 'Thank you for your feedback!' );">
                             {{csrf_field()}}
                             <div class="form-group">
-                                <input id="fullName" name="name" type="text" class="form-control wow fadeInUp validate" placeholder="Name" required/>
+                                <input id="fullName" name="name" type="text" class="form-control wow fadeInUp validate"
+                                       placeholder="Name" required/>
                             </div>
                             <div class="form-group">
-                                <input id="telephone" name="telephone" type="telephone" class="form-control wow fadeInUp validate" placeholder="Telephone" required/>
+                                <input id="telephone" name="telephone" type="telephone"
+                                       class="form-control wow fadeInUp validate" placeholder="Telephone" required/>
                             </div>
                             <div class="form-group">
-                                <input id="emailAdd" name="email" type="email" class="form-control wow fadeInUp validate" placeholder="Email" required/>
+                                <input id="emailAdd" name="email" type="email"
+                                       class="form-control wow fadeInUp validate" placeholder="Email" required/>
                             </div>
                             <div class="form-group">
-                                <input id="location" name="location" type="text" class="form-control wow fadeInUp" placeholder="Location" required/>
+                                <input id="location" name="location" type="text" class="form-control wow fadeInUp"
+                                       placeholder="Location" required/>
                             </div>
                             <div class="form-group">
-                                <textarea id="message" name="message" rows="20" cols="20" class="form-control input-message wow fadeInUp validate"  placeholder="message" required></textarea>
+                                <textarea id="message" name="message" rows="20" cols="20"
+                                          class="form-control input-message wow fadeInUp validate" placeholder="message"
+                                          required></textarea>
                             </div>
                             <div class="form-group">
-                                <input id="submit" name="submit" type="submit" value="Submit" class="btn btn-success wow fadeInUp" />
+                                <input id="submit" name="submit" type="submit" value="Submit"
+                                       class="btn btn-success wow fadeInUp"/>
                             </div>
                         </form>
                     </div>
@@ -612,16 +651,23 @@
             <!-- /.social links -->
             <div class="social text-center">
                 <ul>
-                    <li><a class="wow fadeInUp" href="https://twitter.com/qisimah/"><i class="fa fa-twitter"></i></a></li>
-                    <li><a class="wow fadeInUp" href="https://www.facebook.com/Qisimah/" data-wow-delay="0.2s"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="wow fadeInUp" href="https://twitter.com/qisimah/"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li><a class="wow fadeInUp" href="https://www.facebook.com/Qisimah/" data-wow-delay="0.2s"><i
+                                    class="fa fa-facebook"></i></a></li>
                     <!-- <li><a class="wow fadeInUp" href="https://plus.google.com/" data-wow-delay="0.4s"><i class="fa fa-google-plus"></i></a></li> -->
-                    <li><a class="wow fadeInUp" href="https://instagram.com/qisimah_world/" data-wow-delay="0.6s"><i class="fa fa-instagram"></i></a></li>
+                    <li><a class="wow fadeInUp" href="https://instagram.com/qisimah_world/" data-wow-delay="0.6s"><i
+                                    class="fa fa-instagram"></i></a></li>
                 </ul>
             </div>
             <div class="text-center wow fadeInUp">
-                <p><a href="https://www.acrcloud.com" target="_blank">Broadcast Monitoring Powered by: <img width="18%" src="{{asset('images/landing/ACRCloud-logo.png')}}"></a></p>
+                <p><a href="https://www.acrcloud.com" target="_blank">Broadcast Monitoring Powered by: <img width="18%"
+                                                                                                            src="{{asset('images/landing/ACRCloud-logo.png')}}"></a>
+                </p>
             </div>
-            <div class="text-center wow fadeInUp" style="font-size: 14px;">Copyright  <a href="https://qisimah.com/" target="_blank">Qisimah 2017</a></div>
+            <div class="text-center wow fadeInUp" style="font-size: 14px;">Copyright <a href="https://qisimah.com/"
+                                                                                        target="_blank">Qisimah 2017</a>
+            </div>
             <a href="#" class="scrollToTop"><i class="pe-7s-up-arrow pe-va"></i></a>
         </div>
     </div>
@@ -645,20 +691,20 @@
             $(this).val('please wait...');
             $(this).prop('disable', true);
             var contact = {};
-            contact._token      = $('meta[name="csrf-token"]').attr('content');
-            contact.fullName    = $('#fullName').val();
-            contact.emailAdd    = $('#emailAdd').val();
-            contact.telephone   = $('#telephone').val();
-            contact.location    = $('#location').val();
-            contact.message     = $('#message').val();
+            contact._token = $('meta[name="csrf-token"]').attr('content');
+            contact.fullName = $('#fullName').val();
+            contact.emailAdd = $('#emailAdd').val();
+            contact.telephone = $('#telephone').val();
+            contact.location = $('#location').val();
+            contact.message = $('#message').val();
             console.log(contact);
             $.post('/contact', contact).done(function (data) {
-                $('#contact-form').html('<h4 class="has-success">'+data.description+'</h4>')
+                $('#contact-form').html('<h4 class="has-success">' + data.description + '</h4>')
             }).error(function (error) {
-                if (error.status === 422){
+                if (error.status === 422) {
                     var message = $.parseJSON(error.responseText);
-                    for (var key in message){
-                        $('#'+key).parent('div').prepend('<label class="has-warning">'+message[key]+'</label>');
+                    for (var key in message) {
+                        $('#' + key).parent('div').prepend('<label class="has-warning">' + message[key] + '</label>');
                     }
                 } else {
                     alert('Something went wrong, please refresh the page and try again!');
@@ -673,16 +719,16 @@
             $(this).parent('div').siblings('div').find('label').remove();
             e.preventDefault();
             var user = {};
-            user._token         = $('meta[name="csrf-token"]').attr('content');
-            user.userEmail      = $('#userEmail').val();
-            user.userPassword   = $('#userPassword').val();
+            user._token = $('meta[name="csrf-token"]').attr('content');
+            user.userEmail = $('#userEmail').val();
+            user.userPassword = $('#userPassword').val();
             $.post('/login', user).done(function (data) {
                 window.location.href = '/';
             }).error(function (error) {
-                if(error.status === 422){
+                if (error.status === 422) {
                     var message = $.parseJSON(error.responseText);
-                    for (var key in message){
-                        $('#'+key).parent('div').prepend('<label class="has-warning">'+message[key]+'</label>');
+                    for (var key in message) {
+                        $('#' + key).parent('div').prepend('<label class="has-warning">' + message[key] + '</label>');
                     }
                 } else {
                     alert('Something went wrong, please refresh the page and try again!');
