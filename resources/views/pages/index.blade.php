@@ -218,163 +218,40 @@
 
     <!--plays table-->
 
-    <div class="row">
-
-        <div class="col-sm-12">
-
-            <div class="widget no-border table-responsive">
-
-                <table id="daily-plays" class="table table-hover table-striped table-bordered table-condensed">
-
-                    <thead>
-
-                        <tr>
-
-                            <th class="text-center">Title</th>
-
-                            <th class="text-center">Artist</th>
-
-                            <th class="text-center">Broadcaster</th>
-
-                            <th class="text-center">Played</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-        {{--<div class="col-md-4">--}}
-
-            {{--<div class="widget">--}}
-
-                {{--<div class="widget-heading clearfix">--}}
-
-                    {{--<h3 class="widget-title pull-left">Top 3 Categories</h3>--}}
-
-                {{--</div>--}}
-
-                {{--<div class="widget-body">--}}
-
-                    {{--<div class="widget no-border">--}}
-
-                        {{--<div style="height: 200px" class="overlay-container overlay-color">--}}
-
-                            {{--<img src="{{asset('images/backgrounds/36.jpg')}}" alt="" class="overlay-bg img-responsive">--}}
-
-                        {{--</div>--}}
-
-                        {{--<div style="position: relative">--}}
-
-                            {{--<a href="#" style="position: absolute; top: -180px; left: 50%; margin-left: -80px; border-radius: 50%; padding: 3px; background-color: #FFF">--}}
-
-                                {{--<img src="{{asset('images/users/live fm.png')}}" width="150" alt="" class="img-circle">--}}
-
-                            {{--</a>--}}
-
-                        {{--</div>--}}
-
-
-
-                        {{--<div class="row row-0 p-15 text-center bg-black">--}}
-
-                            {{--<div class="col-xs-6">--}}
-
-                                {{--<div class="fs-20 fw-500">208</div>--}}
-
-                                {{--<div class="text-muted">Total Plays</div>--}}
-
-                            {{--</div>--}}
-
-                            {{--<div class="col-xs-6">--}}
-
-                                {{--<div class="fs-20 fw-500">Confession</div>--}}
-
-                                {{--<div class="text-muted">Most Played</div>--}}
-
-                            {{--</div>--}}
-
-                        {{--</div>--}}
-
-                    {{--</div>--}}
-
-                    {{--<div style="margin: 0 -20px -20px -20px" class="table-responsive">--}}
-
-                        {{--<table class="table table-hover mb-0">--}}
-
-                            {{--<thead>--}}
-
-                            {{--<tr>--}}
-
-                                {{--<th style="width:40%">Position</th>--}}
-
-                                {{--<th style="width:30%">Broadcaster</th>--}}
-
-                                {{--<th style="width:30%">Up/Down</th>--}}
-
-                            {{--</tr>--}}
-
-                            {{--</thead>--}}
-
-                            {{--<tbody>--}}
-
-                            {{--<tr>--}}
-
-                                {{--<td class="text-center">1</td>--}}
-
-                                {{--<td>Peace FM</td>--}}
-
-                                {{--<td class="text-success text-center"><i class="ti-arrow-up"></i></td>--}}
-
-                            {{--</tr>--}}
-
-                            {{--<tr>--}}
-
-                                {{--<td class="text-center">2</td>--}}
-
-                                {{--<td>Y FM</td>--}}
-
-                                {{--<td class="text-danger text-center"><i class="ti-arrow-down"></i></td>--}}
-
-                            {{--</tr>--}}
-
-                            {{--<tr>--}}
-
-                                {{--<td class="text-center">3</td>--}}
-
-                                {{--<td>Metro-FM</td>--}}
-
-                                {{--<td class="text-success text-center"><i class="ti-arrow-up"></i></td>--}}
-
-                            {{--</tr>--}}
-
-                            {{--</tbody>--}}
-
-                        {{--</table>--}}
-
-                    {{--</div>--}}
-
-                {{--</div>--}}
-
-            {{--</div>--}}
-
-        {{--</div>--}}
-
-
-
-    </div>
-
     <!--END plays table-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="widget clear">
+                <div class="widget-heading clearfix">
+                    <h3 class="widget-title text-center">Live Detections</h3>
+                </div>
+                <div class="widget-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="widget no-border">
+                                <table id="live-detection" style="width: 100%"
+                                       class="table table-hover table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:35%" class="">Song</th>
+                                        <th style="width:30%" class="">Broadcaster</th>
+                                        <th style="width:15%" class="text-center">Time Played</th>
+                                        <th style="width:10%" class="text-right">Plays Today</th>
+                                        <th style="width:10%" class="text-right">This Week</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 

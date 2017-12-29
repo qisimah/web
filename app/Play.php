@@ -107,35 +107,37 @@ class Play extends Model
         if (Auth::user()->role <> 'master' || Auth::user()->role <> 'seer') {
             $songs = Play::whereIn('file_id', User::getUserFiles())
                 ->whereDate('created_at', Carbon::today()->toDateString())
-                ->with('broadcaster')
+                ->with('broadcaster', 'file')
                 ->orderBy('created_at', 'desc')
                 ->limit(20)
-                ->get()
-                ->toArray();
+                ->get();
         } else {
             $songs = Play::whereDate('created_at', Carbon::today()->toDateString())
-                ->with('broadcaster')
+                ->with('broadcaster', 'file')
                 ->orderBy('created_at', 'desc')
                 ->limit(20)
-                ->get()
-                ->toArray();
+                ->get();
         }
 
         $_plays = [];
 
-        foreach ($songs as $item) {
-            $play = [];
+//        foreach ($songs as $item) {
+//            $play = [];
+//
+//            if ($file = File::where('q_id', $item['file_id'])->with('artist')->count()) {
+//
+//                $file = File::where('q_id', $item['file_id'])->with('artist')->first()->toArray();
+//                $play['title'] = $file['title'];
+//                $play['artist'] = array_merge([$file['artist']['nick_name']], File::find($file['id'])->artists()->pluck('nick_name')->toArray());
+//                $play['broadcaster'] = $item['broadcaster']['name'] . ' - ' . $item['broadcaster']['frequency'] . ' MHz, ' . Broadcaster::find($item['broadcaster']['id'])->country()->first()->name;
+//                $play['created_at'] = $item['created_at'];
+//                array_push($_plays, $play);
+//            }
+//        };
 
-            if ($file = File::where('q_id', $item['file_id'])->with('artist')->count()) {
-
-                $file = File::where('q_id', $item['file_id'])->with('artist')->first()->toArray();
-                $play['title'] = $file['title'];
-                $play['artist'] = array_merge([$file['artist']['nick_name']], File::find($file['id'])->artists()->pluck('nick_name')->toArray());
-                $play['broadcaster'] = $item['broadcaster']['name'] . ' - ' . $item['broadcaster']['frequency'] . ' MHz, ' . Broadcaster::find($item['broadcaster']['id'])->country()->first()->name;
-                $play['created_at'] = $item['created_at'];
-                array_push($_plays, $play);
-            }
-        };
+        foreach ($songs as $song) {
+            array_push($_plays, Play::liveFeed($song->file, $song->broadcaster, $song));
+        }
         return $_plays;
     }
 
@@ -482,6 +484,22 @@ class Play extends Model
         }
 
         return [$GLOBALS['_regions'], $GLOBALS['_total']];
+    }
+
+    public static function liveFeed(File $file, Broadcaster $broadcaster, Play $play)
+    {
+        $carbon_today = Carbon::today();
+        return [
+            'song'  =>  [
+                'title'         => $file->title,
+                'artists'       => implode(' / ', File::allArtists($file)),
+                'img'           => $file->img,
+            ],
+            'broadcaster'   => $broadcaster->name.' - '.$broadcaster->frequency.' MHz, '.$broadcaster->country->name,
+            'created_at'    => $play->created_at->toDateTimeString(),
+            'plays_today'   => Play::where('file_id', $file->q_id)->whereDate('created_at', $carbon_today)->count(),
+            'plays_this_week' => Play::where('file_id', $file->q_id)->whereBetween('created_at', [$carbon_today->startOfWeek()->toDateTimeString(), $carbon_today->endOfWeek()->toDateTimeString()])->count()
+        ];
     }
 
 }
