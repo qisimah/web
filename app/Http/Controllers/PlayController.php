@@ -91,7 +91,7 @@ class PlayController extends Controller
                     $file           = File::where('q_id', $play['metadata']['custom_files'][0]['audio_id'])->first();
                     $users          = $file->users()->pluck('users.id');
                     $the_player     = $saved->broadcaster()->with('country')->first();
-                    $the_singer     = $file->artist()->first();
+                    $the_singer     = $file->artist;
                     $subscribers    = [];
 
                     foreach ($users as $user) {
@@ -105,14 +105,10 @@ class PlayController extends Controller
                     ];
 
                     $channels = array_merge(['private-listening-channel'], $subscribers);
+                    $carbon_today = Carbon::today();
 
                     $pusher = new Pusher('c4f320656ba2899c60c3', '70494a5a434228ab508a', '405750', $options);
-                    $pusher->trigger($channels, 'play-event', [
-                        'title'         => $file->title,
-                        'artist'        => $the_singer->nick_name,
-                        'broadcaster'   => $the_player->name.' - '.$the_player->frequency.' MHz, '.$the_player->country->name,
-                        'created_at'    => $play['metadata']['timestamp_utc']
-                    ]);
+                    $pusher->trigger($channels, 'play-event', Play::liveFeed($file, $the_player, $saved));
 
                     $title          = str_replace(' ', '', $file->title);
                     $artist         = ($the_singer->twitter_handle)? $the_singer->twitter_handle : $the_singer->nick_name;
