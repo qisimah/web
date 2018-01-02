@@ -52,7 +52,7 @@ class Play extends Model
     public static function countMostPlayed()
     {
         if (Auth::user()->type <> 'admin') {
-            $most_played = Play::select(DB::raw('count(*) as plays, file_id'))->whereIn('file_id', User::getUserFiles())->whereDate('created_at', Carbon::today()->toDateString())->groupBy('file_id')->orderBy('plays', 'desc')->first();
+            $most_played = Play::select(DB::raw('count(*) as plays, file_id'))->whereIn('file_id', User::find(Auth::id())->files()->pluck('q_id'))->whereDate('created_at', Carbon::today()->toDateString())->groupBy('file_id')->orderBy('plays', 'desc')->first();
             if ($most_played) {
                 return [$most_played->plays, File::where('q_id', $most_played->file_id)->with('artist')->get()];
             }
@@ -73,7 +73,7 @@ class Play extends Model
     public static function countAllTimePlayed()
     {
         if (Auth::user()->type <> 'admin') {
-            $all_time_played = Play::select(DB::raw('count(*) as plays, file_id'))->whereIn('file_id', User::getUserFiles())->groupBy('file_id')->orderBy('plays', 'desc')->first();
+            $all_time_played = Play::select(DB::raw('count(*) as plays, file_id'))->whereIn('file_id', User::find(Auth::id())->files()->pluck('q_id'))->groupBy('file_id')->orderBy('plays', 'desc')->first();
             return [$all_time_played->plays, File::where('q_id', $all_time_played->file_id)->with('artist')->get()];
         }
 
@@ -84,7 +84,7 @@ class Play extends Model
     public static function countBroadcasterPlays()
     {
         if (Auth::user()->type <> 'admin') {
-            $top_broadcaster = Play::select(DB::raw('stream_id, count(stream_id) as plays'))->whereIn('file_id', User::getUserFiles())->whereDate('created_at', Carbon::today()->toDateString())->groupBy('stream_id')->orderBy('plays', 'desc')->first();
+            $top_broadcaster = Play::select(DB::raw('stream_id, count(stream_id) as plays'))->whereIn('file_id', User::find(Auth::id())->files()->pluck('q_id'))->whereDate('created_at', Carbon::today()->toDateString())->groupBy('stream_id')->orderBy('plays', 'desc')->first();
             if ($top_broadcaster) {
                 return [$top_broadcaster->plays, Broadcaster::where('stream_id', $top_broadcaster->stream_id)->first()];
             }
@@ -104,7 +104,7 @@ class Play extends Model
 
     public static function songsPlayedToday()
     {
-        if (Auth::user()->role <> 'master' || Auth::user()->role <> 'seer') {
+        if (!in_array(Auth::user()->role, ['master', 'seer'])) {
             $songs = Play::whereIn('file_id', User::getUserFiles())
                 ->whereDate('created_at', Carbon::today()->toDateString())
                 ->with('broadcaster', 'file')
