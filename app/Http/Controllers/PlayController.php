@@ -105,12 +105,11 @@ class PlayController extends Controller
                     ];
 
                     $channels = array_merge(['private-listening-channel'], $subscribers);
-                    $carbon_today = Carbon::today();
 
                     $pusher = new Pusher('c4f320656ba2899c60c3', '70494a5a434228ab508a', '405750', $options);
                     $pusher->trigger($channels, 'play-event', Play::liveFeed($file, $the_player, $saved));
 
-                    $title          = str_replace(' ', '', $file->title);
+                    $title          = str_replace(' ', '', strtolower($file->title));
                     $artist         = ($the_singer->twitter_handle)? $the_singer->twitter_handle : $the_singer->nick_name;
                     $broadcaster    = ($the_player->twitter_handle)? $the_player->twitter_handle : $the_player->name.' - '.$the_player->frequency;
 

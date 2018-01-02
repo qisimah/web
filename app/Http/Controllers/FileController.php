@@ -31,45 +31,23 @@ class FileController extends Controller
 
 	}
     /**
-     * Display a listing of the resource.
-     *
+     * Display a listing of files.
+     * return views for the /file route
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $this_array = ['master', 'seer'];
-        if (Auth::user()->type === 'admin'){
-            if (!in_array(Auth::user()->role, $this_array)){
-                $files = collect();
-                File::where('user_id', Auth::id())->with('artists')->orderBy('created_at', 'desc')->chunk(500, function ($_files) use ($files){
-                    foreach ($_files as $file) {
-                        $files->push($file);
-                    }
-                });
-            } else {
-                $files = collect();
-                File::withTrashed()->orderBy('created_at', 'desc')->chunk(500, function ($_files) use ($files){
-                    $_files->map(function ($file) use ($files){
-                        $user = User::where('id', $file->user_id)->select('firstname', 'lastname')->first();
-                        $file['first_name'] = $user->firstname;
-                        $file['last_name']  = $user->lastname;
-                        $files->push($file);
-                    });
-                });
-            }
+        $user = Auth::user();
+        if ($user->type === 'admin' && ($user->role === 'master' || $user->role === 'seer')){
+            $files = File::with('artist', 'artists', 'uploader')->orderBy('id', 'desc')->paginate(20);
+        } elseif ($user->type === 'admin' && $user->role === 'uploader') {
+            $files = $user->uploads()->with('artist', 'artists')->orderBy('id', 'desc')->paginate(20);
         } else {
-            $files = collect();
-            File::whereIn('q_id', User::getUserFiles())->orderBy('created_at', 'desc')->chunk(500, function ($_files) use ($files){
-                $_files->map(function ($file) use ($files){
-                    $user = User::where('id', $file->user_id)->select('firstname', 'lastname')->first();
-                    $file['first_name'] = $user->firstname;
-                    $file['last_name']  = $user->lastname;
-                    $files->push($file);
-                });
-            });
+            # get file ids of files that have been shared with the user
+            $files    = File::whereIn('q_id', User::getUserFiles())->with('artist', 'artists', 'uploader')->orderBy('id', 'desc')->paginate(20);
         }
 
-		return view('pages.content', ['user' => $this->getUser(), 'files' => $files]);
+		return view('pages.content', compact('files', 'user'));
     }
 
     /**
