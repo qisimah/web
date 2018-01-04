@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use function Clue\StreamFilter\fun;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -137,5 +138,29 @@ class Chart extends Model
             $position++;
         }
         return $_plays;
+    }
+
+    public static function dynamicChart($country_id, $start, $end)
+    {
+        $stream_ids = Broadcaster::where('country_id', $country_id)->pluck('stream_id');
+        $songs = Play::select(DB::raw('file_id, count(*) as plays'))
+            ->with('file.artist', 'file.artists')
+            ->whereIn('stream_id', $stream_ids)
+            ->whereBetween('created_at', [Carbon::parse($start)->startOfYear()->toDateTimeString(), Carbon::parse($end)->endOfYear()->toDateTimeString()])
+            ->groupBy('file_id')
+            ->orderBy('plays', 'desc')
+            ->limit(20)->get();
+        $chart = "";
+        foreach ($songs as $index => $value) {
+            $artists = [];
+            $position = $index + 1;
+            foreach ($value->file->artists->toArray() as $artist) {
+                $artists[] = $artist['nick_name'];
+            }
+            $all_artists = implode('/', array_merge([$value->file->artist->nick_name], $artists));
+            $chart .= "Position:\t".$position."\r\nTitle:\t\t".$value->file->title."\r\nArtists:\t".$all_artists."\r\nPlays:\t\t".$value->plays."\r\n\r\n";
+        }
+
+        echo $chart;
     }
 }
