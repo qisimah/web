@@ -28,6 +28,8 @@ Route::get('chart', function(){
     return view('auth.charts');
 });
 
+Route::get('profile', 'ArtistController@profile');
+
 Route::get('chart/top7', 'ChartController@top7');
 Route::get('chart/top24', 'ChartController@top24');
 Route::get('chart/top30', 'ChartController@top30');
