@@ -121,20 +121,6 @@ class Play extends Model
 
         $_plays = [];
 
-//        foreach ($songs as $item) {
-//            $play = [];
-//
-//            if ($file = File::where('q_id', $item['file_id'])->with('artist')->count()) {
-//
-//                $file = File::where('q_id', $item['file_id'])->with('artist')->first()->toArray();
-//                $play['title'] = $file['title'];
-//                $play['artist'] = array_merge([$file['artist']['nick_name']], File::find($file['id'])->artists()->pluck('nick_name')->toArray());
-//                $play['broadcaster'] = $item['broadcaster']['name'] . ' - ' . $item['broadcaster']['frequency'] . ' MHz, ' . Broadcaster::find($item['broadcaster']['id'])->country()->first()->name;
-//                $play['created_at'] = $item['created_at'];
-//                array_push($_plays, $play);
-//            }
-//        };
-
         foreach ($songs as $song) {
             array_push($_plays, Play::liveFeed($song->file, $song->broadcaster, $song));
         }

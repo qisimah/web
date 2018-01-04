@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Validator;
 
@@ -37,14 +38,27 @@ class FileController extends Controller
      */
     public function index()
     {
+        $title = Input::get('title') ?? null; // set the title to the title variable sent in using the get method. otherwise set it to null
         $user = Auth::user();
-        if ($user->type === 'admin' && ($user->role === 'master' || $user->role === 'seer')){
-            $files = File::with('artist', 'artists', 'uploader')->orderBy('id', 'desc')->paginate(20);
+        if ($user->type === 'admin' && (in_array($user->role, ['master', 'seer', 'uploader']))){
+            if ($title) {
+                $files = File::where('title', 'like', "%$title%")->with('artist', 'artists', 'uploader')->orderBy('id', 'desc')->paginate(20);
+            } else {
+                $files = File::with('artist', 'artists', 'uploader')->orderBy('id', 'desc')->paginate(20);
+            }
         } elseif ($user->type === 'admin' && $user->role === 'uploader') {
-            $files = $user->uploads()->with('artist', 'artists')->orderBy('id', 'desc')->paginate(20);
+            if ($title){
+                $files = $user->uploads()->where('title', 'like', "%$title%")->with('artist', 'artists')->orderBy('id', 'desc')->paginate(20);
+            } else {
+                $files = $user->uploads()->with('artist', 'artists')->orderBy('id', 'desc')->paginate(20);
+            }
         } else {
             # get file ids of files that have been shared with the user
-            $files    = File::whereIn('q_id', User::getUserFiles())->with('artist', 'artists', 'uploader')->orderBy('id', 'desc')->paginate(20);
+            if ($title){
+                $files    = File::whereIn('q_id', User::getUserFiles())->where('title', 'like', "%$title%")->with(['artist', 'artists', 'uploader'])->orderBy('id', 'desc')->paginate(20);
+            } else {
+                $files    = File::whereIn('q_id', User::getUserFiles())->with('artist', 'artists', 'uploader')->orderBy('id', 'desc')->paginate(20);
+            }
         }
 
 		return view('pages.content', compact('files', 'user'));
@@ -91,7 +105,7 @@ class FileController extends Controller
         $audio['audio']             =   $request->input('audio');
         $audio['f_storage_id']      =   $request->input('f_storage_id');
         $audio['img']               =   $request->input('img', '/images/logo/logo-sm-dark.png');
-        $audio['release_date']      =   $request->input('release', Carbon::today()->toDateString());
+        $audio['release_date']      =   $request->input('releaseDate', Carbon::today()->toDateString());
 
         if ($type === 'ad'){
             $audio['file_type'] =   'ad';
@@ -153,7 +167,7 @@ class FileController extends Controller
     public function edit(File $file)
     {
         //
-        if (!in_array(Auth::user()->role, ['master', 'seer'])){
+        if (!in_array(Auth::user()->role, ['master', 'seer', 'uploader'])){
             if (Auth::id() == $file->user_id){
                 return File::with('artists', 'producers', 'label', 'album', 'genres')->where('id', $file->id)->first();
             } else {
