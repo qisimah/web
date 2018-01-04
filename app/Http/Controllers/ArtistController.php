@@ -25,6 +25,12 @@ class ArtistController extends Controller
         return view('pages.artistIndex', ['user'   =>  Auth::user(), 'artists' => Artist::orderBy('nick_name')->get()]);
     }
 
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('pages.artist-profile', compact('user'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
