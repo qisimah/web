@@ -90,7 +90,7 @@ class User extends Authenticatable
                 'message' => 'You cannot share artists with advertisers or ad agencies!'
             ];
         }
-        if (count($user_artists) && $user->type <> 'record label') {
+        if (count($user_artists) && $user->type <> 'record-label') {
             return [
                 'status' => 'error',
                 'message' => 'Multiple artists cannot be shared with this user'
