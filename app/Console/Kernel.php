@@ -18,7 +18,8 @@ class Kernel extends ConsoleKernel
 		'App\Console\Commands\UploadToAcr',
         'App\Console\Commands\SyncPlayCount',
         'App\Console\Commands\DeleteCountsFromFirebase',
-        'App\Console\Commands\SyncAllTime'
+        'App\Console\Commands\SyncAllTime',
+        'App\Console\Commands\Top24Chart'
     ];
 
     /**
@@ -31,9 +32,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $top24 = 'chart:top24 '.date('Y-m-d');
 		$schedule->command('fingerprint:ad')->everyMinute();
 		$schedule->command('play:countDownToday')->everyTenMinutes();
 		$schedule->command('play:deletecounts')->dailyAt('23:59');
+		$schedule->command($top24)->dailyAt('23:59');
     }
 
     /**

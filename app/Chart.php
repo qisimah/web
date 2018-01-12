@@ -11,14 +11,22 @@ class Chart extends Model
 {
     //
 
-    public static function top24($country_id)
+    public static function top24($country_id, Carbon $date = null)
     {
+        $date = ($date)? $date->toDateString() : Carbon::today()->toDateString();
         $_plays = [];
         $position = 1;
         $stream_ids = Broadcaster::getBroadcastersStreamIdsForCountry($country_id);
-        $plays =  Play::select(DB::raw('file_id, count(*) as plays'))->whereIn('stream_id', $stream_ids)->whereDate('created_at', Carbon::today()->toDateString())->with('file')->groupBy('file_id')->orderBy('plays', 'desc')->limit(24)->get();
+        $plays =  Play::select(DB::raw('file_id, count(*) as plays'))
+            ->whereIn('stream_id', $stream_ids)
+            ->whereDate('created_at', $date)
+            ->with('file')
+            ->groupBy('file_id')
+            ->orderBy('plays', 'desc')
+            ->limit(24)
+            ->get();
         foreach ($plays as $play) {
-            $entry = new ChartEntry('App\Top24', $play->file_id, $play->file->title, Chart::artistsNamesToString(File::allArtists($play->file)), Chart::arraysToString($play->file->producers()->pluck('nick_name')->toArray()), Chart::arraysToString($play->file->genres()->pluck('name')->toArray()), $play->file->release_date, $play->file->img, $play->file->audio, $play->plays, $position, 0, 1, $country_id, Carbon::today()->toDateString());
+            $entry = new ChartEntry('App\Top24', $play->file_id, $play->file->title, Chart::artistsNamesToString(File::allArtists($play->file)), Chart::arraysToString($play->file->producers()->pluck('nick_name')->toArray()), Chart::arraysToString($play->file->genres()->pluck('name')->toArray()), $play->file->release_date, $play->file->img, $play->file->audio, $play->plays, $position, 0, 1, $country_id, $date);
             $entry->setDuration();
             $entry->setPeakPosition();
             $entry->setPreviousPosition();
@@ -140,7 +148,7 @@ class Chart extends Model
         return $_plays;
     }
 
-    public static function dynamicChart($country_id, $start, $end)
+    public static function dynamicChart($country_id, $start, $end, $limit)
     {
         $stream_ids = Broadcaster::where('country_id', $country_id)->pluck('stream_id');
         $songs = Play::select(DB::raw('file_id, count(*) as plays'))
@@ -149,7 +157,7 @@ class Chart extends Model
             ->whereBetween('created_at', [Carbon::parse($start)->startOfYear()->toDateTimeString(), Carbon::parse($end)->endOfYear()->toDateTimeString()])
             ->groupBy('file_id')
             ->orderBy('plays', 'desc')
-            ->limit(20)->get();
+            ->limit($limit)->get();
         $chart = "";
         foreach ($songs as $index => $value) {
             $artists = [];
