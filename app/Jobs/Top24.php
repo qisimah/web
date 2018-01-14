@@ -2,15 +2,11 @@
 
 namespace App\Jobs;
 
-use App\Broadcaster;
 use App\Chart;
-use App\ChartEntry;
-use App\File;
-use App\Play;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Queue\Jobs\Job;
 
-class Top24
+class Top24 extends Job
 {
     private $top24;
     private $country_id;
@@ -21,11 +17,11 @@ class Top24
      *
      * @return void
      */
-    public function __construct($country_id, $date)
+    public function __construct($country_id, $date = null)
     {
         $this->top24 = new \App\Top24();
         $this->country_id = $country_id;
-        $this->date = $date;
+        $this->date = ($date)? Carbon::parse($date) : Carbon::today();
     }
 
     /**
@@ -35,17 +31,11 @@ class Top24
      */
     public function handle()
     {
-        $position = 1;
-        $stream_ids = Broadcaster::getBroadcastersStreamIdsForCountry($this->country_id);
-        $plays =  Play::select(DB::raw('file_id, count(*) as plays'))->whereIn('stream_id', $stream_ids)->whereDate('created_at', $this->date)->with('file')->groupBy('file_id')->orderBy('plays', 'desc')->limit(24)->get();
-        foreach ($plays as $play) {
-            $entry = new ChartEntry('App\Top24', $play->file_id, $play->file->title, Chart::artistsNamesToString(File::allArtists($play->file)), Chart::arraysToString($play->file->producers()->pluck('nick_name')->toArray()), Chart::arraysToString($play->file->genres()->pluck('name')->toArray()), $play->file->release_date, $play->file->img, $play->file->audio, $play->plays, $position, 0, 1, $this->country_id, $this->date);
-            $entry->setDuration();
-            $entry->setPeakPosition();
-            $entry->setPreviousPosition();
-            $this->top24->create($entry->getEntry());
-            $position++;
+        $entries = Chart::top24(1, $this->date);
+        \App\Top24::whereDate('chart_date', $this->date->toDateString())->delete();
+        foreach ($entries as $entry) {
+            \App\Top24::create($entry);
         }
-
+        echo 'Top 24 for '.$this->date->toDateString().' successfully created!'."\r\n";
     }
 }

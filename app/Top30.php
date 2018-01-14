@@ -12,7 +12,11 @@ class Top30 extends Model
         'file_id', 'title', 'artists', 'producers', 'release_date', 'genres', 'album_art', 'audio', 'position', 'prev_position', 'duration', 'country_id', 'chart_date', 'plays'
     ];
 
-    public static function getChartMonths()
+	/**
+	 * get months for top 30 charts from July till date
+	 * @return array
+	 */
+	public static function getChartMonths()
     {
         $month  =   Carbon::create(2017, 7, 1);
         $months =   Carbon::today()->diffInMonths($month);
@@ -22,7 +26,10 @@ class Top30 extends Model
         return $chart_months;
     }
 
-    public static function createTillDate()
+	/**
+	 * create top 30 charts from July till date
+	 */
+	public static function createTillDate()
     {
         Top30::truncate();
         $chart_months = self::getChartMonths();
@@ -33,5 +40,16 @@ class Top30 extends Model
             }
             echo 'Top 30 Created for '.$chart_month->toDateString().'!'."\n";
         }
+    }
+
+	public static function createForMonth(Carbon $month)
+	{
+		Top30::whereDate('chart_date', $month->startOfMonth()->toDateString())->delete();
+		$entries = Chart::getChartEntries(1, $month->startOfMonth()->toDateTimeString(), $month->endOfMonth()
+		->toDateTimeString(), 30, 'App\Top30');
+
+		foreach ($entries as $entry) {
+			Top30::create($entry);
+		}
     }
 }

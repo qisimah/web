@@ -5,15 +5,14 @@ namespace App\Jobs;
 use App\Chart;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
+use Illuminate\Queue\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class Top7 implements ShouldQueue
+class Top7 extends Job
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     private $carbon;
     private $top7;
     private $country_id;
