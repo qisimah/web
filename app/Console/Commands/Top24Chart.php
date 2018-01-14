@@ -21,7 +21,7 @@ class Top24Chart extends Command
      *
      * @var string
      */
-    protected $description = 'Create new top 24 charts';
+    protected $description = 'Create new top 24 chart';
 
     /**
      * Create a new command instance.

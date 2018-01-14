@@ -11,10 +11,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class Top7 extends Job implements ShouldQueue
+class Top7 extends Job
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     private $carbon;
     private $top7;
     private $country_id;

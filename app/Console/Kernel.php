@@ -19,7 +19,9 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\SyncPlayCount',
         'App\Console\Commands\DeleteCountsFromFirebase',
         'App\Console\Commands\SyncAllTime',
-        'App\Console\Commands\Top24Chart'
+        'App\Console\Commands\Top24Chart',
+        'App\Console\Commands\Top7Chart',
+		'App\Console\Commands\Top30Chart'
     ];
 
     /**
@@ -32,11 +34,15 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $top24 = 'chart:top24 '.date('Y-m-d');
+        $top24	= 'chart:top24 '.date('Y-m-d');
+        $top7	= 'chart:top7 '.date('Y-m-d');
+        $top30 	= 'chart:top30 '.date('Y-m-d');
 		$schedule->command('fingerprint:ad')->everyMinute();
 		$schedule->command('play:countDownToday')->everyTenMinutes();
 		$schedule->command('play:deletecounts')->dailyAt('23:59');
-		$schedule->command($top24)->dailyAt('23:59');
+		$schedule->command($top24)->dailyAt('23:59')->emailOutputTo('admin@qisimah.com');
+		$schedule->command($top7)->weekly()->sundays()->at('23:59')->emailOutputTo('admin@qisimah.com');
+		$schedule->command($top30)->monthlyOn((int) date('t'), '23:59')->emailOutputTo('braasig@gmail.com');
     }
 
     /**
