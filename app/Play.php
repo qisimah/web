@@ -370,13 +370,13 @@ class Play extends Model
 //    	$plays = [];
 
     	if (in_array(Auth::user()->role, ['master', 'seer'])){
-			$query = Play::with('broadcaster', 'broadcaster.country', 'file', 'file.artist', 'file.artists')
+			$query = Play::with('broadcaster', 'broadcaster.country', 'file', 'file.artist', 'file.artists:nick_name')
 				->whereBetween('created_at', [
 						$_start->startOfDay()->toDateTimeString(),
 						$_end->endOfDay()->toDateTimeString()]
 				);
 		} else {
-			$query = Play::with('broadcaster', 'broadcaster.country', 'file', 'file.artist', 'file.artists')
+			$query = Play::with('broadcaster', 'broadcaster.country', 'file', 'file.artist', 'file.artists:nick_name')
 				->whereIn('file_id', Auth::user()->files->pluck('q_id'))
 				->whereBetween('created_at', [
 					$_start->startOfDay()->toDateTimeString(),
