@@ -68,7 +68,12 @@ Route::get('/play/broadcaster/{stream_id}/{start}/{end}', 'PlayController@getBro
 Route::get('/play/content', 'PlayController@playsOfContent');
 Route::get('/play/artist/{id?}', 'PlayController@getArtistSongs');
 Route::get('/play/content/{id}/{start}/{end}', 'PlayController@getContentPlays');
-Route::get('/play/{start}/{end}', 'PlayController@getPlays');
+Route::post('/plays', function (Request $request){
+	return redirect("/plays/".$request->input('start_date', date('Y-m-d'))
+	."/"
+	.$request->input('end_date', date('Y-m-d')));
+});
+Route::get('/plays/{start}/{end}', 'PlayController@getPlays');
 Route::post('/file/create/{type}', function ($type, Request $request){
     return FileController::store($type, $request);
 });

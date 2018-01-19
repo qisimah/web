@@ -365,52 +365,26 @@ class Play extends Model
 
     public static function getPlays($start, $end)
     {
-        $isRange = Carbon::parse($start)->diffInDays(Carbon::parse($end));
-        $_plays = collect();
+    	$_start = Carbon::parse($start);
+    	$_end = Carbon::parse($end);
+//    	$plays = [];
 
-        if (!in_array(Auth::user()->role, ['master', 'seer'])) {
-            $_files = collect();
-            File::whereIn('id', Auth::user()->files()->pluck('file_id'))->select('q_id')->chunk(500, function ($files) use ($_files) {
-                foreach ($files as $file) {
-                    $_files->push($file->q_id);
-                }
-            });
+    	if (in_array(Auth::user()->role, ['master', 'seer'])){
+			$query = Play::with('broadcaster', 'broadcaster.country', 'file', 'file.artist', 'file.artists')
+				->whereBetween('created_at', [
+						$_start->startOfDay()->toDateTimeString(),
+						$_end->endOfDay()->toDateTimeString()]
+				);
+		} else {
+			$query = Play::with('broadcaster', 'broadcaster.country', 'file', 'file.artist', 'file.artists')
+				->whereIn('file_id', Auth::user()->files->pluck('q_id'))
+				->whereBetween('created_at', [
+					$_start->startOfDay()->toDateTimeString(),
+					$_end->endOfDay()->toDateTimeString()]
+				);
+		}
 
-            if ($isRange) {
-                Play::whereIn('file_id', $_files)->with('file', 'broadcaster')
-                    ->where('datatimestamp', '>=', Carbon::parse($start)->timestamp)
-                    ->where('datatimestamp', '<=', Carbon::parse($end)->addDay()->timestamp)
-                    ->orderBy('created_at', 'desc')->chunk(500, function ($plays) use ($_plays) {
-                        Play::handleGetPlays($plays, $_plays);
-                    });
-
-                return $_plays;
-            }
-
-            Play::whereIn('file_id', $_files)->with('file', 'broadcaster')->whereDate('created_at', $start)->orderBy('created_at', 'desc')->chunk(500, function ($plays) use ($_plays) {
-                Play::handleGetPlays($plays, $_plays);
-            });
-
-            return $_plays;
-        }
-
-        if ($isRange) {
-            Play::with('file', 'broadcaster')
-                ->where('datatimestamp', '>=', Carbon::parse($start)->timestamp)
-                ->where('datatimestamp', '<=', Carbon::parse($end)->addDay()->timestamp)
-                ->orderBy('created_at', 'desc')
-                ->chunk(500, function ($plays) use ($_plays) {
-                    Play::handleGetPlays($plays, $_plays);
-                });
-
-            return $_plays;
-        }
-
-        Play::with('file', 'broadcaster')->whereDate('created_at', $start)->orderBy('created_at', 'desc')->chunk(500, function ($plays) use ($_plays) {
-            Play::handleGetPlays($plays, $_plays);
-        });
-
-        return $_plays;
+		return $query->orderBy('created_at', 'asc')->paginate(20);
     }
 
     public static function handleGetPlays($plays, $_plays)
