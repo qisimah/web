@@ -206,9 +206,11 @@ class PlayController extends Controller
         }
     }
 
-	public function getPlays( $start, $end )
+	public function getPlays($start, $end)
 	{
-        return Play::getPlays($start, $end);
+		$user = Auth::user();
+        $plays = Play::getPlays($start, $end);
+        return view('pages.general-reports', compact('plays', 'user'));
     }
 
 	/**

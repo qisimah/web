@@ -41,7 +41,7 @@ class Kernel extends ConsoleKernel
 		$schedule->command('play:countDownToday')->everyTenMinutes();
 		$schedule->command('play:deletecounts')->dailyAt('23:59');
 		$schedule->command($top24)->dailyAt('23:59')->emailOutputTo('admin@qisimah.com');
-		$schedule->command($top7)->weekly()->sundays()->at('23:59')->emailOutputTo('admin@qisimah.com');
+		$schedule->command($top7)->sundays()->at('23:59')->emailOutputTo('admin@qisimah.com');
 		$schedule->command($top30)->monthlyOn((int) date('t'), '23:59')->emailOutputTo('braasig@gmail.com');
     }
 
