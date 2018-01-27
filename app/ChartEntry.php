@@ -20,7 +20,7 @@ class ChartEntry extends Model
             'producers' => $producers,
             'release_date' => $release_date,
             'genres' => $genres,
-            'album_art' => $album_art,
+            'album_art' => asset($album_art),
             'audio' => $audio,
             'position' => $position,
             'peak_position' => 1,

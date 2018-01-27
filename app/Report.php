@@ -19,7 +19,8 @@ class Report extends Model
             }
         } else {
             foreach ($months as $month) {
-                $plays[] = ['date' => substr($month[0], 0, 7), 'plys' => Play::whereBetween('created_at', [$month[0], $month[1]])->whereIn('file_id', $file_ids)->count()];
+                $plays[] = ['date' => substr($month[0], 0, 7), 'plys' => Play::whereBetween('created_at',
+					[$month[0], $month[1]])->whereIn('file_id', User::getUserFiles())->count()];
             }
         }
         return $plays;

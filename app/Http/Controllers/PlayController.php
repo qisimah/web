@@ -223,71 +223,43 @@ class PlayController extends Controller
 
 	public function getBroadcasterPlays( $stream_id, $start, $end )
 	{
+		$start = Carbon::parse($start);
+		$end = Carbon::parse($end);
 
-        $isRange    = Carbon::parse($start)->diffInDays(Carbon::parse($end));
-        $_plays     = collect();
+		if (in_array(Auth::user()->role, ['master', 'seer'])) {
+			$query = Play::where('stream_id', $stream_id)->whereBetween('created_at', [$start->startOfDay(),
+				$end->endOfDay()])->with(['file', 'file.artist', 'file.artists' => function($q){
+					$q->where('nick_name', '<>', null);
+			}])->orderBy('created_at', 'asc')->get();
+		} else {
+			$query = Play::where('stream_id', $stream_id)->whereIn('file_id', User::getUserFiles())
+				->whereBetween('created_at', [$start->startOfDay(), $end->endOfDay()])
+				->with(['file', 'file.artist', 'file.artists' => function($q){
+					$q->where('nick_name', '<>', null);
+				}])->orderBy('created_at', 'asc')->get();
+		}
 
-        $_user = Auth::user();
-        if ($_user->role === 'master' || $_user->role === 'seer'){
-            if ($isRange){
-                Play::where('stream_id', $stream_id)
-                    ->where('datatimestamp', '>=', Carbon::parse($start)->timestamp)
-                    ->where('datatimestamp', '<=', Carbon::parse($end)->addDay()->timestamp)
-                    ->with('file')->chunk(500, function ($plays) use($_plays){
-                    $this->handleBroadcasterPlays($plays, $_plays);
-                });
-
-                return $_plays;
-            }
-
-            Play::where('stream_id', $stream_id)->whereDate('created_at', $start)->with('file')->chunk(500, function ($plays) use($_plays){
-                $this->handleBroadcasterPlays($plays, $_plays);
-            });
-
-            return $_plays;
-        } elseif ($_user->role === 'manager' || $_user->role === 'user') {
-            $_files = collect();
-            File::whereIn('id', $_user->files()->pluck('file_id'))->select('q_id')->chunk(500, function ($files) use ($_files){
-                foreach ($files as $file) {
-                    $_files->push($file->q_id);
-                }
-            });
-
-            if ($isRange){
-                Play::where('stream_id', $stream_id)->whereIn('file_id', $_files->toArray())
-                    ->where('datatimestamp', '>=', Carbon::parse($start)->timestamp)
-                    ->where('datatimestamp', '<=', Carbon::parse($end)->addDay()->timestamp)
-                    ->with('file')->chunk(500, function ($plays) use($_plays){
-                    $this->handleBroadcasterPlays($plays, $_plays);
-                });
-
-                return $_plays;
-            }
-
-            Play::where('stream_id', $stream_id)->whereIn('file_id', $_files->toArray())->whereDate('created_at', $start)->with('file')->chunk(500, function ($plays) use($_plays){
-                $this->handleBroadcasterPlays($plays, $_plays);
-            });
-
-            return $_plays;
-        }
-
+		return $this->handleBroadcasterPlays($query);
     }
 
-    public function handleBroadcasterPlays($plays, $_plays)
+    public function handleBroadcasterPlays($plays)
     {
+    	$_plays = [];
         foreach ($plays as $play) {
-            $file = File::where('q_id', $play->file_id)->with('artist', 'artists', 'album')->first();
-            $artists = [];
-            foreach ($file->artists as $artist) {
-                array_push($artists, $artist->nick_name);
+            $artists = [$play->file->artist->nick_name];
+
+            foreach ($play->file->artists as $artist) {
+            	array_push($artists, $artist->nick_name);
             }
-            $_plays->push([
-                'title'     =>  $file->title,
-                'artist'    =>  array_merge([$file->artist->nick_name], $artists),
-                'album'     =>  $file->album['name'],
-                'played_at' =>  $play->created_at->toDateTimeString(),
-            ]);
+
+            array_push($_plays, [
+				'title'     =>  $play->file->title,
+				'artist'    =>  $artists,
+                'album'     =>  $play->file->album['name'],
+				'played_at' =>  $play->created_at->toDateTimeString(),
+			]);
         }
+        return $_plays;
     }
 
 	public function playsOfContent()
