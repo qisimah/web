@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pay;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PayController extends Controller
 {
@@ -19,7 +20,8 @@ class PayController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        return view('pages.payment', compact('user'));
     }
 
     /**

@@ -2,16 +2,20 @@
 
 <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
 
+<!-- Forms Wizard -->
+
+<script type="text/javascript" src="{{asset('js/forms-wizard.js')}}"></script>
+
 <!-- loader-->
 <script type="text/javascript" src="{{asset('plugins/loader/loader.js')}}"></script>
 
 <!-- Jvector Map-->
 <script type="text/javascript" src="{{asset('plugins/jvectormap/jquery-jvectormap-2.0.3.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/jvectormap/maps/jquery-jvectormap-world-mill.js')}}"></script>
-  <!-- Morris Chart-->
+<!-- Morris Chart-->
 <script type="text/javascript" src="{{asset('plugins/raphael/raphael-min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/morris.js/morris.min.js')}}"></script>
-        <!-- Chartist -->
+<!-- Chartist -->
 <script type="text/javascript" src="{{asset('plugins/chartist/dist/chartist.min.js')}}"></script>
 
     

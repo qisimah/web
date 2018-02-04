@@ -21,7 +21,7 @@
     <script type="text/javascript" src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body style="background-image: url({{asset('images/backgrounds/16.jpg')}})" class="body-bg-full">
+<body style="background-image: url({{asset('images/landing/musicbg.jpg')}})" class="body-bg-full">
 <div class="container page-container">
     <div class="page-content">
         <div class="logo">
