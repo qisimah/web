@@ -40,6 +40,9 @@ if ($user['active'] === 2) {
 {{--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">--}}
 <!-- Chartist-->
 <link rel="stylesheet" type="text/css" href="{{asset('plugins/chartist/dist/chartist.min.css')}}">
+<!-- Form steps wizard -->
+<link rel="stylesheet" type="text/css" href="{{asset('css/jquery.steps.css')}}">
+
 <!-- DataTables-->
 <link rel="stylesheet" type="text/css"
       href="{{asset('plugins/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
