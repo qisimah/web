@@ -375,7 +375,7 @@ $(document).ready(function () {
                             axiosrequest.post('', data).then(function (response) {
                                 $('#frmSongUpload').empty();
                                 $('#upload-opt').fadeIn();
-                                swal('yay!', 'upload completed with no errors!', 'success');
+                                swal('yay!', 'upload successful!', 'success');
                             }).catch(function (error) { console.log(error); });
 
                         });
@@ -384,7 +384,7 @@ $(document).ready(function () {
                         axiosrequest.post('', data).then(function (response) {
                             $('#frmSongUpload').empty();
                             $('#upload-opt').fadeIn();
-                            swal('yay!', 'upload completed with no errors!', 'success');
+                            swal('yay!', 'upload successful!', 'success');
                         }).catch(function (error) { console.log(error); });
                     }
                 });

@@ -1,6 +1,7 @@
 $(document).ready( function () {
     $('.delete-album').on('click', function (event) {
         event.preventDefault();
+        var $this = $(this);
         swal({
             title: 'Hey!',
             text: 'This will remove this awesome album from your life!',
@@ -9,7 +10,10 @@ $(document).ready( function () {
             showConfirmButton: true,
             confirmButtonText: 'Coolio',
             cancelButtonText: 'Don\'t proceed',
-            confirmButtonClass: 'btn btn-danger'
-        });
+            confirmButtonColor: '#E5343D'},
+            function(){
+                $this.parent('form').submit();
+            }
+        );
     });
 });
