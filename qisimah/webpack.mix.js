@@ -19,5 +19,7 @@ mix.webpackConfig({
     }
 });
 
-mix.js('resources/assets/js/app.js', '../js')
+var d = new Date();
+
+mix.js('resources/assets/js/app.js', '../js/app'+d.getTime()+'.js')
    .sass('resources/assets/sass/app.scss', 'public/css');

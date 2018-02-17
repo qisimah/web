@@ -61,7 +61,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?libraries=visualization&key=AIzaSyDpHCatZelD9NgEDQDdTPdP3anWsZPPAF8"
 
         async defer></script>
-<script type="text/javascript" src="{{ asset('js/app0.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/app1518835986985.js') }}"></script>
 
 <script type="text/javascript">
 

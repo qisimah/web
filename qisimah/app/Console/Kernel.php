@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\UncompletedSongUploadCleaner;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\App;
@@ -38,6 +39,7 @@ class Kernel extends ConsoleKernel
         $top7	= 'chart:top7 '.date('Y-m-d');
         $top30 	= 'chart:top30 '.date('Y-m-d');
 		$schedule->command('fingerprint:ad')->everyMinute();
+		$schedule->job(dispatch(new UncompletedSongUploadCleaner()))->everyTenMinutes();
 		$schedule->command('play:countDownToday')->everyTenMinutes();
 		$schedule->command('play:deletecounts')->dailyAt('23:59');
 		$schedule->command($top24)->dailyAt('23:59')->emailOutputTo('admin@qisimah.com');
