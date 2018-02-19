@@ -39,7 +39,7 @@
 
 <!-- /.parallax full screen background image -->
 <div class="fullscreen landing parallax"
-     style="background-image:url({{asset('images/landing/musicbg.jpg')}});height: 100vh" data-img-width="2000"
+     style="background-image:url({{asset('images/landing/musicbg.jpg')}}); min-height: 300px" data-img-width="2000"
      data-img-height="1333" data-diff="100">
 
     <div class="overlay">
@@ -97,17 +97,27 @@
 
             </div>
         </div>
-        <div class="col-xs-10 col-xs-offset-3 text-center img-responsive">
-            <a target="_blank" href="https://www.worldsummitawards.org/winner/qisimah-audio-insights/"><img alt="client"
-                                                                                                            src="{{asset('images/landing/wsawinner.png')}}"
-                                                                                                            class="wow fadeInUp col-xs-4 col-sm-2 col-xs-offset-2"></a>
-        <!-- <img alt="client" src="{{asset('images/landing/mest.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
-        <!-- <img alt="client" src="{{asset('images/landing/nanatellogo.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
-        <!-- <img alt="client" src="{{asset('images/landing/meltwater logo.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
-        <!-- <img alt="client" src="{{asset('images/landing/aca.png')}}" class="wow fadeInUp col-xs-2 col-sm-2"> -->
+        <div class="container text-center img-responsive">
+            <a target="_blank" href="https://www.worldsummitawards.org/winner/qisimah-audio-insights/">
+            <img alt="client" src="{{asset('images/landing/wsawinner.png')}}" width="250" class="wow fadeInUp"></a>
         </div>
 
     </div>
+</div>
+<!-- //Replace the images with the client logos of your customers -->
+<div class="row">
+<div class="container">
+        <div class="col-xs-10 col-xs-offset-0 text-center img-responsive">
+            <a target="_blank" href=""><img alt="client" src="{{asset('images/landing/musiga2.png')}}" class="wow fadeInUp col-xs-3 col-sm-2"></a>
+            <a target="_blank" href=""><img alt="client" src="{{asset('images/landing/lynx2.png')}}" class="wow fadeInUp col-xs-3 col-sm-2"></a>
+            <a target="_blank" href=""><img alt="client" src="{{asset('images/landing/blackavenue2.png')}}" class="wow fadeInUp col-xs-3 col-sm-2"></a>
+            <a target="_blank" href=""><img alt="client" src="{{asset('images/landing/zylofone2.png')}}" class="wow fadeInUp col-xs-3 col-sm-2"></a>
+            <a target="_blank" href=""><img alt="client" src="{{asset('images/landing/okyeamekwame2.png')}}" class="wow fadeInUp col-xs-3 col-sm-2"></a>
+            <a target="_blank" href=""><img alt="client" src="{{asset('images/landing/spyderlee2.png')}}" class="wow fadeInUp col-xs-3 col-sm-2"></a>
+            <!-- <a target="_blank" href=""><img alt="client" src="{{asset('images/landing/bakusgrp.png')}}" class="wow fadeInUp col-xs-3 col-sm-2"></a> -->
+        </div>
+</div>
+
 </div>
 
 <!-- NAVIGATION -->
