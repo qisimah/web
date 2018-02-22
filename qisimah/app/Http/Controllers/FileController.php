@@ -312,7 +312,7 @@
                     unlink('../' . $file->audio);
                 }
 
-                if (file_exists('../' . $file->img)) {
+                if (!is_null($file->img) && file_exists('../' . $file->img)) {
                     unlink('../' . $file->img);
                 }
 
