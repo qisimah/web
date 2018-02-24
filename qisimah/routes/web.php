@@ -29,6 +29,7 @@ Route::get('chart', function(){
 });
 
 Route::get('profile', 'ArtistController@profile');
+Route::resource('payment', 'PayController');
 
 Route::get('chart/top7', 'ChartController@top7');
 Route::get('chart/top24', 'ChartController@top24');

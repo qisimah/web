@@ -56,9 +56,11 @@ if ($user['active'] === 2) {
       href="{{asset('plugins/material-design-iconic-font/dist/css/material-design-iconic-font.min.css')}}">
 <!-- Primary Style-->
 <link rel="stylesheet" type="text/css" href="{{asset('css/chosen.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.steps.css') }}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/fourth-layout.css')}}">
 {{--Sweet Alert--}}
 <link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert.css')}}">
+
 
 {{--MultiSelect CSS--}}
 

@@ -13,6 +13,7 @@
 <script type="text/javascript" src="{{asset('plugins/morris.js/morris.min.js')}}"></script>
 <!-- Chartist -->
 <script type="text/javascript" src="{{asset('plugins/chartist/dist/chartist.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/forms-wizard.js')}}"></script>
 
 
 {{--<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.15/b-1.3.1/datatables.min.js"></script>--}}
@@ -119,6 +120,9 @@
 
     });
 </script>
+
+
+
 <script>
     function handleSelectedFile(event) {
         var upload = document.getElementById('upload-song');
