@@ -148,4 +148,25 @@
     }
 </script>
 
+<script type="text/javascript">
+    // Timer
+   $(document).ready( function updateTimer() {
+        future = Date.parse("February 20, 2018 00:00:00");
+        now = new Date();
+        diff = future - now;
+
+        days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+        d = days;
+
+        document.getElementById("timer")
+            .innerHTML =
+            '<div style="display: inline-block; padding-bottom: 10px; margin-top: 0%; min-width: 100%; background: #1f364f;">' + d + '<br><span style="color: #B1CDF1; display: block; font-size: .35em; font-weight: 400;">Days Left to Expire</span></div>';
+    
+    setInterval('updateTimer()', 1000);
+
+    });
+   
+</script>
+
 <script type="text/javascript" src="{{asset('js/reportsdash1517910289.js')}}"></script>
