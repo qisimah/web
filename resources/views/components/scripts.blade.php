@@ -8,13 +8,11 @@
 <!-- Jvector Map-->
 <script type="text/javascript" src="{{asset('plugins/jvectormap/jquery-jvectormap-2.0.3.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/jvectormap/maps/jquery-jvectormap-world-mill.js')}}"></script>
-  <!-- Morris Chart-->
+<!-- Morris Chart-->
 <script type="text/javascript" src="{{asset('plugins/raphael/raphael-min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/morris.js/morris.min.js')}}"></script>
-        <!-- Chartist -->
+<!-- Chartist -->
 <script type="text/javascript" src="{{asset('plugins/chartist/dist/chartist.min.js')}}"></script>
-
-    
 
 
 {{--<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.15/b-1.3.1/datatables.min.js"></script>--}}
@@ -32,7 +30,6 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-
 
 
 <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
@@ -64,12 +61,11 @@
 <script src="https://maps.googleapis.com/maps/api/js?libraries=visualization&key=AIzaSyDpHCatZelD9NgEDQDdTPdP3anWsZPPAF8"
 
         async defer></script>
-
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
 <script type="text/javascript">
 
-    $(document).ready( function () {
+    $(document).ready(function () {
 
         var axiosrequest = axios.create({
 
@@ -82,7 +78,6 @@
         });
 
 
-
         $('#login').on('click', function (e) {
 
             e.preventDefault();
@@ -91,12 +86,11 @@
 
             var user = {};
 
-            user.userEmail      = $('#userEmail').val();
+            user.userEmail = $('#userEmail').val();
 
-            user.userPassword   = $('#userPassword').val();
+            user.userPassword = $('#userPassword').val();
 
-            user.userRemember   = ($('input[name="remember"]').is(':checked'))? true : false;
-
+            user.userRemember = ($('input[name="remember"]').is(':checked')) ? true : false;
 
 
             axiosrequest.post('/login', user).then(function (response) {
@@ -107,13 +101,13 @@
 
             }).catch(function (error) {
 
-                if (error.response.status === 422){
+                if (error.response.status === 422) {
 
                     var message = error.response.data;
 
-                    for (var key in message){
+                    for (var key in message) {
 
-                        $('#'+key).parent('div').prepend('<label class="text-warning">'+message[key]+'</label>');
+                        $('#' + key).parent('div').prepend('<label class="text-warning">' + message[key] + '</label>');
 
                     }
 
@@ -130,6 +124,50 @@
         });
 
     });
+</script>
+<script>
+    function handleSelectedFile(event) {
+        swal({
+                title: 'Yo!',
+                text: 'Are you sure you want to do this?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yeah man!',
+                cancelButtonText: 'Naa',
+                showLoaderOnConfirm: true
+            },
+            function () {
+                var $audio_file = event.target.files;
+                if ($audio_file.length > 1) {
+                    setTimeout(function () {
+                        swal('oh', 'you cannot upload multiple files', 'error');
+                    }, 1000);
+                } else {
+                    if ($audio_file[0] !== null || $audio_file[0] !== undefined) {
+                        // check for file size
+                        if ($audio_file[0].size > 10000000) { // if file size is greater than 10Mb
+                            setTimeout(function () {
+                                swal('ei', 'charlie the file is too large, maximum size is 10Mb!', 'error');
+                            }, 1000);
+                        } else {
+                            const form_data = new FormData();
+                            form_data.append('song', $audio_file[0]);
+                            form_data.append('name', $audio_file[0].name);
+                            axios({
+                                method: 'post',
+                                url: '/uploads/song',
+                                data: form_data,
+                                headers: {
+                                    "X-CSRF-TOKEN": document.getElementById('token').content
+                                }
+                            }).then(function (response) {
+                                console.log(response);
+                            });
+                        }
+                    }
+                }
+            });
+    }
 </script>
 
 <script type="text/javascript" src="{{asset('js/reportsdash.js')}}"></script>

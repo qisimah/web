@@ -6,8 +6,6 @@ require('./bootstrap');
 //noinspection JSUnresolvedFunction
 // require('./countUp');
 //noinspection JSUnresolvedFunction
-require('./dropzone.min');
-//noinspection JSUnresolvedFunction
 require('./jquery.mCustomScrollbar.concat.min');
 //noinspection JSUnresolvedFunction
 // require('./jquery.bootstrap-duallistbox.min');

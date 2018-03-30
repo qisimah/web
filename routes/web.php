@@ -48,6 +48,7 @@ Route::get('/', 'UserController@index');
 Route::get('/welcome', function () {
 	return view('Qisimah-Landing.index');
 })->name('welcome');
+Route::get('/uploads/song', 'FileController@create');
 Route::get('/file/create/{type}', 'FileController@create');
 Route::get('/file/{id}/details', 'FileController@details');
 
@@ -73,10 +74,14 @@ Route::post('/plays', function (Request $request){
 	."/"
 	.$request->input('end_date', date('Y-m-d')));
 });
+
 Route::get('/plays/{start}/{end}', 'PlayController@getPlays');
 Route::post('/file/create/{type}', function ($type, Request $request){
     return FileController::store($type, $request);
 });
+
+Route::post('uploads/song', 'FileController@uploadSong');
+
 Route::resource('file', 'FileController');
 Route::get('/play/today', 'PlayController@playsToday');
 Route::get('/play/broadcaster', 'PlayController@playsOfBroadcaster');

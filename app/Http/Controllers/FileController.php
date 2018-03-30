@@ -29,6 +29,7 @@ class FileController extends Controller
 	{
 		$this->middleware('auth');
 		ini_set('max_execution_time', 300);
+		ini_set('upload_max_filesize', '10M');
 
 	}
     /**
@@ -69,9 +70,11 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($type)
+    public function create()
     {
-        $user = Auth::user();
+		$user = Auth::user();
+    	return view('pages.music-file', compact('user'));
+
 		if ($type === 'ad'){
 		    return view('pages.ad-file', compact('user'));
         } elseif ($type === 'song') {
@@ -268,5 +271,14 @@ class FileController extends Controller
 		} else {
 			return ['error' => 'file type of '.$file->getClientMimeType().' not allowed'];
 		}
+	}
+
+	public function uploadSong(Request $request)
+	{
+//		return 'something'
+//		if ($request->file('song')) {
+//			return $request->file('song')->extension();
+//		}
+		return [$request->hasFile('song'), $request->file('song')->getClientOriginalName()];
 	}
 }

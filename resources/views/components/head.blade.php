@@ -7,7 +7,7 @@ if ($user['active'] === 2) {
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="token" content="{{csrf_token()}}">
+<meta id="token" name="token" content="{{csrf_token()}}">
 <title>Qisimah Audio Insights - Dashboard</title>
 <!-- PACE-->
 <link rel="stylesheet" type="text/css" href="{{asset('plugins/PACE/themes/blue/pace-theme-flash.css')}}">
@@ -71,6 +71,8 @@ if ($user['active'] === 2) {
     }
 
 </style>
+
+<link rel="stylesheet" href="{{ asset('css/upload.css') }}">
 
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css"/>
 <script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
