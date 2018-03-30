@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Validator;
 
 class LoginController extends Controller
 {
@@ -29,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -43,29 +42,40 @@ class LoginController extends Controller
 
 	public function login( Request $request )
 	{
-		$this->validate($request, [
-			'userEmail' 	=> 'bail|required',
-			'userPassword' 	=> 'bail|required|min:6'
-		],[
-			'userEmail.required'	=>	'Please enter a valid email address',
-			'userPassword.required'	=>	'Please enter your password'
-		]);
+	    $rules = [
+            'email' 	=> 'bail|required|exists:users,email',
+            'password' 	=> 'bail|required|min:6'
+        ];
 
-		$user = [
-			'email' 	=> $request->userEmail,
-			'password' 	=> $request->userPassword
-		];
+	    $messages = [
+            'email.required'	=>	'Please enter a valid email address',
+            'password.required'	=>	'Please enter your password'
+        ];
 
-		$remember	= $request->remember;
+	    $validator = Validator::make($request->all(), $rules, $messages);
 
-		if (Auth::attempt($user, ($remember)? true : false)){
-			return redirect($this->redirectTo);
-		}
+	    if ($validator->fails()) {
+	        return back()->withErrors($validator)->withInput();
+        } else {
+            $user = [
+                'email' 	=> $request->email,
+                'password' 	=> $request->password
+            ];
+
+            $remember	= $request->input('remember', false);
+
+            if (Auth::attempt($user, $remember)){
+                return redirect($this->redirectTo);
+            } else {
+                $validator->errors()->add('user', 'Credentials mismatch!');
+                return back()->withInput()->withErrors($validator);
+            }
+        }
 	}
 
 	public function logout()
 	{
 		Auth::logout();
-		return redirect('/login');
+		return redirect('/log.in');
 	}
 }

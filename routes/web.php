@@ -16,14 +16,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Pusher
+# Landing Page
+Route::get('welcome', 'HomeController@landing')->name('welcome');
+Route::get('about.us', 'HomeController@about');
+Route::get('contact.us', 'HomeController@contact');
+Route::get('log.in', 'HomeController@login');
+
+# Pusher
 Route::post('/pusher/auth', 'UserController@authPusherSubscription');
 
 Route::post('/user/{id}/update', 'UserController@update');
 
-Route::get('/login', function () {
-    return 'something';
+Route::get('charts', function(){
+    return view('auth.charts');
 });
+
 Route::get('chart', function(){
     return view('auth.charts');
 });
@@ -45,9 +52,6 @@ Route::post('report/content', 'ReportController@fetchContentPlays');
 
 Auth::routes();
 Route::get('/', 'UserController@index');
-Route::get('/welcome', function () {
-	return view('Qisimah-Landing.index');
-})->name('welcome');
 Route::get('/uploads/song', 'FileController@create');
 Route::get('/file/create/{type}', 'FileController@create');
 Route::get('/file/{id}/details', 'FileController@details');
@@ -101,6 +105,14 @@ Route::resource('subscribe', 'SubscribeController');
 Route::resource('pay', 'PayController');
 Route::resource('admin', 'AdminController');
 Route::resource('artist', 'ArtistController');
+Route::resource('albums', 'AlbumController');
+Route::resource('play', 'PlayController');
+Route::resource('file', 'FileController');
+Route::resource('contact', 'ContactController');
+Route::resource('contact', 'ContactController');
+Route::resource('producer', 'ProducerController');
+Route::resource('labels', 'LabelController');
+Route::resource('country', 'CountryController');
 Route::get('/home', 'HomeController@index');
 Route::post('/listen', 'ListenController@store');
 Route::post('/listen/delete', 'ListenController@destroy');
@@ -115,6 +127,3 @@ Route::get('/genre/{id}', 'GenreController@show');
 Route::post('/genre/create', 'GenreController@store');
 Route::post('/genre/create', 'GenreController@store');
 
-// Artists
-//Route::get('/artist', 'ArtistController@index');
-//Route::post('/artist/create', 'ArtistController@store');

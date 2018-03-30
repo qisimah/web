@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function index()
     {
@@ -18,48 +17,35 @@ class ContactController extends Controller
 		return Contact::all();
     }
 
+
     /**
-     * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
         //
     }
 
+
     /**
-     * Store a newly created contact message in the contacts table in the database.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return array
      */
     public function store(Request $request)
     {
-        //
 		$this->validate($request, [
-			'fullName'	=>	'bail|required|min:6|max:150',
-			'emailAdd'	=>	'bail|required|min:6|max:100',
+			'name'	=>	'bail|required|min:6|max:150',
+			'email'	=>	'bail|required|min:6|max:100',
 			'telephone'	=>	'bail|required|min:6|max:15',
-			'message' 	=> 	'bail|required|min:20'
+			'user_type' 	=> 	'bail|required'
 		], [
-			'fullName.required'		=>	'Please enter your name',
-			'emailAdd.required'		=>  'Please enter a valid email address',
+			'name.required'		=>	'Please enter your name',
+			'email.required'		=>  'Please enter a valid email address',
 			'telephone.required'	=>	'Please enter phone number in international format',
-			'message.required'		=> 	'Please enter your message'
+			'user_type.required'		=> 	'Please select user type'
 		]);
 
-		if (Contact::store($request)){
-			return [
-				'code'	=>	100,
-				'description'	=>	'Thank you for reaching out, we\'ll get back to you shortly.'
-			];
-		} else {
-			return [
-				'code'	=>	900,
-				'description'	=>	'Sorry, your message could not be sent at this time, please try again later.'
-			];
-		}
+		return redirect()->to('contact.us#contact-form')->with('success', Contact::store($request));
     }
 
     /**

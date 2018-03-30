@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -25,5 +25,25 @@ class HomeController extends Controller
     public function index()
     {
         return redirect('/');
+    }
+
+    public function landing()
+    {
+        return view('kings-landing.index');
+    }
+
+    public function about()
+    {
+        return view('kings-landing.about');
+    }
+
+    public function contact()
+    {
+        return view('kings-landing.contact');
+    }
+
+    public function login()
+    {
+        return view('kings-landing.login');
     }
 }
